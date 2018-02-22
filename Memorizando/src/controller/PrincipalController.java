@@ -12,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.ModelPrincipal;
 
 /**
  * FXML Controller class
@@ -50,6 +52,10 @@ public class PrincipalController implements Initializable {
     private Button botaoProximaFase;
     @FXML
     private Button botaoFaseAnterior;
+    
+    private ModelPrincipal modelPrincipal;
+    @FXML
+    private ProgressBar barraTempo;
 
     /**
      * Initializes the controller class.
@@ -66,12 +72,15 @@ public class PrincipalController implements Initializable {
         b6.setGraphic(new ImageView(image));
         b7.setGraphic(new ImageView(image));
         b8.setGraphic(new ImageView(image));
+        modelPrincipal = new ModelPrincipal();
+        iniciarJogo();
 
         // TODO
     }
 
     @FXML
-    public void verificarOpcao() {
+    public void verificarOpcao(ActionEvent event) {
+        modelPrincipal.verificarOpcao(event);
 
     }
 
@@ -84,6 +93,7 @@ public class PrincipalController implements Initializable {
     }
 
     public void alterarFase() {
+       
 
     }
 
@@ -92,7 +102,7 @@ public class PrincipalController implements Initializable {
     }
 
     public void iniciarJogo() {
-
+        modelPrincipal.iniciarJogo();
     }
 
     public void aumentarPontuacao() {
@@ -109,10 +119,15 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void trocarLayoutJogo(ActionEvent event) {
+    private void faseAnterior(ActionEvent event) {
     }
 
     @FXML
-    private void faseAnterior(ActionEvent event) {
+    private void alterarNivel(ActionEvent event) {
+        modelPrincipal.alterarNivel(event);
+    }
+
+    @FXML
+    private void trocarLayoutJogo(ActionEvent event) {
     }
 }

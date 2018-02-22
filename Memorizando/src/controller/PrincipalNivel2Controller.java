@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -53,6 +54,8 @@ public class PrincipalNivel2Controller implements Initializable {
     private Button botaoProximaFase;
     @FXML
     private Button botaoFaseAnterior;
+    @FXML
+    private ProgressBar barraTempo;
 
     /**
      * Initializes the controller class.

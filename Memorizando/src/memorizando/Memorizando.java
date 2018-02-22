@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -24,10 +25,11 @@ public class Memorizando extends Application {
     @Override
     public void start(Stage janela) throws IOException {
         Parent cenaInicial = FXMLLoader.load(getClass().getResource("/interfaces/Principal.fxml"));
+        
         Scene cena = new Scene(cenaInicial, 1200, 700);
         janela.setTitle("Memorizando");
         janela.setScene(cena);
-        janela.setResizable(false);
+        janela.setFullScreen(true);
         janela.show();
         janela.centerOnScreen();
 
