@@ -24,6 +24,80 @@ public class ModelPrincipal {
         "pa", "pe", "pi", "po", "pu", "ra", "re", "ri", "ro",
         "ru", "sa", "se", "si", "so", "su", "ta", "te", "ti", "to", "tu",
         "um", "ur", "va", "ve", "vi", "vo", "vu", "xa", "xe", "xi", "xo", "za", "ze", "zi"};
+    private final String arraySilabasComplexas1[] = {
+        "bal", "bam", "ban", "bão", "bar", "bas", "bel", "bem", "ber", "bes",
+        "bil", "bin", "bir", "bis", "bol", "bom", "bor", "bos", "bum", "bur",
+        "bus", "cães", "cal", "cam", "can", "cão", "cas", "cel", "cen", "cer",
+        "ces", "che", "cin", "cir", "cis", "ções", "col", "com", "con", "cor",
+        "cos", "cul", "cum", "cur", "cus", "cuz", "dan", "dão", "dar", "das",
+        "den", "der", "des", "dim", "dis", "don", "dor", "dos", "dum", "fal",
+        "fan", "far", "fel", "fen", "fer", "fes", "fil", "fim", "fir", "fol",
+        "fon", "for", "fos", "fun", "fus", "gal", "gam", "gan", "gão", "gar",
+        "gel", "gem", "gen", "ger", "gil", "gin", "gir", "gol", "gon", "gor",
+        "gua", "jan", "jão", "jar", "jas", "jor", "jun", "jus", "lam", "lan",
+        "lão", "lar", "las", "lem", "len", "ler", "lim", "lin", "lom", "lon",
+        "los", "lus", "luz", "mal", "man", "mão", "mãos", "mar", "mel", "mem",
+        "men", "mer", "mês", "min", "mir", "mis", "mol", "mon", "mor", "mos",
+        "mul", "mun", "mus", "nal", "não", "nas", "nel", "ner", "nil", "nir",
+        "noz", "pães", "pal", "pan", "pão", "par", "pas", "paz", "pel", "pen",
+        "per", "pes", "pim", "pin", "pis", "pol", "pom", "pon", "por", "pos",
+        "pul", "pum", "ram", "ran", "ras", "rel", "ren", "res", "rio", "rir",
+        "ris", "rom", "ron", "ros", "rou", "sal", "sam", "san", "são", "sar",
+        "sel", "sem", "sen", "ser", "sim", "sis", "sol", "som", "son", "sor",
+        "sun", "sur", "sus", "tal", "tam", "tan", "tão", "tar", "tas", "tel",
+        "tem", "ten", "ter", "tes", "til", "tim", "tin", "tir", "tol", "tom",
+        "ton", "tor", "tum", "tur", "val", "vam", "vão", "var", "vas", "vel",
+        "vem", "ven", "ver", "ves", "vin", "vir", "vis", "von", "vul", "xam",
+        "xão", "xar", "xer", "xis", "zal", "zão", "zar", "zer", "zes", "zin",
+        "zol", "zom", "zul", "zum"
+    };
+    
+    private final String arraySilabasComplexas2[] = {
+        "ble", "bli", "blo", "blu", "bra", "bre", "bri", "bro", "bru",
+        "cla", "cle", "cli", "clo", "clu", "cra", "cre", "cri", "cro",
+        "cru", "dra", "dre", "dri", "dro", "dru", "fla", "fle", "flo",
+        "flu", "fra", "fre", "fri", "fro", "fru", "gla", "glo", "gra",
+        "gre", "gri", "gro", "gru", "pla", "plo", "plu", "pra", "pre",
+        "pri", "pro", "pru", "tle", "tlo", "tra", "tre", "tri", "tro",
+        "tru", "vre", "vro"};
+
+    private final String arrayPalavrasSimples[] = {
+        "amarelo", "apito", "árvore", "bala", "banana", "batata",
+        "biruta", "boca", "bola", "bolita", "bolo", "boné", "boneca",
+        "bonito", "boto", "bula", "bule", "cabelo", "café", "cama", "camelo", "camisa", "capacete",
+        "casa", "casaco", "cavalo", "cereja", "cola", "copo",
+        "coruja", "dado", "dedo", "duro", "escola", "escova", "faca", "fada", "foca",
+        "fogo", "galo", "gato", "gelado", "gelo", "jaca", "jacaré", "janela",
+        "lata", "leite", "lixo", "lua", "luta", "luva", "macaco", "mala",
+        "menino", "mesa", "moeda", "música", "neve", "novela", "ovo", "parede", "pato",
+        "pé", "pelado", "pena", "pera", "peteca", "piano", "pipa", "pipoca", "pirulito",
+        "pulo", "rato", "rei", "rico", "robô", "roda", "rosa", "rua", "sábado", "sapato",
+        "sapo", "sino", "sofá", "suco", "tapete", "tatu", "telefone", "teto", "tijolo", "tomate",
+        "urso", "uva", "vaca", "vagalume", "vela", "xícara", "xixi"
+    };
+
+    private final String arraySilabasComplexas3[] = {
+        "bra", "bras", "bres", "brin", "bron", "bros", "brus", "chão",
+        "clas", "clos", "cres", "cris", "cros", "crus", "guam", "guar",
+        "lheu", "plas", "ples", "pran", "pras", "pren", "pres", "prin",
+        "pron", "tlas", "tras", "tres", "tris", "tros"};
+
+    private final String arrayPalavrasComplexas[] = {
+        "abelha", "aberto", "alegria", "animal", "antena", "apontador",
+        "aranha", "arroz", "azul", "banha", "barco", "batom", "bíblia", "biblioteca",
+        "bicicleta", "biscoito", "bloco", "blusa", "bolha", "borboleta", "braço",
+        "brasil", "brinco", "brinquedo", "bronca", "bruxa", "cachorro", "caderno",
+        "calça", "carro", "carroça", "cenoura", "chinelo", "chocolate", "cobertor",
+        "cobra", "computador", "engraçado", "espinho", "farol", "fechado", "ficha",
+        "filho", "flauta", "flor", "floresta", "foguete", "folha", "fralda", "fruta",
+        "galinha", "girassol", "gravata", "graveto", "guitarra", "impressora", "jardim",
+        "jegue", "joelho", "lâmpada", "laranja", "leão", "limão", "língua", "linha",
+        "livro", "malvado", "mamão", "maravilha", "minhoca", "mochila", "nariz",
+        "ninho", "noivo", "nublado", "olho", "palhaço", "passagem", "passarinho",
+        "peixe", "pilha", "pinguim", "placa", "planta", "praça", "prato", "princesa",
+        "príncipe", "pulseira", "régua", "retrato", "segredo", "sol", "sonho",
+        "tartaruga", "telefone", "terra", "tigre", "tornozelo", "vidro"
+    };
     
     private ArrayList arrayBotoes = new ArrayList<String>();
     private ArrayList novasOpcoes;
@@ -121,17 +195,32 @@ public class ModelPrincipal {
         System.out.println(numeroFonemas);
 
         switch (getFase()) {
-            case 1:
+            case 1://vogais
                 numeroFonemasVetores = 5;
                 break;
-            case 2:
+            case 2://silabas simples
                 numeroFonemasVetores = 95;
                 break;
+            case 3://palavras simples
+                numeroFonemasVetores = 99;
+                break;
+            case 4://silabas complexas1
+                numeroFonemasVetores = 244;
+                break;
+            case 5://silabas complexas2
+                numeroFonemasVetores = 57;
+                break;
+            case 6://silabascomplexas 3
+                numeroFonemasVetores = 30;
+                break;
+            case 7://palavras complexas
+                numeroFonemasVetores = 101;
+                break;
+            
 
         }
 
-        while (i < numeroFonemas) {
-            System.out.println("Entrpiasfasd ");
+        while (i < numeroFonemas) {            
             proxValor = indice.nextInt(numeroFonemasVetores);//o valor do next int corresponde a quantidade de fonemas 
             if (!indicesUtilizados.contains(proxValor)) {//se o índice ainda não foi utilizado
                 novasOpcoes.add(proxValor);//adiciona o indice no array
@@ -164,7 +253,6 @@ public class ModelPrincipal {
         System.out.println(Arrays.toString(ArrayNivel1));
         System.out.println("Novas opcoes " + novasOpcoes);
     }
-
     public void iniciarJogo() {
         gerarOpcoes(getFase());
     }
@@ -197,5 +285,15 @@ public class ModelPrincipal {
         }
         
         return fonema;
+    }
+
+    public void proximaFase(ActionEvent event) {
+        this.fase = fase+1;
+        gerarOpcoes(fase);
+    }
+
+    public void faseAnterior(ActionEvent event) {
+        this.fase = fase-1;
+        gerarOpcoes(fase);
     }
 }

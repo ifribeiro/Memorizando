@@ -111,7 +111,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     public void proximaFase(ActionEvent event) {
-
+        modelPrincipal.proximaFase(event);
     }
 
     public void atualizarTela() {
@@ -120,6 +120,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void faseAnterior(ActionEvent event) {
+        modelPrincipal.faseAnterior(event);
     }
 
     @FXML
