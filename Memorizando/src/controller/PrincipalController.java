@@ -72,7 +72,10 @@ public class PrincipalController implements Initializable {
         b6.setGraphic(new ImageView(image));
         b7.setGraphic(new ImageView(image));
         b8.setGraphic(new ImageView(image));
-        modelPrincipal = new ModelPrincipal();
+        botaoFaseAnterior.setVisible(false);
+        barraTempo.setStyle("-fx-accent: #00FF00");
+        modelPrincipal = new ModelPrincipal(b1,b2,b3,b4,b5,b6,b7,b8,botaoFaseAnterior, botaoProximaFase, barraTempo);        
+        
         iniciarJogo();
 
         // TODO
