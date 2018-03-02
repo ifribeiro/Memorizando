@@ -1,10 +1,17 @@
 package model;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 /**
  *
@@ -51,7 +58,7 @@ public class ModelPrincipal {
         "xão", "xar", "xer", "xis", "zal", "zão", "zar", "zer", "zes", "zin",
         "zol", "zom", "zul", "zum"
     };
-    
+
     private final String arraySilabasComplexas2[] = {
         "ble", "bli", "blo", "blu", "bra", "bre", "bri", "bro", "bru",
         "cla", "cle", "cli", "clo", "clu", "cra", "cre", "cri", "cro",
@@ -98,35 +105,98 @@ public class ModelPrincipal {
         "príncipe", "pulseira", "régua", "retrato", "segredo", "sol", "sonho",
         "tartaruga", "telefone", "terra", "tigre", "tornozelo", "vidro"
     };
-    
+
     private ArrayList arrayBotoes = new ArrayList<String>();
     private ArrayList novasOpcoes;
     private String ArrayNivel1[] = new String[16];
     private int nivel;
     private int fase;
+    private Media media;
+    private MediaPlayer mediaPlayer;
+    private MediaView mediaView = new MediaView();
+    private String botao1, botao2;
+    private int acerto, erro;
+    private Button btemp1, btemp2;
+    private boolean tocando = false;
 
-    public ModelPrincipal() {
-        this.cliques = 0;        
+    @FXML
+    private Button b1;
+    @FXML
+    private Button b2;
+    @FXML
+    private Button b3;
+    @FXML
+    private Button b4;
+    @FXML
+    private Button b5;
+    @FXML
+    private Button b6;
+    @FXML
+    private Button b7;
+    @FXML
+    private Button b8;
+    @FXML
+    private Button b9;
+    @FXML
+    private Button botaoFaseAnterior;
+    private Button botaoProximaFase;
+
+    public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
+            Button b6, Button b7, Button b8, Button faseAnterior, Button proximaFase) {
+        this.cliques = 0;
         this.nivel = 1;
         this.fase = 2;
+        this.botao1 = "";
+        this.botao2 = "";
+        this.acerto = 0;
+        this.erro = 0;
+        this.b1 = b1;
+        this.b2 = b2;
+        this.b3 = b3;
+        this.b4 = b4;
+        this.b5 = b5;
+        this.b6 = b6;
+        this.b7 = b7;
+        this.b8 = b8;
+        this.botaoFaseAnterior = faseAnterior;
+        this.botaoProximaFase = proximaFase;
     }
 
     public void verificarOpcao(ActionEvent evento) {
+        String nomeBotao = ((Button) evento.getSource()).getId();
         cliques++;
         //iniciar timer
-        //verificar em qual fase está
-        tocarAudioBotao(evento);
+        //verificar em qual fase está        
         if (cliques == 1) {
+            tocarAudioBotao(evento);
             //tocar audio do botao clicado
-            System.out.println("Clicou uma vez");
+            tocarAudioBotao(evento);
+            btemp1 = ((Button) evento.getSource());
+            botao1 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];
 
         } else if (cliques == 2) {
-            System.out.println("Clicou duas vezes");
-            //tocar audio do botao clicado
-            //se tiver certo
-            //computar acerto
-            //deixar os dois botoes invisiveis
-            //aumentar um pouco o tempo
+            btemp2 = ((Button) evento.getSource());
+            botao2 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];
+
+            System.out.println(!btemp1.equals(btemp2));
+            if (botao1.equals(botao2) && (!btemp1.equals(btemp2))) {
+                tocarAudioBotao(evento);
+                incrementarAcerto();
+                while (isTocando()) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                btemp1.setVisible(false);
+                btemp2.setVisible(false);
+                //deixar os dois botoes invisiveis
+                //aumentar um pouco o tempo
+            } else {
+                tocarAudioBotao(evento);
+                incrementarErro();
+            }
 
             //se tiver errado
             //"desvira" os dois audios
@@ -165,10 +235,6 @@ public class ModelPrincipal {
         //mudar fxml
     }
 
-    public void tocarAudioBotao(ActionEvent evento) {
-
-    }
-
     public void gerarOpcoes(int fase) {
         int i = 0;
         int proxValor = 0;
@@ -185,7 +251,6 @@ public class ModelPrincipal {
                 numeroFonemas = 4;
                 break;
             case 2:
-                System.out.println("OOOOOOOO");
                 numeroFonemas = 5;
                 break;
             case 3:
@@ -199,7 +264,7 @@ public class ModelPrincipal {
                 numeroFonemasVetores = 5;
                 break;
             case 2://silabas simples
-                numeroFonemasVetores = 95;
+                numeroFonemasVetores = 94;
                 break;
             case 3://palavras simples
                 numeroFonemasVetores = 99;
@@ -216,11 +281,10 @@ public class ModelPrincipal {
             case 7://palavras complexas
                 numeroFonemasVetores = 101;
                 break;
-            
 
         }
 
-        while (i < numeroFonemas) {            
+        while (i < numeroFonemas) {
             proxValor = indice.nextInt(numeroFonemasVetores);//o valor do next int corresponde a quantidade de fonemas 
             if (!indicesUtilizados.contains(proxValor)) {//se o índice ainda não foi utilizado
                 novasOpcoes.add(proxValor);//adiciona o indice no array
@@ -230,7 +294,6 @@ public class ModelPrincipal {
         }
 
         while (contador < numeroFonemas * 2) {
-            System.out.println("Entrpi aaasfj");
             for (int j = 0; j < novasOpcoes.size(); j++) {
 
                 int posicao1 = indice.nextInt(numeroFonemas * 2);
@@ -253,6 +316,7 @@ public class ModelPrincipal {
         System.out.println(Arrays.toString(ArrayNivel1));
         System.out.println("Novas opcoes " + novasOpcoes);
     }
+
     public void iniciarJogo() {
         gerarOpcoes(getFase());
     }
@@ -265,35 +329,172 @@ public class ModelPrincipal {
         return this.fase;
     }
 
-    private void setNivel(int i) {
+    public void setNivel(int i) {
         this.nivel = i;
     }
-    
-    public int getNivel(){
+
+    public int getNivel() {
         return this.nivel;
     }
-    
-    public String getFonemaArray(int fase, int posicaoVetor){
+
+    public String getFonemaArray(int fase, int posicaoVetor) {
         String fonema = "";
-        switch(fase){
+        switch (fase) {
             case 1:
                 fonema = arrayVogais[(int) novasOpcoes.get(posicaoVetor)];
                 break;
             case 2:
                 fonema = arraySilabasSimples[(int) novasOpcoes.get(posicaoVetor)];
                 break;
+            case 3:
+                fonema = arrayPalavrasSimples[(int) novasOpcoes.get(posicaoVetor)];
+                break;
+            case 4:
+                fonema = arraySilabasComplexas1[(int) novasOpcoes.get(posicaoVetor)];
+                break;
+            case 5:
+                fonema = arraySilabasComplexas2[(int) novasOpcoes.get(posicaoVetor)];
+                break;
+            case 6:
+                fonema = arraySilabasComplexas3[(int) novasOpcoes.get(posicaoVetor)];
+                break;
+            case 7:
+                fonema = arrayPalavrasComplexas[(int) novasOpcoes.get(posicaoVetor)];
+                break;
         }
-        
+
         return fonema;
     }
 
     public void proximaFase(ActionEvent event) {
-        this.fase = fase+1;
-        gerarOpcoes(fase);
+
+        botaoFaseAnterior.setVisible(true);
+        if (fase == 6) {
+            this.fase = fase + 1;
+            botaoProximaFase.setVisible(false);
+            gerarOpcoes(fase);
+            exibirBotoes(getNivel());
+
+        } else {
+            if (!(fase == 7)) {
+                gerarOpcoes(fase);
+                exibirBotoes(getNivel());
+                this.fase = fase + 1;
+                botaoProximaFase.setText(fase + "");
+            }
+
+        }
+        System.out.println("FAse " + fase);
+
     }
 
     public void faseAnterior(ActionEvent event) {
-        this.fase = fase-1;
-        gerarOpcoes(fase);
+        botaoProximaFase.setVisible(true);
+        if (fase == 2) {
+            this.fase = fase - 1;
+            gerarOpcoes(fase);
+            exibirBotoes(getNivel());
+            botaoFaseAnterior.setVisible(false);
+        } else {
+            if (!(fase == 1)) {
+                gerarOpcoes(fase);
+                exibirBotoes(getNivel());
+                this.fase = fase - 1;
+            }
+        }
+    }
+
+    private void tocarAudioBotao(ActionEvent evento) {
+        String nomeBotao = ((Button) evento.getSource()).getId();
+        int posicaoAudio = Integer.parseInt(nomeBotao.substring(1));
+        String audio = ArrayNivel1[posicaoAudio - 1];
+        System.out.println("Audio " + audio);
+        String caminhoAudio = "";
+        switch (getFase()) {
+            case 1:
+                caminhoAudio = "src/model/_audios/audios_vogais/" + audio;
+                break;
+            case 2:
+                caminhoAudio = "_audios/audios_silabasSimples/" + audio + ".mp3";
+                break;
+            case 3:
+                caminhoAudio = "src/model/_audios/audios_palavrasSimples/" + audio;
+                break;
+            case 4:
+                caminhoAudio = "src/model/_audios/audios_silabasComplexas1/" + audio;
+                break;
+            case 5:
+                caminhoAudio = "src/model/_audios/audios_silabasComplexas2/" + audio;
+                break;
+            case 6:
+                caminhoAudio = "src/model/_audios/audios_silabasComplexas3/" + audio;
+                break;
+            case 7:
+                caminhoAudio = "src/model/_audios/audios_palavrasComplexas/" + audio;
+                break;
+        }
+        URL file = getClass().getResource(caminhoAudio);
+        media = new Media(file.toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        mediaPlayer.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.play();
+                setTocando(true);
+            }
+
+        });
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                setTocando(false);
+            }
+        });
+
+    }
+
+    private void incrementarAcerto() {
+        this.acerto++;
+    }
+
+    public void setTocando(boolean valor) {
+        this.tocando = valor;
+    }
+
+    public boolean isTocando() {
+        return tocando;
+    }
+
+    public void incrementarErro() {
+        this.erro++;
+    }
+
+    public void exibirBotoes(int nivel) {
+        switch (nivel) {
+            case 1:
+                b1.setVisible(true);
+                b2.setVisible(true);
+                b3.setVisible(true);
+                b4.setVisible(true);
+                b5.setVisible(true);
+                b6.setVisible(true);
+                b7.setVisible(true);
+                b8.setVisible(true);
+                break;
+            case 2:
+                b1.setVisible(true);
+                b2.setVisible(true);
+                b3.setVisible(true);
+                b4.setVisible(true);
+                b5.setVisible(true);
+                b6.setVisible(true);
+                b7.setVisible(true);
+                b8.setVisible(true);
+                break;
+            case 3:
+                break;
+
+        }
     }
 }
