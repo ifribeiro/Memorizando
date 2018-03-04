@@ -6,23 +6,25 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 /**
  *
  * @author iran
  */
 public class ModelPrincipal {
-    
+
     private String arrayVogais[] = new String[]{"a", "e", "i", "o", "u"};
     private final String arraySilabasSimples[] = {
         "al", "am", "an", "ar", "as", "ba", "be", "bi", "bo", "bu", "ca",
@@ -108,7 +110,6 @@ public class ModelPrincipal {
         "príncipe", "pulseira", "régua", "retrato", "segredo", "sol", "sonho",
         "tartaruga", "telefone", "terra", "tigre", "tornozelo", "vidro"
     };
-    
 
     @FXML
     private Button b1;
@@ -131,25 +132,26 @@ public class ModelPrincipal {
     @FXML
     private Button botaoFaseAnterior;
     @FXML
-    private Button botaoProximaFase;    
+    private Button botaoProximaFase;
     @FXML
     private ProgressBar barraTempo;
-    
+
     private Timer timer;
     private Media media;
-    private String botao1, botao2;    
+    private String botao1, botao2;
     private Button btemp1, btemp2;
-    private ArrayList novasOpcoes;    
-    private MediaPlayer mediaPlayer;    
-    private boolean tocando = false, gameOver;
+    private ArrayList novasOpcoes;
+    private MediaPlayer mediaPlayer;
     private MediaView mediaView = new MediaView();
-    private String ArrayNivel1[] = new String[16];    
+    private String ArrayNivel1[] = new String[16];
+    private boolean tocando = false, gameOver, timerIniciado;
     private ArrayList arrayBotoes = new ArrayList<String>();
-    private int acerto, erro, fase, nivel,cliquesTotais,cliques;
+    private int acerto, erro, fase, nivel, cliquesTotais, cliques;
+    private EventHandler<ActionEvent> evento1Botao, evento2Botao;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button faseAnterior, Button proximaFase,
-            ProgressBar barraTempo) {       
+            ProgressBar barraTempo) {
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -159,28 +161,31 @@ public class ModelPrincipal {
         this.b7 = b7;
         this.b8 = b8;
         this.erro = 0;
-        this.fase = 2;
+        this.fase = 1;
         this.nivel = 1;
         this.acerto = 0;
-        this.cliques = 0;        
+        this.cliques = 0;
         this.botao1 = "";
-        this.botao2 = "";  
+        this.botao2 = "";
         this.gameOver = false;
-        this.cliquesTotais = 0;        
+        this.timerIniciado = false;
+        this.cliquesTotais = 0;
         this.barraTempo = barraTempo;
         this.botaoProximaFase = proximaFase;
-        this.botaoFaseAnterior = faseAnterior;       
+        this.botaoFaseAnterior = faseAnterior;
     }
 
     public void verificarOpcao(ActionEvent evento) {
-        if(primeiroClique()){
+        if (primeiroClique() && !getTimerIniciado()) {
             System.out.println("Primeiro clique");
             iniciarTimer();
+            setTimerIniciado(true);
         }
-        
+
+        //if (!isTocando()) {
         String nomeBotao = ((Button) evento.getSource()).getId();
         cliques++;
-         //iniciar timer
+        //iniciar timer
         //verificar em qual fase está        
         if (cliques == 1) {
             tocarAudioBotao(evento);
@@ -193,21 +198,28 @@ public class ModelPrincipal {
             btemp2 = ((Button) evento.getSource());
             botao2 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];
 
-            System.out.println(!btemp1.equals(btemp2));
             if (botao1.equals(botao2) && (!btemp1.equals(btemp2))) {
-                tocarAudioBotao(evento);
+
                 incrementarAcerto();
-                while (isTocando()) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                btemp1.setVisible(false);
-                btemp2.setVisible(false);
+                evento1Botao = (ActionEvent event) -> {
+                    setCorBotao(btemp2, "#00EE00");
+                    setCorBotao(btemp1, "#00EE00");
+                    tocarAudioBotao(evento);
+                    //setTocando(true);
+                };
+                evento2Botao = (ActionEvent event) -> {
+                    btemp1.setVisible(false);
+                    btemp2.setVisible(false);
+                    setCorBotao(btemp1, "#00000");
+                    setCorBotao(btemp2, "#00000");
+                    verificarTerminoNivel();
+                };
+                new Timeline(
+                        new KeyFrame(Duration.seconds(0), evento1Botao),
+                        new KeyFrame(Duration.seconds(0.5), evento2Botao)).play();
                 //deixar os dois botoes invisiveis
-                //aumentar um pouco o tempo
+                //aumentar um pouco o tempo de acordo a fase 
+
             } else {
                 tocarAudioBotao(evento);
                 incrementarErro();
@@ -216,9 +228,11 @@ public class ModelPrincipal {
             //se tiver errado
             //"desvira" os dois audios
             //incrementa erros
-            this.cliquesTotais = cliquesTotais+cliques;
+            this.cliquesTotais = cliquesTotais + cliques;
+            System.out.println("Cliques totais: " + cliquesTotais);
             cliques = 0;
         }
+        //}
 
         //quando não houver mais botoes 
         //gerar novas opcoes
@@ -245,9 +259,7 @@ public class ModelPrincipal {
                 System.out.println("Nivel3");
                 setNivel(3);
                 break;
-
         }
-
         //mudar fxml
     }
 
@@ -274,7 +286,6 @@ public class ModelPrincipal {
                 break;
         }
         System.out.println(numeroFonemas);
-
         switch (getFase()) {
             case 1://vogais
                 numeroFonemasVetores = 5;
@@ -320,7 +331,6 @@ public class ModelPrincipal {
                     posicao1 = indice.nextInt(numeroFonemas * 2);
                     posicao2 = indice.nextInt(numeroFonemas * 2);
                 }
-
                 indicesFonemasUtilizados.add(posicao1);
                 indicesFonemasUtilizados.add(posicao2);
                 ArrayNivel1[posicao1] = getFonemaArray(fase, j);
@@ -428,7 +438,7 @@ public class ModelPrincipal {
         String caminhoAudio = "";
         switch (getFase()) {
             case 1:
-                caminhoAudio = "src/model/_audios/audios_vogais/" + audio;
+                caminhoAudio = "_audios/audios_vogais/" + audio + ".mp3";
                 break;
             case 2:
                 caminhoAudio = "_audios/audios_silabasSimples/" + audio + ".mp3";
@@ -465,13 +475,21 @@ public class ModelPrincipal {
             @Override
             public void run() {
                 setTocando(false);
+                mediaPlayer.dispose();                        
             }
         });
-
     }
 
-    private void incrementarAcerto() {
+    public void incrementarAcerto() {
         this.acerto++;
+    }
+
+    public void setAcerto(int acerto) {
+        this.acerto = acerto;
+    }
+
+    public int getAcertos() {
+        return this.acerto;
     }
 
     public void setTocando(boolean valor) {
@@ -513,139 +531,117 @@ public class ModelPrincipal {
 
         }
     }
-    
-    public void iniciarTimer(){
+
+    public void iniciarTimer() {
         timer = new Timer();
         //criação da tarefa que vai executar durante 1 segundo
         timer.scheduleAtFixedRate(new TimerTask() {
 
-            double i = 1.0;       
+            double i = 1.0;
+
             @Override
             public void run() {
                 System.out.println(i);
                 //Platform.runLater para alterar elementos da interface do javaFX
                 Platform.runLater(() -> {
-                    /*condição que faz o contador de segundos
-                     continuar em 30 durante a exibição da cena
-                     */
-                    /**
-                    Timer timer2 = new Timer();
-                    timer2.scheduleAtFixedRate(new TimerTask() {
-
-                        @Override
-                        public void run() {
-                            if (getMostrandoCena()) {
-                                i = 30;
-                            }
-
-                            if (getIndicacaoPular()) {
-                                i = i + 0;
-                            }
-
-                        }
-                    }, 0, 50);
-                    * */
-                    
-
-                    if (isTocando() && (!isGameOver())) {
-                        i = i + 0.016;
-                        setBarraTempo(i);
-                    }
-                    
-                    if(!isGameOver()){
+                    if (!isGameOver()) {
                         i = i - 0.016;
                         setBarraTempo(i);
-                    }                    
-                    System.out.println("i "+i);
-                    
+                    }
+                    System.out.println("i " + i);
 
                     if (i < 0) {
                         System.out.println("Game over :(");
                         setGameOver(true);
                         timer.cancel();
                         setBarraTempo(0.0);
-                        //game over
-                        //aparece a opção pra jogar novamente
-                        /**
-                        correto = opcaoCorreta(null);
-                        //se o jogador perdeu o jogo exibir a tela de game over
-                        if (!isGameOver()) {
-                            System.out.println("timer cacelado");
-
-                            reduzirLifeBar();
-                            incrementarErro();
-                            mostrarOpcaoCorreta(correto);//animação
-                            setPularErro(true);
-                        } else {
-                            System.out.println("Entrou aqui essa bosta");
-
-                            //animação
-                        }
-                        * **/
-                        
                     }
-                    /**
-                    //se o jogador pulou ou errou voltar o tempo para 30 segundos
-                    if ((getIndicacaoPular()) || (getPularErro())) {
-                        //System.out.println(i);
-                        i = 30;
-                        //indicacaoPular = false;
-                        setIndicacaoPular(false);
-                        setPularErro(false);
-                        //pularErro = false;
-                        if (isGameOver()) {
-                            mostraFimDeJogo(correto);
-                            timer.cancel();
-                        }
-                    }**/
                 });
             }
         }, 0, 1000);
     }
-    
-    public void setBarraTempo(Double tempo){
-        
-        if(tempo<0.9){
+
+    public void setBarraTempo(Double tempo) {
+
+        if (tempo < 0.9) {
             barraTempo.setStyle("-fx-accent: #00EE00");
         }
-        if(tempo<0.8){
+        if (tempo < 0.8) {
             barraTempo.setStyle("-fx-accent: #00CD00");
         }
-        if(tempo<0.7){
+        if (tempo < 0.7) {
             barraTempo.setStyle("-fx-accent: #FFFF00");
         }
-        if(tempo<0.6){
+        if (tempo < 0.6) {
             barraTempo.setStyle("-fx-accent: #EEEE00");
         }
-        if(tempo<0.5){
+        if (tempo < 0.5) {
             barraTempo.setStyle("-fx-accent: #CDCD00");
         }
-        if(tempo<0.4){
+        if (tempo < 0.4) {
             barraTempo.setStyle("-fx-accent: #FFA500");
         }
-        if(tempo<0.3){
+        if (tempo < 0.3) {
             barraTempo.setStyle("-fx-accent: #FF6347");
         }
-        if(tempo<0.2){
+        if (tempo < 0.2) {
             barraTempo.setStyle("-fx-accent: #FF4500");
         }
-        if(tempo<0.1){
+        if (tempo < 0.1) {
             barraTempo.setStyle("-fx-accent: #FF0000");
         }
-        
+
         barraTempo.setProgress(tempo);
     }
 
     private boolean primeiroClique() {
-        return this.cliquesTotais==0;
+        return this.cliquesTotais == 0;
     }
-    
-    public void setGameOver(boolean valor){
+
+    public void setGameOver(boolean valor) {
         this.gameOver = valor;
     }
-    
-    public boolean isGameOver(){
+
+    public boolean isGameOver() {
         return this.gameOver;
     }
-    
+
+    public void setCorBotao(Button botao, String cor) {
+        botao.setStyle("-fx-background-color: " + cor);
+    }
+
+    public void setTimerIniciado(boolean b) {
+        this.timerIniciado = b;
+    }
+
+    private boolean getTimerIniciado() {
+        return this.timerIniciado;
+    }
+
+    private void verificarTerminoNivel() {
+
+        switch (getNivel()) {
+            case 1:
+                if (getAcertos() == 4) {
+                    exibirBotoes(1);
+                    gerarOpcoes(getFase());
+                    setAcerto(0);
+                    mediaPlayer.dispose();
+                }
+
+                break;
+            case 2:
+                if (getAcertos() == 5) {
+                    exibirBotoes(1);
+                }
+                break;
+            case 3:
+                if (getAcertos() == 8) {
+                    exibirBotoes(1);
+                }
+                break;
+        }
+
+    }
+
 }
