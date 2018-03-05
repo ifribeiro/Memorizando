@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -52,10 +53,14 @@ public class PrincipalController implements Initializable {
     private Button botaoProximaFase;
     @FXML
     private Button botaoFaseAnterior;
-    
+
     private ModelPrincipal modelPrincipal;
     @FXML
     private ProgressBar barraTempo;
+    @FXML
+    private Button b10;
+    @FXML
+    private Button b9;
 
     /**
      * Initializes the controller class.
@@ -64,6 +69,7 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Image image = new Image(getClass().getResourceAsStream("som32.png"));
         ImageView iconeSom = new ImageView(image);
+        //botões do primeiro e segundo nivel
         b1.setGraphic(new ImageView(image));
         b2.setGraphic(new ImageView(image));
         b3.setGraphic(new ImageView(image));
@@ -74,8 +80,12 @@ public class PrincipalController implements Initializable {
         b8.setGraphic(new ImageView(image));
         botaoFaseAnterior.setVisible(false);
         barraTempo.setStyle("-fx-accent: #00FF00");
-        modelPrincipal = new ModelPrincipal(b1,b2,b3,b4,b5,b6,b7,b8,botaoFaseAnterior, botaoProximaFase, barraTempo);        
-        
+        modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,
+              botaoProximaFase, barraTempo); //construtor modelPrincipal do nível 1
+
+        modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, botaoFaseAnterior,
+                botaoProximaFase, barraTempo); //construtor modelPrincipal do nivel 2
+
         iniciarJogo();
 
         // TODO
@@ -96,7 +106,6 @@ public class PrincipalController implements Initializable {
     }
 
     public void alterarFase() {
-       
 
     }
 
@@ -127,7 +136,7 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void alterarNivel(ActionEvent event) {
+    private void alterarNivel(ActionEvent event) throws IOException {
         modelPrincipal.alterarNivel(event);
     }
 
