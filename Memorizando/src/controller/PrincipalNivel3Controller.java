@@ -79,7 +79,11 @@ public class PrincipalNivel3Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image image = new Image(getClass().getResourceAsStream("som32.png"));
+        Image image = new Image(getClass().getResourceAsStream("som32.png"));        
+        Image nivel1Icon = new Image(getClass().getResourceAsStream("nivel132.png"));
+        Image nivel2Icon = new Image(getClass().getResourceAsStream("nivel232.png"));
+        Image nivel3Icon = new Image(getClass().getResourceAsStream("nivel332.png"));
+        
         b1.setGraphic(new ImageView(image));
         b2.setGraphic(new ImageView(image));
         b3.setGraphic(new ImageView(image));
@@ -95,9 +99,17 @@ public class PrincipalNivel3Controller implements Initializable {
         b13.setGraphic(new ImageView(image));
         b14.setGraphic(new ImageView(image));
         b15.setGraphic(new ImageView(image));
-        botaoFaseAnterior.setVisible(false);
+        b16.setGraphic(new ImageView(image));
+        
+        
+        nivel1.setGraphic(new ImageView(nivel1Icon));
+        nivel2.setGraphic(new ImageView(nivel2Icon));
+        nivel3.setGraphic(new ImageView(nivel3Icon));
+        
+        botaoFaseAnterior.setVisible(false);             
         barraTempo.setStyle("-fx-accent: #00FF00");
-        modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15,b16, botaoFaseAnterior,
+        modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9, 
+                b10, b11, b12, b13, b14, b15,b16, botaoFaseAnterior,
                 botaoProximaFase, barraTempo); //construtor modelPrincipal do nivel 2
         iniciarJogo();
     }

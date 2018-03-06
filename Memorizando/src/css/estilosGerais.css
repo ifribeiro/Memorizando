@@ -5,3 +5,9 @@
 .mainFxmlClass {
 
 }
+
+.button{
+    -fx-background-radius: 70%;
+    -fx-cursor: hand;
+    
+}
