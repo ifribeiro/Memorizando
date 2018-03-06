@@ -67,17 +67,23 @@ public class PrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image image = new Image(getClass().getResourceAsStream("som32.png"));
-        ImageView iconeSom = new ImageView(image);
+        Image botoes = new Image(getClass().getResourceAsStream("som32.png"));
+        Image nivel1Icon = new Image(getClass().getResourceAsStream("nivel132.png"));
+        Image nivel2Icon = new Image(getClass().getResourceAsStream("nivel232.png"));
+        Image nivel3Icon = new Image(getClass().getResourceAsStream("nivel332.png"));
+        ImageView iconeSom = new ImageView(botoes);
         //botões do primeiro e segundo nivel
-        b1.setGraphic(new ImageView(image));
-        b2.setGraphic(new ImageView(image));
-        b3.setGraphic(new ImageView(image));
-        b4.setGraphic(new ImageView(image));
-        b5.setGraphic(new ImageView(image));
-        b6.setGraphic(new ImageView(image));
-        b7.setGraphic(new ImageView(image));
-        b8.setGraphic(new ImageView(image));
+        b1.setGraphic(new ImageView(botoes));
+        b2.setGraphic(new ImageView(botoes));
+        b3.setGraphic(new ImageView(botoes));
+        b4.setGraphic(new ImageView(botoes));
+        b5.setGraphic(new ImageView(botoes));
+        b6.setGraphic(new ImageView(botoes));
+        b7.setGraphic(new ImageView(botoes));
+        b8.setGraphic(new ImageView(botoes));
+        nivel1.setGraphic(new ImageView(nivel1Icon));
+        nivel2.setGraphic(new ImageView(nivel2Icon));
+        nivel3.setGraphic(new ImageView(nivel3Icon));
         botaoFaseAnterior.setVisible(false);
         barraTempo.setStyle("-fx-accent: #00FF00");
         modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,
@@ -142,5 +148,13 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void trocarLayoutJogo(ActionEvent event) {
+    }
+
+    public void setFase(int fase) {
+        modelPrincipal.setFase(fase);
+    }
+
+    public void setNivel(int i) {
+        modelPrincipal.setNivel(i);
     }
 }

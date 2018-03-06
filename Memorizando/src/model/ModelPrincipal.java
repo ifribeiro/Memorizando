@@ -1,6 +1,7 @@
 package model;
 
 import java.io.IOException;
+import controller.PrincipalController;
 import controller.PrincipalNivel2Controller;
 import controller.PrincipalNivel3Controller;
 import java.net.URL;
@@ -150,7 +151,7 @@ public class ModelPrincipal {
     private Button b15;
     @FXML
     private Button b16;
-    
+
     @FXML
     private Button botaoFaseAnterior;
     @FXML
@@ -160,6 +161,7 @@ public class ModelPrincipal {
 
     private Timer timer;
     private Media media;
+    private Stage janela;
     private String botao1, botao2;
     private Button btemp1, btemp2;
     private ArrayList novasOpcoes;
@@ -168,13 +170,13 @@ public class ModelPrincipal {
     private String ArrayNivel1[] = new String[16];
     private String[] ArrayNivel2 = new String[16];
     private String[] ArrayNivel3 = new String[16];
-    private boolean tocando = false, gameOver, timerIniciado;
+    PrincipalController principalController = null;
     private ArrayList arrayBotoes = new ArrayList<String>();
-    private int acerto, erro, fase, nivel, cliquesTotais, cliques;
-    private EventHandler<ActionEvent> evento1Botao, evento2Botao;
+    private boolean tocando = false, gameOver, timerIniciado;
     PrincipalNivel2Controller principalNivel2Controller = null;
     PrincipalNivel3Controller principalNivel3Controller = null;
-    private Stage janela;
+    private EventHandler<ActionEvent> evento1Botao, evento2Botao;
+    private int acerto, erro, fase, nivel, cliquesTotais, cliques;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button faseAnterior, Button proximaFase,
@@ -337,15 +339,15 @@ public class ModelPrincipal {
         String nomeBotao = ((Button) event.getSource()).getId();
         switch (nomeBotao) {
             case "nivel1":
-                System.out.println("Nivel1");
-                setNivel(1);
                 janela = (Stage) barraTempo.getScene().getWindow();
                 fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
                 cenaPrincipal = (Parent) fxmloader.load();
-                gerarOpcoes(getFase());
+                principalController = fxmloader.<PrincipalController>getController();
+                principalController.setFase(getFase());
+                principalController.setNivel(1);
+                principalController.iniciarJogo();
                 break;
             case "nivel2":
-                System.out.println("Nivel2");
                 janela = (Stage) barraTempo.getScene().getWindow();
                 fxmloader = new FXMLLoader(getClass().getResource("/interfaces/PrincipalNivel2.fxml"));
                 cenaPrincipal = (Parent) fxmloader.load();
@@ -355,18 +357,19 @@ public class ModelPrincipal {
                 principalNivel2Controller.iniciarJogo();
                 break;
             case "nivel3":
-                System.out.println("Nivel3");
                 janela = (Stage) barraTempo.getScene().getWindow();
                 fxmloader = new FXMLLoader(getClass().getResource("/interfaces/PrincipalNivel3.fxml"));
                 cenaPrincipal = (Parent) fxmloader.load();
                 principalNivel3Controller = fxmloader.<PrincipalNivel3Controller>getController();
                 principalNivel3Controller.setFase(getFase());
                 principalNivel3Controller.setNivel(3);
-                principalNivel3Controller.iniciarJogo();                
+                principalNivel3Controller.iniciarJogo();
                 break;
         }
-        Scene scene = new Scene(cenaPrincipal, 1366.0, 768.0);
+        Scene scene = new Scene(cenaPrincipal, 1200, 700);        
         janela.setScene(scene);
+        janela.setFullScreen(true);
+        janela.setFullScreenExitHint("");
         janela.show();
         //mudar fxml
 
@@ -388,11 +391,9 @@ public class ModelPrincipal {
                 numeroFonemas = 4;
                 break;
             case 2:
-                System.out.println("ENtro aqui poura");
                 numeroFonemas = 5;
                 break;
             case 3:
-                System.out.println("Entrou aqui as dasa fasd");
                 numeroFonemas = 8;
                 break;
         }
@@ -421,27 +422,26 @@ public class ModelPrincipal {
                 break;
 
         }
-        
-        System.out.println("Numero fonemas "+numeroFonemasVetores);
-        System.out.println("I "+i + " "+numeroFonemas);
-        System.out.println("Inidices "+indicesUtilizados.toString());
-        while (i < numeroFonemas) {            
+
+        System.out.println("Numero fonemas " + numeroFonemasVetores);
+        System.out.println("I " + i + " " + numeroFonemas);
+        System.out.println("Inidices " + indicesUtilizados.toString());
+        while (i < numeroFonemas) {
             proxValor = indice.nextInt(numeroFonemasVetores);//o valor do next int corresponde a quantidade de fonemas 
             if (!indicesUtilizados.contains(proxValor)) {//se o índice ainda não foi utilizado
                 System.out.println("Entrou aqui indiicea");
                 novasOpcoes.add(proxValor);//adiciona o indice no array
                 indicesUtilizados.add(proxValor);//adiciona o indice utilizado vetor de utilizados
                 i++;
-            }
-            else{
-                if(getNivel()==3 && getFase()==1){                    
+            } else {
+                if (getNivel() == 3 && getFase() == 1) {
                     novasOpcoes.add(proxValor);
                     i++;
                 }
             }
-           
+
         }
-        System.out.println("Novas opcoes<><><>< "+novasOpcoes.toString());
+        System.out.println("Novas opcoes<><><>< " + novasOpcoes.toString());
 
         while (contador < numeroFonemas * 2) {
             for (int j = 0; j < novasOpcoes.size(); j++) {
@@ -529,10 +529,10 @@ public class ModelPrincipal {
 
         } else {
             if (!(fase == 7)) {
+                this.fase = fase + 1;
                 gerarOpcoes(fase);
                 exibirBotoes(getNivel());
-                this.fase = fase + 1;
-                botaoProximaFase.setText(fase + "");
+                botaoProximaFase.setText(">");
             }
 
         }
@@ -656,6 +656,23 @@ public class ModelPrincipal {
                 b10.setVisible(true);
                 break;
             case 3:
+                b1.setVisible(true);
+                b2.setVisible(true);
+                b3.setVisible(true);
+                b4.setVisible(true);
+                b5.setVisible(true);
+                b6.setVisible(true);
+                b7.setVisible(true);
+                b8.setVisible(true);
+                b9.setVisible(true);
+                b10.setVisible(true);
+                b11.setVisible(true);
+                b12.setVisible(true);
+                b13.setVisible(true);
+                b14.setVisible(true);
+                b15.setVisible(true);
+                b16.setVisible(true);                
+                
                 break;
 
         }
@@ -765,7 +782,10 @@ public class ModelPrincipal {
                 break;
             case 3:
                 if (getAcertos() == 8) {
-                    exibirBotoes(1);
+                    exibirBotoes(3);
+                    gerarOpcoes(getFase());
+                    setAcerto(0);
+                    mediaPlayer.dispose();
                 }
                 break;
         }
