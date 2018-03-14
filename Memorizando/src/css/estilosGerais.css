@@ -5,9 +5,21 @@
 .mainFxmlClass {
 
 }
+#botaoProximaFase, #botaoFaseAnterior{
+    -fx-padding: 0px 0px;
+    -fx-background-color: transparent;
+}
 
 .button{
     -fx-background-radius: 70%;
     -fx-cursor: hand;
     
 }
+
+#botaoSelecionado{
+    -fx-padding: 14px 22px;
+    -fx-background-radius: 50%;
+    -fx-translate-x: -7;
+    -fx-translate-y: -7
+}
+

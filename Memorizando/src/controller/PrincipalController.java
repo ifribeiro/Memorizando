@@ -16,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import model.ModelPrincipal;
 
 /**
@@ -84,6 +83,8 @@ public class PrincipalController implements Initializable {
         Image nivel1Icon = new Image(getClass().getResourceAsStream("nivel132.png"));
         Image nivel2Icon = new Image(getClass().getResourceAsStream("nivel232.png"));
         Image nivel3Icon = new Image(getClass().getResourceAsStream("nivel332.png"));
+        Image proximaFase = new Image(getClass().getResourceAsStream("proximaFase64.png"));
+        Image faseAnterior = new Image(getClass().getResourceAsStream("faseAnterior64.png"));
         ImageView iconeSom = new ImageView(botoes);
         //botões do primeiro e segundo nivel
         b1.setGraphic(new ImageView(botoes));
@@ -97,6 +98,8 @@ public class PrincipalController implements Initializable {
         nivel1.setGraphic(new ImageView(nivel1Icon));
         nivel2.setGraphic(new ImageView(nivel2Icon));
         nivel3.setGraphic(new ImageView(nivel3Icon));
+        botaoProximaFase.setGraphic(new ImageView(proximaFase));
+        botaoFaseAnterior.setGraphic(new ImageView(faseAnterior));
         botaoFaseAnterior.setVisible(false);
         barraTempo.setStyle("-fx-accent: #00FF00");
         modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,

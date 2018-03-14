@@ -35,7 +35,7 @@
                </children>
             </Group>
             <Button fx:id="botaoProximaFase" layoutX="329.0" layoutY="480.0" mnemonicParsing="false" onAction="#proximaFase" AnchorPane.bottomAnchor="95.0" />
-            <Button fx:id="botaoFaseAnterior" layoutX="293.0" layoutY="480.0" mnemonicParsing="false" onAction="#faseAnterior" AnchorPane.bottomAnchor="95.0" />
+            <Button fx:id="botaoFaseAnterior" layoutX="243.0" layoutY="480.0" mnemonicParsing="false" onAction="#faseAnterior" AnchorPane.bottomAnchor="95.0" />
             <Button fx:id="fase1" layoutX="162.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
             <Button fx:id="fase2" layoutX="212.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
             <Button fx:id="fase3" layoutX="262.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />

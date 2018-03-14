@@ -158,7 +158,7 @@ public class ModelPrincipal {
     private Button botaoProximaFase;
     @FXML
     private ProgressBar barraTempo;
-    
+
     @FXML
     private Button fase1;
     @FXML
@@ -172,7 +172,7 @@ public class ModelPrincipal {
     @FXML
     private Button fase6;
     @FXML
-    private Button fase7;    
+    private Button fase7;
 
     private Timer timer;
     private Media media;
@@ -224,8 +224,8 @@ public class ModelPrincipal {
         this.cliquesTotais = 0;
         this.barraTempo = barraTempo;
         this.botaoProximaFase = proximaFase;
-        this.botaoFaseAnterior = faseAnterior;        
-        
+        this.botaoFaseAnterior = faseAnterior;
+
     }
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
@@ -390,7 +390,7 @@ public class ModelPrincipal {
                 principalNivel3Controller.iniciarJogo();
                 break;
         }
-        Scene scene = new Scene(cenaPrincipal, 1200, 700);        
+        Scene scene = new Scene(cenaPrincipal, 1200, 700);
         janela.setScene(scene);
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
@@ -555,8 +555,7 @@ public class ModelPrincipal {
             if (!(fase == 7)) {
                 this.fase = fase + 1;
                 gerarOpcoes(fase);
-                exibirBotoes(getNivel());
-                botaoProximaFase.setText(">");
+                exibirBotoes(getNivel());                
             }
 
         }
@@ -695,8 +694,8 @@ public class ModelPrincipal {
                 b13.setVisible(true);
                 b14.setVisible(true);
                 b15.setVisible(true);
-                b16.setVisible(true);                
-                
+                b16.setVisible(true);
+
                 break;
 
         }
@@ -817,32 +816,76 @@ public class ModelPrincipal {
     }
 
     public void mudarFase(ActionEvent event) {
-        String botaoClicado = ((Button) event.getSource()).getId();        
-        ((Button) event.getSource()).setStyle("-fx-padding: 0px 0px;"
-                + " -fx-background-radius: 50%;"
-                + "-fx-translate-x: -15;");
+        String botaoClicado = ((Button) event.getSource()).getId();
         int botaoFase = Integer.parseInt(botaoClicado.substring(4));
-        System.out.println("BotaoClicado "+botaoFase);
-        switch(botaoFase){
-            case 1:                
-                System.out.println("Entrou");
-                gerarOpcoes(botaoFase);
-                exibirBotoes(getNivel());                
+        System.out.println("BotaoClicado " + botaoFase);
+        switch (botaoFase) {
+            case 1:
+                fase1.setId("botaoSelecionado");
+                fase2.setId("fase2");
+                fase3.setId("fase3");
+                fase4.setId("fase4");
+                fase5.setId("fase5");
+                fase6.setId("fase6");
+                fase7.setId("fase7");                
                 break;
             case 2:
+                fase1.setId("fase1");
+                fase2.setId("botaoSelecionado");
+                fase3.setId("fase3");
+                fase4.setId("fase4");
+                fase5.setId("fase5");
+                fase6.setId("fase6");
+                fase7.setId("fase7");               
                 break;
             case 3:
+                fase1.setId("fase1");
+                fase2.setId("fase2");
+                fase3.setId("botaoSelecionado");
+                fase4.setId("fase4");
+                fase5.setId("fase5");
+                fase6.setId("fase6");
+                fase7.setId("fase7");               
                 break;
             case 4:
+                fase1.setId("fase1");
+                fase2.setId("fase2");
+                fase3.setId("fase3");
+                fase4.setId("botaoSelecionado");
+                fase5.setId("fase5");
+                fase6.setId("fase6");
+                fase7.setId("fase7");                
                 break;
             case 5:
+                fase1.setId("fase1");
+                fase2.setId("fase2");
+                fase3.setId("fase3");
+                fase4.setId("fase4");
+                fase5.setId("botaoSelecionado");
+                fase6.setId("fase6");
+                fase7.setId("fase7");                
                 break;
             case 6:
+                fase1.setId("fase1");
+                fase2.setId("fase2");
+                fase3.setId("fase3");
+                fase4.setId("fase4");
+                fase5.setId("fase5");
+                fase6.setId("botaoSelecionado");
+                fase7.setId("fase7");                
                 break;
             case 7:
+                fase1.setId("fase1");
+                fase2.setId("fase2");
+                fase3.setId("fase3");
+                fase4.setId("fase4");
+                fase5.setId("fase5");
+                fase6.setId("fase6");
+                fase7.setId("botaoSelecionado");               
                 break;
-                        
         }
+        gerarOpcoes(botaoFase);
+        exibirBotoes(getNivel());
     }
 
 }
