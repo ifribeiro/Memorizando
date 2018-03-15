@@ -17,7 +17,7 @@
     <children>
         <ImageView fitHeight="966.0" fitWidth="1742.0" opacity="0.4" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="-150.0">
             <image>
-                <Image url="@../imagens/imagemFundo2.jpg" />
+                <Image url="@../model/imagens/imagemFundo2.jpg" />
             </image>
         </ImageView>
         <Button layoutX="1119.0" layoutY="27.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" text="Home" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="27.0" />
@@ -45,9 +45,16 @@
                         <Button fx:id="b2" layoutX="355.0" layoutY="258.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
                         <Button fx:id="b9" layoutX="355.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
                     </children>
-                </Group>
-                <Button fx:id="botaoProximaFase" layoutX="329.0" layoutY="480.0" mnemonicParsing="false" onAction="#proximaFase" text="-&gt;" />
-                <Button fx:id="botaoFaseAnterior" layoutX="293.0" layoutY="480.0" mnemonicParsing="false" onAction="#faseAnterior" text="&lt;-" AnchorPane.bottomAnchor="95.0" />
+                </Group>                
+                <Button fx:id="botaoProximaFase" layoutX="329.0" layoutY="480.0" mnemonicParsing="false" onAction="#proximaFase" AnchorPane.bottomAnchor="95.0" />
+                <Button fx:id="botaoFaseAnterior" layoutX="243.0" layoutY="480.0" mnemonicParsing="false" onAction="#faseAnterior" AnchorPane.bottomAnchor="95.0" />
+                <Button fx:id="fase1" layoutX="162.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+                <Button fx:id="fase2" layoutX="212.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+                <Button fx:id="fase3" layoutX="262.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+                <Button fx:id="fase4" layoutX="312.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+                <Button fx:id="fase5" layoutX="362.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+                <Button fx:id="fase6" layoutX="412.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+                <Button fx:id="fase7" layoutX="462.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
             </children>
         </AnchorPane>
         <Pane layoutX="64.0" layoutY="78.0" prefHeight="25.0" prefWidth="555.0" AnchorPane.leftAnchor="10.0">

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -73,6 +74,10 @@ public class PrincipalController implements Initializable {
     private Button fase6;
     @FXML
     private Button fase7;
+    @FXML
+    private ImageView iconeAvatar;
+    @FXML
+    private Label pontuacao;
 
     /**
      * Initializes the controller class.
@@ -103,11 +108,11 @@ public class PrincipalController implements Initializable {
         botaoFaseAnterior.setVisible(false);
         barraTempo.setStyle("-fx-accent: #00FF00");
         modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,
-              botaoProximaFase, barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7); //construtor modelPrincipal do nível 1    
+              botaoProximaFase, barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
+              iconeAvatar,pontuacao); //construtor modelPrincipal do nível 1    
 
         iniciarJogo();
-
-        // TODO
+        
     }
 
     @FXML
@@ -171,6 +176,10 @@ public class PrincipalController implements Initializable {
     @FXML
     private void mudarFase(ActionEvent event) {
         modelPrincipal.mudarFase(event);
+    }
+
+    public void setIconeAvatar(int avatar) {
+        modelPrincipal.setIconeAvatar(avatar);
     }
 
 }

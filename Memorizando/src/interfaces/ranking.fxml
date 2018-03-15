@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="966.0" prefWidth="1742.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RankingController">
+    <stylesheets>
+        <URL value="@/css/estilosGerais.css" />
+    </stylesheets>
+    <children>
+        <ImageView fitHeight="966.0" fitWidth="1742.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../model/imagens/imagemFundo2.jpg" />
+            </image>
+        </ImageView>
+      <HBox layoutX="406.0" layoutY="80.0" prefHeight="100.0" prefWidth="1000.0" AnchorPane.rightAnchor="70.0">
+         <children>
+            <Button fx:id="avatar1" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/1.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="avatar2" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar3" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/3.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar4" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/4.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar5" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/5.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar6" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/6.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar7" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/7.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar8" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/8.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar9" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/9.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="avatar10" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/10.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <ImageView fx:id="avatarMaior" fitHeight="200.0" fitWidth="200.0" layoutX="547.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="995.0">
+         <image>
+            <Image url="@../model/imagens/icones/1.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="nomeJogador" layoutX="747.0" layoutY="435.0" onKeyTyped="#verificarTexto" AnchorPane.rightAnchor="682.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="747.0" layoutY="398.0" text="Nome:" AnchorPane.rightAnchor="907.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Pane id="ranking" layoutX="1472.0" layoutY="250.0" prefHeight="380.0" prefWidth="200.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="250.0">
+         <children>
+            <VBox prefHeight="380.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                     </children>
+                  </HBox>
+               </children></VBox>
+         </children>
+      </Pane>
+      <Label layoutX="1472.0" layoutY="220.0" text="Ranking" AnchorPane.rightAnchor="188.0" AnchorPane.topAnchor="220.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="iniciar" disable="true" layoutX="666.0" layoutY="548.0" mnemonicParsing="false" onAction="#iniciarJogo" prefHeight="64.0" prefWidth="64.0" text="Iniciar" />
+    </children>
+</AnchorPane>

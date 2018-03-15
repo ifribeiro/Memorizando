@@ -5,7 +5,7 @@
 .mainFxmlClass {
 
 }
-#botaoProximaFase, #botaoFaseAnterior{
+#botaoProximaFase, #botaoFaseAnterior, #nivel1, #nivel2, #nivel3{
     -fx-padding: 0px 0px;
     -fx-background-color: transparent;
 }
@@ -22,4 +22,6 @@
     -fx-translate-x: -7;
     -fx-translate-y: -7
 }
+
+
 

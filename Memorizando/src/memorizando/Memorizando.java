@@ -19,7 +19,7 @@ public class Memorizando extends Application {
 
     @Override
     public void start(Stage janela) throws IOException {
-        Parent cenaInicial = FXMLLoader.load(getClass().getResource("/interfaces/Principal.fxml"));
+        Parent cenaInicial = FXMLLoader.load(getClass().getResource("/interfaces/Inicial.fxml"));
         
         Scene cena = new Scene(cenaInicial, 1366, 768);
         janela.setTitle("Memorizando");

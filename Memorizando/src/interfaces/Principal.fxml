@@ -22,27 +22,27 @@
       </ImageView>
       <AnchorPane layoutX="411.0" layoutY="123.0" minHeight="600.0" minWidth="600.0" prefHeight="440.0" prefWidth="555.0" AnchorPane.leftAnchor="411.0" AnchorPane.rightAnchor="400.0">
          <children>
-            <Group id="grupoBotoes" fx:id="grupoBotoes" layoutX="-135.0" layoutY="-201.0" AnchorPane.rightAnchor="90.0">
+            <Group id="grupoBotoes" fx:id="grupoBotoes" layoutX="-22.0" layoutY="-224.0" AnchorPane.rightAnchor="96.0">
                <children>
-                  <Button fx:id="b4" layoutX="390.0" layoutY="328.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
-                  <Button fx:id="b3" layoutX="320.0" layoutY="328.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
-                  <Button fx:id="b1" layoutX="250.0" layoutY="258.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
-                  <Button fx:id="b5" layoutX="320.0" layoutY="398.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
-                  <Button fx:id="b6" layoutX="390.0" layoutY="398.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
-                  <Button fx:id="b8" layoutX="460.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
-                  <Button fx:id="b2" layoutX="460.0" layoutY="258.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
-                  <Button fx:id="b7" layoutX="250.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="64.0" prefWidth="64.0" />
+                  <Button fx:id="b4" layoutX="318.0" layoutY="371.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b3" layoutX="222.0" layoutY="371.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b1" layoutX="152.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b5" layoutX="222.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b6" layoutX="318.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b8" layoutX="391.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b2" layoutX="391.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b7" layoutX="152.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
                </children>
             </Group>
-            <Button fx:id="botaoProximaFase" layoutX="329.0" layoutY="480.0" mnemonicParsing="false" onAction="#proximaFase" AnchorPane.bottomAnchor="95.0" />
-            <Button fx:id="botaoFaseAnterior" layoutX="243.0" layoutY="480.0" mnemonicParsing="false" onAction="#faseAnterior" AnchorPane.bottomAnchor="95.0" />
-            <Button fx:id="fase1" layoutX="162.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase2" layoutX="212.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase3" layoutX="262.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase4" layoutX="312.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase5" layoutX="362.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase6" layoutX="412.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase7" layoutX="462.0" layoutY="518.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="botaoProximaFase" layoutX="306.0" layoutY="505.0" mnemonicParsing="false" onAction="#proximaFase" AnchorPane.bottomAnchor="70.0" />
+            <Button fx:id="botaoFaseAnterior" layoutX="193.0" layoutY="505.0" mnemonicParsing="false" onAction="#faseAnterior" AnchorPane.bottomAnchor="70.0" />
+            <Button fx:id="fase1" layoutX="112.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="fase2" layoutX="162.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="fase3" layoutX="212.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="fase4" layoutX="262.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="fase5" layoutX="312.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="fase6" layoutX="362.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="fase7" layoutX="412.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
          </children>
       </AnchorPane>
       <Pane layoutY="59.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -52,13 +52,23 @@
             <Button fx:id="nivel3" layoutX="45.0" layoutY="480.0" mnemonicParsing="false" onAction="#alterarNivel" prefHeight="100.0" prefWidth="100.0" />
          </children>
       </Pane>
-      <Pane layoutX="64.0" layoutY="78.0" prefHeight="25.0" prefWidth="555.0" AnchorPane.leftAnchor="10.0">
+      <Pane layoutX="10.0" layoutY="73.0" prefHeight="60.0" prefWidth="555.0" AnchorPane.leftAnchor="10.0">
          <children>
-            <ProgressBar fx:id="barraTempo" layoutX="116.0" layoutY="3.0" prefHeight="20.0" prefWidth="430.0" progress="1.0">
+            <ProgressBar fx:id="barraTempo" layoutX="116.0" layoutY="42.0" prefHeight="20.0" prefWidth="430.0" progress="1.0">
                <padding>
                   <Insets left="50.0" right="50.0" />
                </padding>
             </ProgressBar>
+            <ImageView fx:id="iconeAvatar" fitHeight="150.0" fitWidth="150.0" layoutX="14.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../model/imagens/icones/1.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="pontuacao" layoutX="164.0" layoutY="-2.0" text="0 pts">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Button layoutX="1119.0" layoutY="27.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" text="Home" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="27.0" />

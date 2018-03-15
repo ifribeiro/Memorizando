@@ -73,6 +73,20 @@ public class PrincipalNivel3Controller implements Initializable {
     private ProgressBar barraTempo;
 
     private ModelPrincipal modelPrincipal;
+    @FXML
+    private Button fase1;
+    @FXML
+    private Button fase2;
+    @FXML
+    private Button fase3;
+    @FXML
+    private Button fase4;
+    @FXML
+    private Button fase5;
+    @FXML
+    private Button fase6;
+    @FXML
+    private Button fase7;
 
     /**
      * Initializes the controller class.
@@ -82,7 +96,9 @@ public class PrincipalNivel3Controller implements Initializable {
         Image image = new Image(getClass().getResourceAsStream("som32.png"));        
         Image nivel1Icon = new Image(getClass().getResourceAsStream("nivel132.png"));
         Image nivel2Icon = new Image(getClass().getResourceAsStream("nivel232.png"));
-        Image nivel3Icon = new Image(getClass().getResourceAsStream("nivel332.png"));
+        Image nivel3Icon = new Image(getClass().getResourceAsStream("nivel332.png"));        
+        Image proximaFase = new Image(getClass().getResourceAsStream("proximaFase64.png"));
+        Image faseAnterior = new Image(getClass().getResourceAsStream("faseAnterior64.png"));
         
         b1.setGraphic(new ImageView(image));
         b2.setGraphic(new ImageView(image));
@@ -106,11 +122,14 @@ public class PrincipalNivel3Controller implements Initializable {
         nivel2.setGraphic(new ImageView(nivel2Icon));
         nivel3.setGraphic(new ImageView(nivel3Icon));
         
+        botaoProximaFase.setGraphic(new ImageView(proximaFase));
+        botaoFaseAnterior.setGraphic(new ImageView(faseAnterior));
         botaoFaseAnterior.setVisible(false);             
         barraTempo.setStyle("-fx-accent: #00FF00");
         modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9, 
                 b10, b11, b12, b13, b14, b15,b16, botaoFaseAnterior,
-                botaoProximaFase, barraTempo); //construtor modelPrincipal do nivel 2
+                botaoProximaFase, barraTempo,
+                fase1, fase2, fase3, fase4, fase5,fase6,fase7); //construtor modelPrincipal do nivel 2
         iniciarJogo();
     }
 
@@ -169,6 +188,10 @@ public class PrincipalNivel3Controller implements Initializable {
     public void setNivel(int i) {
         System.out.println("Entrou aqui nivek" +i);
         modelPrincipal.setNivel(i);
+    }
+
+    @FXML
+    private void mudarFase(ActionEvent event) {
     }
 
 }
