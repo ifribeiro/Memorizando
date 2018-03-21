@@ -78,6 +78,8 @@ public class PrincipalController implements Initializable {
     private ImageView iconeAvatar;
     @FXML
     private Label pontuacao;
+    @FXML
+    private Label nomeJogador;
 
     /**
      * Initializes the controller class.
@@ -109,8 +111,7 @@ public class PrincipalController implements Initializable {
         barraTempo.setStyle("-fx-accent: #00FF00");
         modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,
               botaoProximaFase, barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
-              iconeAvatar,pontuacao); //construtor modelPrincipal do nível 1    
-
+              iconeAvatar,pontuacao,nomeJogador); //construtor modelPrincipal do nível 1
         iniciarJogo();
         
     }
@@ -180,6 +181,10 @@ public class PrincipalController implements Initializable {
 
     public void setIconeAvatar(int avatar) {
         modelPrincipal.setIconeAvatar(avatar);
+    }
+
+    public void setNomeJogador(String text) {
+        modelPrincipal.setNomeJogador(text);
     }
 
 }

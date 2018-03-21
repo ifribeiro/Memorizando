@@ -32,7 +32,7 @@ public class ModelInicial {
     @FXML
     public void iniciarJogo(ActionEvent botao) throws IOException {
         janela = (Stage) ((Button) botao.getSource()).getScene().getWindow();        
-        fxmloader = new FXMLLoader(getClass().getResource("/interfaces/ranking.fxml"));
+        fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
         cenaPrincipal = (Parent) fxmloader.load();
         rankingController = fxmloader.<RankingController>getController();        
         Scene scene = new Scene(cenaPrincipal, 1200, 700);

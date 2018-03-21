@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -87,6 +88,12 @@ public class PrincipalNivel3Controller implements Initializable {
     private Button fase6;
     @FXML
     private Button fase7;
+    @FXML
+    private ImageView iconeAvatar;
+    @FXML
+    private Label pontuacao;
+    @FXML
+    private Label nomeJogador;
 
     /**
      * Initializes the controller class.
@@ -129,7 +136,8 @@ public class PrincipalNivel3Controller implements Initializable {
         modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9, 
                 b10, b11, b12, b13, b14, b15,b16, botaoFaseAnterior,
                 botaoProximaFase, barraTempo,
-                fase1, fase2, fase3, fase4, fase5,fase6,fase7); //construtor modelPrincipal do nivel 2
+                fase1, fase2, fase3, fase4, fase5,fase6,fase7, iconeAvatar,
+                pontuacao,nomeJogador); //construtor modelPrincipal do nivel 2
         iniciarJogo();
     }
 
@@ -192,6 +200,15 @@ public class PrincipalNivel3Controller implements Initializable {
 
     @FXML
     private void mudarFase(ActionEvent event) {
+        modelPrincipal.mudarFase(event);
+    }    
+     
+    public void setIconeAvatar(int avatar) {
+        modelPrincipal.setIconeAvatar(avatar);
+    }
+
+    public void setNomeJogador(String text) {
+        modelPrincipal.setNomeJogador(text);
     }
 
 }

@@ -181,6 +181,8 @@ public class ModelPrincipal {
     private Media media;
     private Stage janela;
     private Label pontuacao;
+    private Label nomeJogador;
+    @FXML
     private ImageView iconeAvatar;
     private String botao1, botao2;
     private Button btemp1, btemp2;
@@ -196,12 +198,13 @@ public class ModelPrincipal {
     PrincipalNivel2Controller principalNivel2Controller = null;
     PrincipalNivel3Controller principalNivel3Controller = null;
     private EventHandler<ActionEvent> evento1Botao, evento2Botao;
-    private int acerto, erro, fase, nivel, cliquesTotais, cliques;
+    private int acerto, erro, fase, nivel, cliquesTotais, cliques, avatar;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button faseAnterior, Button proximaFase,
             ProgressBar barraTempo, Button fase1, Button fase2, Button fase3, Button fase4,
-            Button fase5, Button fase6, Button fase7, ImageView iconeAvatar, Label pontuacao) {
+            Button fase5, Button fase6, Button fase7, ImageView iconeAvatar, Label pontuacao,
+            Label nomeJogador) {
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -213,6 +216,7 @@ public class ModelPrincipal {
         this.erro = 0;
         this.fase = 1;
         this.nivel = 1;
+        this.avatar = 1;
         this.acerto = 0;
         this.cliques = 0;
         this.botao1 = "";
@@ -223,12 +227,13 @@ public class ModelPrincipal {
         this.fase4 = fase4;
         this.fase5 = fase5;
         this.fase6 = fase6;
-        this.fase7 = fase7;  
-        this.pontuacao = pontuacao;
+        this.fase7 = fase7;        
         this.gameOver = false;        
         this.cliquesTotais = 0;        
-        this.timerIniciado = false;
+        this.timerIniciado = false;        
+        this.pontuacao = pontuacao;
         this.barraTempo = barraTempo;
+        this.nomeJogador = nomeJogador;
         this.iconeAvatar = iconeAvatar;
         this.botaoProximaFase = proximaFase;
         this.botaoFaseAnterior = faseAnterior;
@@ -239,7 +244,8 @@ public class ModelPrincipal {
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button faseAnterior,
             Button proximaFase, ProgressBar barraTempo,Button fase1, Button fase2, 
-            Button fase3, Button fase4,Button fase5, Button fase6, Button fase7) {
+            Button fase3, Button fase4,Button fase5, Button fase6, Button fase7,
+            ImageView iconeAvatar, Label pontuacao, Label nomeJogador) {
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -253,6 +259,7 @@ public class ModelPrincipal {
         this.fase = 1;
         this.b10 = b10;
         this.nivel = 1;
+        this.avatar = 1;
         this.acerto = 0;
         this.cliques = 0;
         this.botao1 = "";
@@ -264,20 +271,23 @@ public class ModelPrincipal {
         this.fase5 = fase5;
         this.fase6 = fase6;
         this.fase7 = fase7;
-        this.gameOver = false;
+        this.gameOver = false;        
         this.cliquesTotais = 0;
         this.timerIniciado = false;
         this.barraTempo = barraTempo;
         this.botaoProximaFase = proximaFase;
         this.botaoFaseAnterior = faseAnterior;
-
+        this.iconeAvatar = iconeAvatar;
+        this.pontuacao = pontuacao;
+        this.nomeJogador = nomeJogador;
     }
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
             Button b13, Button b14, Button b15, Button b16, Button faseAnterior, Button proximaFase,
             ProgressBar barraTempo, Button fase1, Button fase2, Button fase3, Button fase4,
-            Button fase5, Button fase6, Button fase7) {
+            Button fase5, Button fase6, Button fase7, ImageView iconeAvatar, Label pontuacao,
+            Label nomeJogador) {
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -297,7 +307,7 @@ public class ModelPrincipal {
         this.b14 = b14;
         this.b15 = b15;
         this.b16 = b16;
-        this.acerto = 0;
+        this.acerto = 1;
         this.cliques = 0;
         this.botao1 = "";
         this.botao2 = "";
@@ -314,6 +324,10 @@ public class ModelPrincipal {
         this.barraTempo = barraTempo;
         this.botaoProximaFase = proximaFase;
         this.botaoFaseAnterior = faseAnterior;
+        this.iconeAvatar = iconeAvatar;
+        this.pontuacao = pontuacao;
+        this.nomeJogador = nomeJogador;
+        this.avatar = 1;
 
     }
 
@@ -349,8 +363,8 @@ public class ModelPrincipal {
                     //setTocando(true);
                 };
                 evento2Botao = (ActionEvent event) -> {
-                    btemp1.setVisible(false);
-                    btemp2.setVisible(false);
+                    btemp1.setDisable(true);
+                    btemp2.setDisable(true);
                     setCorBotao(btemp1, "#00000");
                     setCorBotao(btemp2, "#00000");
                     verificarTerminoNivel();
@@ -393,6 +407,8 @@ public class ModelPrincipal {
                 principalController = fxmloader.<PrincipalController>getController();
                 principalController.setFase(getFase());
                 principalController.setNivel(1);
+                principalController.setIconeAvatar(getAvatar());
+                principalController.setNomeJogador(nomeJogador.getText());
                 principalController.iniciarJogo();
                 break;
             case "nivel2":
@@ -402,6 +418,8 @@ public class ModelPrincipal {
                 principalNivel2Controller = fxmloader.<PrincipalNivel2Controller>getController();
                 principalNivel2Controller.setFase(getFase());
                 principalNivel2Controller.setNivel(2);
+                principalNivel2Controller.setIconeAvatar(getAvatar());
+                principalNivel2Controller.setNomeJogador(nomeJogador.getText());
                 principalNivel2Controller.iniciarJogo();
                 break;
             case "nivel3":
@@ -411,6 +429,8 @@ public class ModelPrincipal {
                 principalNivel3Controller = fxmloader.<PrincipalNivel3Controller>getController();
                 principalNivel3Controller.setFase(getFase());
                 principalNivel3Controller.setNivel(3);
+                principalNivel3Controller.setIconeAvatar(getAvatar());
+                principalNivel3Controller.setNomeJogador(nomeJogador.getText());
                 principalNivel3Controller.iniciarJogo();
                 break;
         }
@@ -533,7 +553,17 @@ public class ModelPrincipal {
     public void setNivel(int i) {
         this.nivel = i;
     }
-
+    public int getAvatar(){
+        return this.avatar;
+    }
+    public void setAvatar(int avatar){        
+        if(avatar==0){
+            System.out.println("ASdf dsd");
+            this.avatar=1;
+        }else{
+            this.avatar = avatar;
+        }        
+    }
     public int getNivel() {
         return this.nivel;
     }
@@ -998,8 +1028,11 @@ public class ModelPrincipal {
     }
 
     public void setIconeAvatar(int avatar) {
-        URL arquivoImg = getClass().getResource("imagens/icones/" + avatar + ".png");
-        iconeAvatar.setImage(new Image(arquivoImg.toString()));
+        setAvatar(avatar);
+        URL arquivoImg = getClass().getResource("imagens/icones/" + getAvatar() + ".png");
+        
+        System.out.println("Avatar "+getAvatar());
+        this.iconeAvatar.setImage(new Image(arquivoImg.toString()));
     }
 
     private void incrementarPontuacao(int acerto) {
@@ -1007,4 +1040,7 @@ public class ModelPrincipal {
         pontuacao.setText(pontos+" pts");
     }
 
+    public void setNomeJogador(String text) {
+        this.nomeJogador.setText(text);
+    }
 }

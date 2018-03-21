@@ -75,6 +75,7 @@ public class ModelRanking {
         principalController.setNivel(1);
         principalController.iniciarJogo();
         principalController.setIconeAvatar(avatar);
+        principalController.setNomeJogador(nomeJogador.getText());
         Scene scene = new Scene(cenaPrincipal, 1200, 700);
         janela.setScene(scene);
         janela.setFullScreen(true);
