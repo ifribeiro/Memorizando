@@ -5,15 +5,21 @@
 .mainFxmlClass {
 
 }
-#botaoProximaFase, #botaoFaseAnterior, #nivel1, #nivel2, #nivel3{
+#botaoProximaFase, #botaoFaseAnterior, #nivel1, #nivel2, #nivel3, #avatar1,#avatar2,
+#avatar2,#avatar3,#avatar4,#avatar5,#avatar6,#avatar7,#avatar8,#avatar9,#avatar10, #menuInicial{
     -fx-padding: 0px 0px;
-    -fx-background-color: transparent;
+    -fx-background-color: transparent;    
+    -fx-background-radius: 75%;
 }
 
 .button{
     -fx-background-radius: 70%;
-    -fx-cursor: hand;
-    
+    -fx-cursor: hand;    
+}
+
+.button:hover{    
+    -fx-cursor: hand;    
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
 }
 
 #botaoSelecionado{
@@ -22,6 +28,9 @@
     -fx-translate-x: -7;
     -fx-translate-y: -7
 }
+
+
+
 
 
 

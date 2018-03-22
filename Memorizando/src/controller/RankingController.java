@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -56,7 +57,8 @@ public class RankingController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        modelRanking = new ModelRanking(avatarMaior,nomeJogador,iniciar);
+        modelRanking = new ModelRanking(avatarMaior,nomeJogador,iniciar,avatar1,
+        avatar2,avatar3,avatar4,avatar5,avatar6,avatar7,avatar8,avatar9,avatar10);
     }    
 
     @FXML
@@ -72,6 +74,16 @@ public class RankingController implements Initializable {
     @FXML
     private void iniciarJogo(ActionEvent event) throws IOException {
         modelRanking.iniciarJogo(event);
+    }
+
+    @FXML
+    private void avatarEscolhido(MouseEvent event) {
+        modelRanking.avatarEscolhido(event);
+    }
+
+    @FXML
+    private void efeitoMouse(MouseEvent event) {
+        modelRanking.efeitoMouse(event);
     }
     
 }

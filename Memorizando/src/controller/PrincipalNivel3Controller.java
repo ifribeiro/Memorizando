@@ -94,6 +94,8 @@ public class PrincipalNivel3Controller implements Initializable {
     private Label pontuacao;
     @FXML
     private Label nomeJogador;
+    @FXML
+    private Button menuInicial;
 
     /**
      * Initializes the controller class.
@@ -209,6 +211,10 @@ public class PrincipalNivel3Controller implements Initializable {
 
     public void setNomeJogador(String text) {
         modelPrincipal.setNomeJogador(text);
+    }
+
+    @FXML
+    private void menuInicial(ActionEvent event) {
     }
 
 }

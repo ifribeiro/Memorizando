@@ -187,7 +187,7 @@ public class ModelPrincipal {
     private String botao1, botao2;
     private Button btemp1, btemp2;
     private ArrayList novasOpcoes;
-    private MediaPlayer mediaPlayer;    
+    private MediaPlayer mediaPlayer;
     private MediaView mediaView = new MediaView();
     private String ArrayNivel1[] = new String[16];
     private String[] ArrayNivel2 = new String[16];
@@ -197,7 +197,7 @@ public class ModelPrincipal {
     private boolean tocando = false, gameOver, timerIniciado;
     PrincipalNivel2Controller principalNivel2Controller = null;
     PrincipalNivel3Controller principalNivel3Controller = null;
-    private EventHandler<ActionEvent> evento1Botao, evento2Botao;
+    private EventHandler<ActionEvent> evento1Botao, evento2Botao, eventoSomAcerto, eventoProximoNivel, eventoFimNivel;
     private int acerto, erro, fase, nivel, cliquesTotais, cliques, avatar;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
@@ -227,24 +227,23 @@ public class ModelPrincipal {
         this.fase4 = fase4;
         this.fase5 = fase5;
         this.fase6 = fase6;
-        this.fase7 = fase7;        
-        this.gameOver = false;        
-        this.cliquesTotais = 0;        
-        this.timerIniciado = false;        
+        this.fase7 = fase7;
+        this.gameOver = false;
+        this.cliquesTotais = 0;
+        this.timerIniciado = false;
         this.pontuacao = pontuacao;
         this.barraTempo = barraTempo;
         this.nomeJogador = nomeJogador;
         this.iconeAvatar = iconeAvatar;
         this.botaoProximaFase = proximaFase;
         this.botaoFaseAnterior = faseAnterior;
-        
 
     }
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button faseAnterior,
-            Button proximaFase, ProgressBar barraTempo,Button fase1, Button fase2, 
-            Button fase3, Button fase4,Button fase5, Button fase6, Button fase7,
+            Button proximaFase, ProgressBar barraTempo, Button fase1, Button fase2,
+            Button fase3, Button fase4, Button fase5, Button fase6, Button fase7,
             ImageView iconeAvatar, Label pontuacao, Label nomeJogador) {
         this.b1 = b1;
         this.b2 = b2;
@@ -271,7 +270,7 @@ public class ModelPrincipal {
         this.fase5 = fase5;
         this.fase6 = fase6;
         this.fase7 = fase7;
-        this.gameOver = false;        
+        this.gameOver = false;
         this.cliquesTotais = 0;
         this.timerIniciado = false;
         this.barraTempo = barraTempo;
@@ -369,9 +368,15 @@ public class ModelPrincipal {
                     setCorBotao(btemp2, "#00000");
                     verificarTerminoNivel();
                 };
+
+                eventoSomAcerto = (ActionEvent event) -> {
+                    tocarEfeitoAcerto();
+                };
+
                 new Timeline(
                         new KeyFrame(Duration.seconds(0), evento1Botao),
-                        new KeyFrame(Duration.seconds(0.5), evento2Botao)).play();
+                        new KeyFrame(Duration.seconds(0.7), evento2Botao),
+                        new KeyFrame(Duration.seconds(0.2), eventoSomAcerto)).play();
                 //deixar os dois botoes invisiveis
                 //aumentar um pouco o tempo de acordo a fase 
 
@@ -453,7 +458,6 @@ public class ModelPrincipal {
         ArrayList indicesUtilizados = new ArrayList();//array que receberá os índices que já foram utilizados ????
         ArrayList indicesFonemasUtilizados = new ArrayList();
         Random indice = new Random();//gerador de índices aleatorios
-
         switch (getNivel()) {
             case 1:
                 numeroFonemas = 4;
@@ -544,6 +548,15 @@ public class ModelPrincipal {
 
     public void setFase(int fase) {
         this.fase = fase;
+        if (fase == 7) {
+            botaoProximaFase.setVisible(false);
+        }
+        if (fase == 1) {
+            botaoFaseAnterior.setVisible(false);
+        } else {
+            botaoFaseAnterior.setVisible(true);
+        }
+        destacarBotao(fase);
     }
 
     public int getFase() {
@@ -553,17 +566,19 @@ public class ModelPrincipal {
     public void setNivel(int i) {
         this.nivel = i;
     }
-    public int getAvatar(){
+
+    public int getAvatar() {
         return this.avatar;
     }
-    public void setAvatar(int avatar){        
-        if(avatar==0){
-            System.out.println("ASdf dsd");
-            this.avatar=1;
-        }else{
+
+    public void setAvatar(int avatar) {
+        if (avatar == 0) {
+            this.avatar = 1;
+        } else {
             this.avatar = avatar;
-        }        
+        }
     }
+
     public int getNivel() {
         return this.nivel;
     }
@@ -610,7 +625,7 @@ public class ModelPrincipal {
             if (!(fase == 7)) {
                 this.fase = fase + 1;
                 gerarOpcoes(fase);
-                exibirBotoes(getNivel());                
+                exibirBotoes(getNivel());
             }
 
         }
@@ -650,19 +665,19 @@ public class ModelPrincipal {
                 caminhoAudio = "_audios/audios_silabasSimples/" + audio + ".mp3";
                 break;
             case 3:
-                caminhoAudio = "_audios/audios_palavrasSimples/" + audio +".mp3";
+                caminhoAudio = "_audios/audios_palavrasSimples/" + audio + ".mp3";
                 break;
             case 4:
-                caminhoAudio = "_audios/audios_silabasComplexas1/" + audio+".mp3";
+                caminhoAudio = "_audios/audios_silabasComplexas1/" + audio + ".mp3";
                 break;
             case 5:
-                caminhoAudio = "_audios/audios_silabasComplexas2/" + audio+".mp3";
+                caminhoAudio = "_audios/audios_silabasComplexas2/" + audio + ".mp3";
                 break;
             case 6:
-                caminhoAudio = "_audios/audios_silabasComplexas3/" + audio+".mp3";
+                caminhoAudio = "_audios/audios_silabasComplexas3/" + audio + ".mp3";
                 break;
             case 7:
-                caminhoAudio = "_audios/audios_palavrasComplexas/" + audio+".mp3";
+                caminhoAudio = "_audios/audios_palavrasComplexas/" + audio + ".mp3";
                 break;
         }
         System.out.println("Caminho " + caminhoAudio);
@@ -715,14 +730,14 @@ public class ModelPrincipal {
     public void exibirBotoes(int nivel) {
         switch (nivel) {
             case 1:
-                b1.setVisible(true);
-                b2.setVisible(true);
-                b3.setVisible(true);
-                b4.setVisible(true);
-                b5.setVisible(true);
-                b6.setVisible(true);
-                b7.setVisible(true);
-                b8.setVisible(true);
+                b1.setDisable(false);
+                b2.setDisable(false);
+                b3.setDisable(false);
+                b4.setDisable(false);
+                b5.setDisable(false);
+                b6.setDisable(false);
+                b7.setDisable(false);
+                b8.setDisable(false);
                 break;
             case 2:
                 b1.setVisible(true);
@@ -845,10 +860,18 @@ public class ModelPrincipal {
         switch (getNivel()) {
             case 1:
                 if (getAcertos() == 4) {
-                    exibirBotoes(1);
-                    gerarOpcoes(getFase());
-                    setAcerto(0);
-                    mediaPlayer.dispose();
+                    eventoFimNivel = (ActionEvent event) -> {
+                        tocarEfeitoAcertoFinal();
+                    };
+
+                    eventoProximoNivel = (ActionEvent event) -> {
+                        exibirBotoes(1);
+                        setFase(getFase() + 1);
+                        gerarOpcoes(getFase());
+                        setAcerto(0);
+                        mediaPlayer.dispose();
+                    };
+
                 }
                 break;
             case 2:
@@ -868,6 +891,9 @@ public class ModelPrincipal {
                 }
                 break;
         }
+        new Timeline(
+                new KeyFrame(Duration.seconds(0), eventoFimNivel),               
+                new KeyFrame(Duration.seconds(5), eventoProximoNivel )).play();       
 
     }
 
@@ -875,16 +901,16 @@ public class ModelPrincipal {
         String botaoClicado = ((Button) event.getSource()).getId();
         int botaoFase = Integer.parseInt(botaoClicado.substring(4));
         System.out.println("BotaoClicado " + botaoFase);
-        if(botaoFase>1){
+        if (botaoFase > 1) {
             botaoFaseAnterior.setVisible(true);
         }
-        if(botaoFase<7){
+        if (botaoFase < 7) {
             botaoProximaFase.setVisible(true);
         }
-        if(botaoFase==7){
+        if (botaoFase == 7) {
             botaoProximaFase.setVisible(false);
         }
-        
+
         switch (botaoFase) {
             case 1:
                 fase1.setId("botaoSelecionado");
@@ -903,7 +929,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("fase7");     
+                fase7.setId("fase7");
                 botaoFaseAnterior.setVisible(true);
                 break;
             case 3:
@@ -913,7 +939,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("fase7");               
+                fase7.setId("fase7");
                 break;
             case 4:
                 fase1.setId("fase1");
@@ -922,7 +948,7 @@ public class ModelPrincipal {
                 fase4.setId("botaoSelecionado");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("fase7");                
+                fase7.setId("fase7");
                 break;
             case 5:
                 fase1.setId("fase1");
@@ -931,7 +957,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("botaoSelecionado");
                 fase6.setId("fase6");
-                fase7.setId("fase7");                
+                fase7.setId("fase7");
                 break;
             case 6:
                 fase1.setId("fase1");
@@ -940,7 +966,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("botaoSelecionado");
-                fase7.setId("fase7");    
+                fase7.setId("fase7");
                 botaoProximaFase.setVisible(true);
                 break;
             case 7:
@@ -968,7 +994,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("fase7");                
+                fase7.setId("fase7");
                 break;
             case 2:
                 fase1.setId("fase1");
@@ -977,7 +1003,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("fase7");               
+                fase7.setId("fase7");
                 break;
             case 3:
                 fase1.setId("fase1");
@@ -986,7 +1012,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("fase7");               
+                fase7.setId("fase7");
                 break;
             case 4:
                 fase1.setId("fase1");
@@ -995,7 +1021,7 @@ public class ModelPrincipal {
                 fase4.setId("botaoSelecionado");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("fase7");                
+                fase7.setId("fase7");
                 break;
             case 5:
                 fase1.setId("fase1");
@@ -1004,7 +1030,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("botaoSelecionado");
                 fase6.setId("fase6");
-                fase7.setId("fase7");                
+                fase7.setId("fase7");
                 break;
             case 6:
                 fase1.setId("fase1");
@@ -1013,7 +1039,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("botaoSelecionado");
-                fase7.setId("fase7");                
+                fase7.setId("fase7");
                 break;
             case 7:
                 fase1.setId("fase1");
@@ -1022,7 +1048,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("botaoSelecionado");               
+                fase7.setId("botaoSelecionado");
                 break;
         }
     }
@@ -1030,17 +1056,61 @@ public class ModelPrincipal {
     public void setIconeAvatar(int avatar) {
         setAvatar(avatar);
         URL arquivoImg = getClass().getResource("imagens/icones/" + getAvatar() + ".png");
-        
-        System.out.println("Avatar "+getAvatar());
+
+        System.out.println("Avatar " + getAvatar());
         this.iconeAvatar.setImage(new Image(arquivoImg.toString()));
     }
 
-    private void incrementarPontuacao(int acerto) {
-        int pontos = acerto*5;
-        pontuacao.setText(pontos+" pts");
+    public void incrementarPontuacao(int acerto) {
+        int pontos = acerto * 5;
+        pontuacao.setText(pontos + " pts");
     }
 
     public void setNomeJogador(String text) {
         this.nomeJogador.setText(text);
+    }
+
+    public void tocarEfeitoAcerto() {
+        String caminhoAudio = "";
+        caminhoAudio = "_audios/efeitos/efeitoAcerto.mp3";
+        URL file = getClass().getResource(caminhoAudio);
+        media = new Media(file.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.play();
+                setTocando(true);
+            }
+        });
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                setTocando(false);
+                mediaPlayer.dispose();
+            }
+        });
+    }
+
+    private void tocarEfeitoAcertoFinal() {
+        String caminhoAudio = "";
+        caminhoAudio = "_audios/efeitos/palmas.mp3";
+        URL file = getClass().getResource(caminhoAudio);
+        media = new Media(file.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.play();
+                setTocando(true);
+            }
+        });
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                setTocando(false);
+                mediaPlayer.dispose();
+            }
+        });
     }
 }

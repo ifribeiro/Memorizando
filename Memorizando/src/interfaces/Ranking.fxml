@@ -22,9 +22,9 @@
         </ImageView>
       <HBox layoutX="406.0" layoutY="80.0" prefHeight="100.0" prefWidth="1000.0" AnchorPane.rightAnchor="70.0">
          <children>
-            <Button fx:id="avatar1" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar1" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
@@ -33,7 +33,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="avatar2" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar2" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,10 +42,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar3" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar3" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -54,10 +54,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar4" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar4" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -66,10 +66,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar5" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar5" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -78,10 +78,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar6" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar6" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -90,10 +90,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar7" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar7" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -102,10 +102,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar8" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar8" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -114,10 +114,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar9" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar9" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -126,10 +126,10 @@
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="avatar10" mnemonicParsing="false" onAction="#trocarAvatar" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="avatar10" mnemonicParsing="false" onAction="#trocarAvatar" onMouseClicked="#avatarEscolhido" onMouseEntered="#efeitoMouse" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -297,6 +297,6 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="iniciar" disable="true" layoutX="666.0" layoutY="548.0" mnemonicParsing="false" onAction="#iniciarJogo" prefHeight="64.0" prefWidth="64.0" text="Iniciar" />
+      <Button fx:id="iniciar" disable="true" layoutX="666.0" layoutY="548.0" mnemonicParsing="false" onAction="#iniciarJogo" onMouseEntered="#efeitoMouse" prefHeight="64.0" prefWidth="64.0" text="Iniciar" />
     </children>
 </AnchorPane>
