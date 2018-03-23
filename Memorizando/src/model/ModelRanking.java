@@ -1,14 +1,22 @@
 package model;
 
 import controller.PrincipalController;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -63,9 +71,76 @@ public class ModelRanking {
     private Media media;
     private MediaPlayer mediaPlayer;
 
+    @FXML
+    private ImageView img1;
+    @FXML
+    private ImageView img2;
+    @FXML
+    private ImageView img3;
+    @FXML
+    private ImageView img4;
+    @FXML
+    private ImageView img5;
+    @FXML
+    private ImageView img6;
+    @FXML
+    private ImageView img7;
+    @FXML
+    private ImageView img8;
+    @FXML
+    private ImageView img9;
+    @FXML
+    private ImageView img10;
+    @FXML
+    private Label nome1;
+    @FXML
+    private Label pontos1;
+    @FXML
+    private Label nome2;
+    @FXML
+    private Label pontos2;
+    @FXML
+    private Label nome3;
+    @FXML
+    private Label pontos3;
+    @FXML
+    private Label nome4;
+    @FXML
+    private Label pontos4;
+    @FXML
+    private Label nome5;
+    @FXML
+    private Label pontos5;
+    @FXML
+    private Label nome6;
+    @FXML
+    private Label pontos6;
+    @FXML
+    private Label nome7;
+    @FXML
+    private Label pontos7;
+    @FXML
+    private Label nome8;
+    @FXML
+    private Label pontos8;
+    @FXML
+    private Label nome9;
+    @FXML
+    private Label pontos9;
+    @FXML
+    private Label nome10;
+    @FXML
+    private Label pontos10;
+
+    private ArrayList listaRanking = new ArrayList();
+
     public ModelRanking(ImageView avatarMaior, TextField nomeJogador, Button iniciar, Button av1,
             Button av2, Button av3, Button av4, Button av5, Button av6, Button av7, Button av8,
-            Button av9, Button av10) {
+            Button av9, Button av10, ImageView i1, ImageView i2, ImageView i3, ImageView i4,
+            ImageView i5, ImageView i6, ImageView i7, ImageView i8, ImageView i9, ImageView i10,
+            Label nm1, Label nm2, Label nm3, Label nm4, Label nm5, Label nm6, Label nm7, Label nm8,
+            Label nm9, Label nm10, Label pt1, Label pt2, Label pt3, Label pt4, Label pt5, Label pt6,
+            Label pt7, Label pt8, Label pt9, Label pt10) {
         this.avatarMaior = avatarMaior;
         this.nomeJogador = nomeJogador;
         this.iniciar = iniciar;
@@ -80,6 +155,36 @@ public class ModelRanking {
         this.avatar8 = av8;
         this.avatar9 = av9;
         this.avatar10 = av10;
+        this.img1 = i1;
+        this.img2 = i2;
+        this.img3 = i3;
+        this.img4 = i4;
+        this.img5 = i5;
+        this.img6 = i6;
+        this.img7 = i7;
+        this.img8 = i8;
+        this.img9 = i9;
+        this.img10 = i10;
+        this.nome1 = nm1;
+        this.nome2 = nm2;
+        this.nome3 = nm3;
+        this.nome4 = nm4;
+        this.nome5 = nm5;
+        this.nome6 = nm6;
+        this.nome7 = nm7;
+        this.nome8 = nm8;
+        this.nome9 = nm9;
+        this.nome10 = nm10;
+        this.pontos1 = pt1;
+        this.pontos2 = pt2;
+        this.pontos3 = pt3;
+        this.pontos4 = pt4;
+        this.pontos5 = pt5;
+        this.pontos6 = pt6;
+        this.pontos7 = pt7;
+        this.pontos8 = pt8;
+        this.pontos9 = pt9;
+        this.pontos10 = pt10;
 
     }
 
@@ -123,16 +228,21 @@ public class ModelRanking {
 
     }
 
+    /**
+     * Troca a imagem do avatar escolhido pelo jogador
+     *
+     * @param event
+     */
     public void avatarEscolhido(MouseEvent event) {
         Button b_temp = (Button) event.getSource();
         String id = b_temp.getId().substring(6);
-        String efeito = "-fx-background-color:\n" +
-"        linear-gradient(#f0ff35, #a9ff00),\n" +
-"        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);\n" +
-"    -fx-background-radius: 75%;\n" +
-"    -fx-background-insets: 0, 1;\n" +
-"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n" +
-"    -fx-text-fill: #395306;";
+        String efeito = "-fx-background-color:\n"
+                + "        linear-gradient(#f0ff35, #a9ff00),\n"
+                + "        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);\n"
+                + "    -fx-background-radius: 75%;\n"
+                + "    -fx-background-insets: 0, 1;\n"
+                + "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n"
+                + "    -fx-text-fill: #395306;";
         switch (id) {
             case "1":
                 b_temp.setStyle(efeito);
@@ -148,7 +258,7 @@ public class ModelRanking {
                 break;
             case "2":
                 this.avatar1.setStyle("-fx-background-color: transparent;");
-                b_temp.setStyle(efeito);                
+                b_temp.setStyle(efeito);
                 this.avatar3.setStyle("-fx-background-color: transparent;");
                 this.avatar4.setStyle("-fx-background-color: transparent;");
                 this.avatar5.setStyle("-fx-background-color: transparent;");
@@ -254,10 +364,10 @@ public class ModelRanking {
                 this.avatar9.setStyle("-fx-background-color: transparent;");
                 b_temp.setStyle(efeito);
                 break;
-        }        
+        }
     }
 
-    public void efeitoMouse(MouseEvent event) {        
+    public void efeitoMouse(MouseEvent event) {
         String caminhoAudio = "";
         caminhoAudio = "_audios/efeitos/transicaoBotao.mp3";
         URL file = getClass().getResource(caminhoAudio);
@@ -278,5 +388,98 @@ public class ModelRanking {
                 mediaPlayer.dispose();
             }
         });
+    }
+
+    /**
+     * Seleciona o primeiro avatar como padrão
+     *
+     * @param i numero do avatar escolhido como padrão
+     */
+    public void selecionarDefaultAvatar(int i) {
+        avatar1.setStyle("-fx-background-color:\n"
+                + "        linear-gradient(#f0ff35, #a9ff00),\n"
+                + "        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);\n"
+                + "    -fx-background-radius: 75%;\n"
+                + "    -fx-background-insets: 0, 1;\n"
+                + "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n"
+                + "    -fx-text-fill: #395306;");
+    }
+
+    public void atualizarRanking() {
+
+        //Array com os ids das imagens dos avatares no ranking
+        ArrayList idImagens = new ArrayList();
+        idImagens.add(img1);
+        idImagens.add(img2);
+        idImagens.add(img3);
+        idImagens.add(img4);
+        idImagens.add(img5);
+        idImagens.add(img6);
+        idImagens.add(img7);
+        idImagens.add(img8);
+        idImagens.add(img9);
+        idImagens.add(img10);
+
+        ArrayList idNomesJogador = new ArrayList();
+        idNomesJogador.add(nome1);
+        idNomesJogador.add(nome2);
+        idNomesJogador.add(nome3);
+        idNomesJogador.add(nome4);
+        idNomesJogador.add(nome5);
+        idNomesJogador.add(nome6);
+        idNomesJogador.add(nome7);
+        idNomesJogador.add(nome8);
+        idNomesJogador.add(nome9);
+        idNomesJogador.add(nome10);
+
+        ArrayList idPontos = new ArrayList();
+        idPontos.add(pontos1);
+        idPontos.add(pontos2);
+        idPontos.add(pontos3);
+        idPontos.add(pontos4);
+        idPontos.add(pontos5);
+        idPontos.add(pontos6);
+        idPontos.add(pontos7);
+        idPontos.add(pontos8);
+        idPontos.add(pontos9);
+        idPontos.add(pontos10);
+
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader("ranking.txt"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            while (br.ready()) {
+                String linha = br.readLine();
+                listaRanking.add(linha);//lê todas as linhas do arquivo
+            }
+            String r1;
+            int j = 0;
+            System.out.println("tamanhos " + listaRanking.size());
+            while (j <= (listaRanking.size() - 1) && j < 10) {
+                r1 = (String) listaRanking.get(j);
+                String[] split = r1.split(">");//separa a linha em 3 partes
+                String part1 = split[0];//numero do avatar
+                String part2 = split[1];//nome do jogador
+                String part3 = split[2];//pontuação
+
+                //atualizada os avatares
+                URL arquivoImg = getClass().getResource("imagens/icones/" + (Integer.parseInt(part1)) + ".png");
+                ((ImageView) idImagens.get(j)).setImage(new Image(arquivoImg.toString()));
+                //atualiza o nome do jogador
+                ((Label) idNomesJogador.get(j)).setText(part2);
+                //atualiza a pontuação
+                ((Label) idPontos.get(j)).setText(part3);
+                j++;
+
+            }
+
+            br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

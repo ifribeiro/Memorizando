@@ -139,7 +139,7 @@ public class PrincipalNivel3Controller implements Initializable {
                 b10, b11, b12, b13, b14, b15,b16, botaoFaseAnterior,
                 botaoProximaFase, barraTempo,
                 fase1, fase2, fase3, fase4, fase5,fase6,fase7, iconeAvatar,
-                pontuacao,nomeJogador); //construtor modelPrincipal do nivel 2
+                pontuacao,nomeJogador, nivel1, nivel2, nivel3); //construtor modelPrincipal do nivel 2
         iniciarJogo();
     }
 
@@ -214,7 +214,8 @@ public class PrincipalNivel3Controller implements Initializable {
     }
 
     @FXML
-    private void menuInicial(ActionEvent event) {
+    private void menuInicial(ActionEvent event) throws IOException {
+        modelPrincipal.menuInicial(event);
     }
 
 }

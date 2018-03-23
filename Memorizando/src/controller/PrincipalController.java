@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -111,9 +109,13 @@ public class PrincipalController implements Initializable {
         botaoFaseAnterior.setGraphic(new ImageView(faseAnterior));
         botaoFaseAnterior.setVisible(false);
         barraTempo.setStyle("-fx-accent: #00FF00");
-        modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,
-              botaoProximaFase, barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
-              iconeAvatar,pontuacao,nomeJogador); //construtor modelPrincipal do nível 1
+        try {
+            modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,
+                    botaoProximaFase, barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
+                    iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3); //construtor modelPrincipal do nível 1
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         iniciarJogo();
         
     }
@@ -190,7 +192,8 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void menuInicial(ActionEvent event) {
+    private void menuInicial(ActionEvent event) throws IOException {
+        modelPrincipal.menuInicial(event);
     }
 
 }

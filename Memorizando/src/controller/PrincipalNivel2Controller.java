@@ -117,7 +117,7 @@ public class PrincipalNivel2Controller implements Initializable {
         barraTempo.setStyle("-fx-accent: #00FF00");
         modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, botaoFaseAnterior,
                 botaoProximaFase, barraTempo,fase1, fase2, fase3, fase4, fase5,fase6,fase7,
-                iconeAvatar,pontuacao,nomeJogador); //construtor modelPrincipal do nivel 2
+                iconeAvatar,pontuacao,nomeJogador, nivel1, nivel2, nivel3); //construtor modelPrincipal do nivel 2
         iniciarJogo();
     }
 
@@ -190,6 +190,7 @@ public class PrincipalNivel2Controller implements Initializable {
     }
 
     @FXML
-    private void menuInicial(ActionEvent event) {
+    private void menuInicial(ActionEvent event) throws IOException {
+        modelPrincipal.menuInicial(event);
     }
 }

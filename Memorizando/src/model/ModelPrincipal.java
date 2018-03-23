@@ -1,15 +1,25 @@
 package model;
 
 import java.io.IOException;
+import controller.RankingController;
 import controller.PrincipalController;
 import controller.PrincipalNivel2Controller;
 import controller.PrincipalNivel3Controller;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -46,7 +56,7 @@ public class ModelPrincipal {
         "ni", "no", "nu", "om", "on", "or", "os",
         "pa", "pe", "pi", "po", "pu", "ra", "re", "ri", "ro",
         "ru", "sa", "se", "si", "so", "su", "ta", "te", "ti", "to", "tu",
-        "um", "ur", "va", "ve", "vi", "vo", "vu", "xa", "xe", "xi", "xo", "za", "ze", "zi"};
+        "um", "ur", "va", "ve", "vi", "vo", "vu", "xa", "xe", "xi", "xo", "za", "ze", "zo"};
     private final String arraySilabasComplexas1[] = {
         "bal", "bam", "ban", "bão", "bar", "bas", "bel", "bem", "ber", "bes",
         "bil", "bin", "bir", "bis", "bol", "bom", "bor", "bos", "bum", "bur",
@@ -122,6 +132,8 @@ public class ModelPrincipal {
         "tartaruga", "telefone", "terra", "tigre", "tornozelo", "vidro"
     };
 
+    private ArrayList listaRanking;
+
     @FXML
     private Button b1;
     @FXML
@@ -176,13 +188,18 @@ public class ModelPrincipal {
     private Button fase6;
     @FXML
     private Button fase7;
+    @FXML
+    private Button nivel1;
+    @FXML
+    private Button nivel2;
+    @FXML
+    private Button nivel3;
 
     private Timer timer;
     private Media media;
     private Stage janela;
     private Label pontuacao;
     private Label nomeJogador;
-    @FXML
     private ImageView iconeAvatar;
     private String botao1, botao2;
     private Button btemp1, btemp2;
@@ -192,19 +209,22 @@ public class ModelPrincipal {
     private String ArrayNivel1[] = new String[16];
     private String[] ArrayNivel2 = new String[16];
     private String[] ArrayNivel3 = new String[16];
-    PrincipalController principalController = null;
+    private PrincipalController principalController = null;
     private ArrayList arrayBotoes = new ArrayList<String>();
     private boolean tocando = false, gameOver, timerIniciado;
-    PrincipalNivel2Controller principalNivel2Controller = null;
-    PrincipalNivel3Controller principalNivel3Controller = null;
+    private PrincipalNivel2Controller principalNivel2Controller = null;
+    private PrincipalNivel3Controller principalNivel3Controller = null;
+    private RankingController rankingController = null;
     private EventHandler<ActionEvent> evento1Botao, evento2Botao, eventoSomAcerto, eventoProximoNivel, eventoFimNivel;
-    private int acerto, erro, fase, nivel, cliquesTotais, cliques, avatar;
+    private int acerto, erro, fase, nivel, cliquesTotais, cliques, avatar, pontos;
+    BufferedReader br;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button faseAnterior, Button proximaFase,
-            ProgressBar barraTempo, Button fase1, Button fase2, Button fase3, Button fase4,
-            Button fase5, Button fase6, Button fase7, ImageView iconeAvatar, Label pontuacao,
-            Label nomeJogador) {
+            ProgressBar barraTempo, Button f1, Button f2, Button f3, Button f4,
+            Button f5, Button f6, Button f7, ImageView icoA, Label pont,
+            Label nmJogador, Button n1, Button n2, Button n3) throws FileNotFoundException {
+
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -221,30 +241,35 @@ public class ModelPrincipal {
         this.cliques = 0;
         this.botao1 = "";
         this.botao2 = "";
-        this.fase1 = fase1;
-        this.fase2 = fase2;
-        this.fase3 = fase3;
-        this.fase4 = fase4;
-        this.fase5 = fase5;
-        this.fase6 = fase6;
-        this.fase7 = fase7;
+        this.fase1 = f1;
+        this.fase2 = f2;
+        this.fase3 = f3;
+        this.fase4 = f4;
+        this.fase5 = f5;
+        this.fase6 = f6;
+        this.fase7 = f7;
         this.gameOver = false;
         this.cliquesTotais = 0;
         this.timerIniciado = false;
-        this.pontuacao = pontuacao;
+        this.pontuacao = pont;
         this.barraTempo = barraTempo;
-        this.nomeJogador = nomeJogador;
-        this.iconeAvatar = iconeAvatar;
+        this.nomeJogador = nmJogador;
+        this.iconeAvatar = icoA;
         this.botaoProximaFase = proximaFase;
         this.botaoFaseAnterior = faseAnterior;
-
+        this.nivel1 = n1;
+        this.nivel2 = n2;
+        this.nivel3 = n3;
+        this.listaRanking = new ArrayList();
     }
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button faseAnterior,
             Button proximaFase, ProgressBar barraTempo, Button fase1, Button fase2,
             Button fase3, Button fase4, Button fase5, Button fase6, Button fase7,
-            ImageView iconeAvatar, Label pontuacao, Label nomeJogador) {
+            ImageView iconeAvatar, Label pontuacao, Label nomeJogador, Button n1,
+            Button n2, Button n3) throws FileNotFoundException {
+        this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -279,6 +304,9 @@ public class ModelPrincipal {
         this.iconeAvatar = iconeAvatar;
         this.pontuacao = pontuacao;
         this.nomeJogador = nomeJogador;
+        this.nivel1 = n1;
+        this.nivel2 = n2;
+        this.nivel3 = n3;
     }
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
@@ -286,7 +314,8 @@ public class ModelPrincipal {
             Button b13, Button b14, Button b15, Button b16, Button faseAnterior, Button proximaFase,
             ProgressBar barraTempo, Button fase1, Button fase2, Button fase3, Button fase4,
             Button fase5, Button fase6, Button fase7, ImageView iconeAvatar, Label pontuacao,
-            Label nomeJogador) {
+            Label nomeJogador, Button n1, Button n2, Button n3) throws FileNotFoundException {
+        this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -327,7 +356,9 @@ public class ModelPrincipal {
         this.pontuacao = pontuacao;
         this.nomeJogador = nomeJogador;
         this.avatar = 1;
-
+        this.nivel1 = n1;
+        this.nivel2 = n2;
+        this.nivel3 = n3;
     }
 
     public void verificarOpcao(ActionEvent evento) {
@@ -399,6 +430,7 @@ public class ModelPrincipal {
      * Muda para o nível de um dos 3 botões de que foi clicado
      *
      * @param event
+     * @throws java.io.IOException
      */
     public void alterarNivel(ActionEvent event) throws IOException {
         Parent cenaPrincipal = null;
@@ -444,7 +476,6 @@ public class ModelPrincipal {
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
         janela.show();
-        //mudar fxml
 
     }
 
@@ -544,6 +575,7 @@ public class ModelPrincipal {
     public void iniciarJogo() {
         gerarOpcoes(getFase());
         destacarBotao(getFase());
+        destacarNivel(getNivel());
     }
 
     public void setFase(int fase) {
@@ -790,9 +822,20 @@ public class ModelPrincipal {
                         setBarraTempo(i);
                     }
                     if (i < 0) {
-                        System.out.println("Game over :(");
                         setGameOver(true);
                         timer.cancel();
+                        //File arquivo = new File();
+                        try {
+                            FileWriter fw = new FileWriter("ranking.txt", true);
+                            BufferedWriter bw = new BufferedWriter(fw);
+                            PrintWriter arquivoSaida = new PrintWriter(bw);
+                            String linha = "" + getAvatar() + ">" + nomeJogador.getText() + ">" + getPontos()+"\n";
+                            bw.append(linha);                            
+                            bw.close();
+                        } catch (Exception e) {
+
+                        }
+
                         setBarraTempo(0.0);
                     }
                 });
@@ -844,6 +887,10 @@ public class ModelPrincipal {
         return this.gameOver;
     }
 
+    public int getPontos() {
+        return this.pontos;
+    }
+
     public void setCorBotao(Button botao, String cor) {
         botao.setStyle("-fx-background-color: " + cor);
     }
@@ -871,8 +918,12 @@ public class ModelPrincipal {
                         setAcerto(0);
                         mediaPlayer.dispose();
                     };
+                    new Timeline(
+                            new KeyFrame(Duration.seconds(0), eventoFimNivel),
+                            new KeyFrame(Duration.seconds(5), eventoProximoNivel)).play();
 
                 }
+
                 break;
             case 2:
                 if (getAcertos() == 5) {
@@ -891,9 +942,6 @@ public class ModelPrincipal {
                 }
                 break;
         }
-        new Timeline(
-                new KeyFrame(Duration.seconds(0), eventoFimNivel),               
-                new KeyFrame(Duration.seconds(5), eventoProximoNivel )).play();       
 
     }
 
@@ -1053,6 +1101,26 @@ public class ModelPrincipal {
         }
     }
 
+    public void destacarNivel(int nivel) {
+        switch (nivel) {
+            case 1:
+                nivel1.setId("nivelSelecionado");
+                nivel2.setId("nivel2");
+                nivel3.setId("nivel3");
+                break;
+            case 2:
+                nivel2.setId("nivelSelecionado");
+                nivel1.setId("nivel1");
+                nivel3.setId("nivel3");
+                break;
+            case 3:
+                nivel3.setId("nivelSelecionado");
+                nivel2.setId("nivel2");
+                nivel1.setId("nivel1");
+                break;
+        }
+    }
+
     public void setIconeAvatar(int avatar) {
         setAvatar(avatar);
         URL arquivoImg = getClass().getResource("imagens/icones/" + getAvatar() + ".png");
@@ -1062,7 +1130,7 @@ public class ModelPrincipal {
     }
 
     public void incrementarPontuacao(int acerto) {
-        int pontos = acerto * 5;
+        this.pontos = acerto * 5;
         pontuacao.setText(pontos + " pts");
     }
 
@@ -1087,7 +1155,6 @@ public class ModelPrincipal {
             @Override
             public void run() {
                 setTocando(false);
-                mediaPlayer.dispose();
             }
         });
     }
@@ -1109,8 +1176,25 @@ public class ModelPrincipal {
             @Override
             public void run() {
                 setTocando(false);
-                mediaPlayer.dispose();
             }
         });
+    }
+
+    /**
+     * Volta para o menu com os avatares
+     *
+     * @param event mouse clicado
+     * @throws IOException
+     */
+    public void menuInicial(ActionEvent event) throws IOException {
+        janela = (Stage) barraTempo.getScene().getWindow();
+        FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
+        Parent cenaPrincipal = (Parent) fxmloader.load();
+        rankingController = fxmloader.<RankingController>getController();
+        Scene scene = new Scene(cenaPrincipal, 1200, 700);
+        janela.setScene(scene);
+        janela.setFullScreen(true);
+        janela.setFullScreenExitHint("");
+        janela.show();
     }
 }

@@ -161,7 +161,7 @@
                <children>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -169,12 +169,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome1" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos1" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img2" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -182,12 +183,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome2" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos2" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img3" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -195,12 +197,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome3" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos3" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img4" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -208,12 +211,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome4" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos4" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img5" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -221,12 +225,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome5" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos5" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img6" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -234,12 +239,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome6" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos6" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img7" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -247,12 +253,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome7" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos7" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img8" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -260,12 +267,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome8" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos8" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img9" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -273,12 +281,13 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome9" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos9" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img10" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../model/imagens/icones/1.png" />
                            </image>
@@ -286,7 +295,8 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="40.0" prefWidth="138.0" text="Pedro" />
+                        <Label fx:id="nome10" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos10" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
                      </children>
                   </HBox>
                </children></VBox>
