@@ -1,5 +1,7 @@
-6>sss>10
+6>sand>10
 1>iran>143
-2>flavia>333
-4>jonas>4343
-7>rtrt>3243
+2>geraldo>333
+4>joão>434
+10>Paulo>20
+9>Flor>20
+1>guaresi>5

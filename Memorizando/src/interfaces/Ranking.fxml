@@ -155,10 +155,19 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Pane id="ranking" layoutX="1472.0" layoutY="250.0" prefHeight="380.0" prefWidth="200.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="250.0">
+      <Pane id="ranking" fx:id="painelRanking" layoutX="1472.0" layoutY="250.0" prefHeight="380.0" prefWidth="200.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="250.0">
          <children>
             <VBox prefHeight="380.0" prefWidth="200.0">
                <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Ranking">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <HBox prefHeight="39.0" prefWidth="200.0">
                      <children>
                         <ImageView fx:id="img1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -302,11 +311,6 @@
                </children></VBox>
          </children>
       </Pane>
-      <Label layoutX="1472.0" layoutY="220.0" text="Ranking" AnchorPane.rightAnchor="188.0" AnchorPane.topAnchor="220.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
       <Button fx:id="iniciar" disable="true" layoutX="666.0" layoutY="548.0" mnemonicParsing="false" onAction="#iniciarJogo" onMouseEntered="#efeitoMouse" prefHeight="64.0" prefWidth="64.0" text="Iniciar" />
     </children>
 </AnchorPane>

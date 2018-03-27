@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -133,6 +135,7 @@ public class ModelRanking {
     private Label pontos10;
 
     private ArrayList listaRanking = new ArrayList();
+    private BufferedReader br;
 
     public ModelRanking(ImageView avatarMaior, TextField nomeJogador, Button iniciar, Button av1,
             Button av2, Button av3, Button av4, Button av5, Button av6, Button av7, Button av8,
@@ -185,6 +188,7 @@ public class ModelRanking {
         this.pontos8 = pt8;
         this.pontos9 = pt9;
         this.pontos10 = pt10;
+        this.br = null;
 
     }
 
@@ -405,7 +409,7 @@ public class ModelRanking {
                 + "    -fx-text-fill: #395306;");
     }
 
-    public void atualizarRanking() {
+    public void atualizarRanking() throws IOException {
 
         //Array com os ids das imagens dos avatares no ranking
         ArrayList idImagens = new ArrayList();
@@ -444,42 +448,84 @@ public class ModelRanking {
         idPontos.add(pontos9);
         idPontos.add(pontos10);
 
-        BufferedReader br = null;
+        br = null;
         try {
             br = new BufferedReader(new FileReader("ranking.txt"));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-            while (br.ready()) {
-                String linha = br.readLine();
-                listaRanking.add(linha);//lê todas as linhas do arquivo
-            }
-            String r1;
-            int j = 0;
-            System.out.println("tamanhos " + listaRanking.size());
-            while (j <= (listaRanking.size() - 1) && j < 10) {
-                r1 = (String) listaRanking.get(j);
-                String[] split = r1.split(">");//separa a linha em 3 partes
-                String part1 = split[0];//numero do avatar
-                String part2 = split[1];//nome do jogador
-                String part3 = split[2];//pontuação
+        listaRanking = ordenarRanking();
+        String r1;
+        int j = 0;
+        while (j <= (listaRanking.size() - 1) && j < 10) {
+            String[] vetor = (String[]) listaRanking.get(j);
+            //atualizada os avatares
+            URL arquivoImg = getClass().getResource("imagens/icones/" + (Integer.parseInt(vetor[0])) + ".png");
+            ((ImageView) idImagens.get(j)).setImage(new Image(arquivoImg.toString()));
+            //atualiza o nome do jogador
+            ((Label) idNomesJogador.get(j)).setText(vetor[1]);
+            //atualiza a pontuação
+            ((Label) idPontos.get(j)).setText(vetor[2]);
+            j++;
 
-                //atualizada os avatares
-                URL arquivoImg = getClass().getResource("imagens/icones/" + (Integer.parseInt(part1)) + ".png");
-                ((ImageView) idImagens.get(j)).setImage(new Image(arquivoImg.toString()));
-                //atualiza o nome do jogador
-                ((Label) idNomesJogador.get(j)).setText(part2);
-                //atualiza a pontuação
-                ((Label) idPontos.get(j)).setText(part3);
-                j++;
-
-            }
-
-            br.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        br.close();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
     }
+    /**
+     * Retorna um arraylist contendo vetores em ordem descrescente pela pontuação 
+     * @return lista ordenada
+     * @throws IOException 
+     */
+    public ArrayList ordenarRanking() throws IOException {
+        String r1;
+        ArrayList listaOriginal = new ArrayList();
+        ArrayList interno = new ArrayList();
+
+        while (br.ready()) {
+
+            String linha = br.readLine();
+            String[] split = linha.split(">");//separa a linha em 3 partes
+            String part1 = split[0];//numero do avatar
+            String part2 = split[1];//nome do jogador
+            String part3 = split[2];//pontuação            
+            System.out.println("parte " + part3);
+            //interno.add(part1);
+            //interno.add(part2);
+            //interno.add(part3);
+            listaOriginal.add(split);
+        }
+        System.out.println(listaOriginal.size());
+
+        Collections.sort(listaOriginal, new Comparator() {
+
+            @Override
+            public int compare(Object o1, Object o2) {
+                String[] s1 = (String[]) o1;
+                String[] s2 = (String[]) o2;
+                return Integer.parseInt(s1[2]) > Integer.parseInt(s2[2]) ? -1 : (Integer.parseInt(s1[2]) > Integer.parseInt(s2[2]) ? +1 : 0);
+            }
+        });
+        System.out.println(Arrays.toString((String[]) listaOriginal.get(0)));
+        return listaOriginal;
+    }    
 }

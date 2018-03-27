@@ -19,12 +19,27 @@
             <Image url="@../model/imagens/imagemFundo2.jpg" />
          </image>
       </ImageView>
-      <Text fontSmoothingType="LCD" layoutX="471.0" layoutY="300.0" rotate="-8.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Memorizando">
+      <Text fontSmoothingType="LCD" layoutX="529.0" layoutY="300.0" rotate="-8.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Memoria">
          <font>
             <Font size="64.0" />
          </font>
       </Text>
       <Button fx:id="iniciar" layoutX="666.0" layoutY="437.0" mnemonicParsing="false" onAction="#iniciarJogo" prefHeight="64.0" prefWidth="64.0" text="Button" />
+      <Label layoutX="247.0" layoutY="240.0" rotate="8.5" text="Jogo">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="415.0" layoutY="240.0" text="de">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="850.0" layoutY="240.0" rotate="8.5" text="Auditiva">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
       
    </children>
 </AnchorPane>

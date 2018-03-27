@@ -7,7 +7,6 @@ import controller.PrincipalNivel2Controller;
 import controller.PrincipalNivel3Controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,8 +17,6 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -829,9 +826,13 @@ public class ModelPrincipal {
                             FileWriter fw = new FileWriter("ranking.txt", true);
                             BufferedWriter bw = new BufferedWriter(fw);
                             PrintWriter arquivoSaida = new PrintWriter(bw);
-                            String linha = "" + getAvatar() + ">" + nomeJogador.getText() + ">" + getPontos()+"\n";
-                            bw.append(linha);                            
+                            String linha = "" + getAvatar() + ">" + nomeJogador.getText() + ">" + getPontos() + "\n";
+                            bw.append(linha);
                             bw.close();
+
+                            FileReader fr = new FileReader("ranking.txt");
+                            BufferedReader br = new BufferedReader(fr);
+                            ordenarRanking(br);
                         } catch (Exception e) {
 
                         }
@@ -1196,5 +1197,21 @@ public class ModelPrincipal {
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
         janela.show();
+    }
+
+    public void ordenarRanking(BufferedReader br) throws IOException {
+        String r1;
+        ArrayList listaOriginal = new ArrayList();
+        while (br.ready()) {
+            String linha = br.readLine();
+            String[] split = linha.split(">");//separa a linha em 3 partes
+            String part1 = split[0];//numero do avatar
+            String part2 = split[1];//nome do jogador
+            String part3 = split[2];//pontuação            
+            listaOriginal.add(split);//lê todas as linhas do arquivo
+        }
+        System.out.println("Lista original "+listaOriginal);
+
+        //r1 = (String) listaRanking.get(j);
     }
 }

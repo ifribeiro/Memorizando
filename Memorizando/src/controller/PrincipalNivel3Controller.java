@@ -5,9 +5,12 @@
  */
 package controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -135,11 +138,15 @@ public class PrincipalNivel3Controller implements Initializable {
         botaoFaseAnterior.setGraphic(new ImageView(faseAnterior));
         botaoFaseAnterior.setVisible(false);             
         barraTempo.setStyle("-fx-accent: #00FF00");
-        modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9, 
-                b10, b11, b12, b13, b14, b15,b16, botaoFaseAnterior,
-                botaoProximaFase, barraTempo,
-                fase1, fase2, fase3, fase4, fase5,fase6,fase7, iconeAvatar,
-                pontuacao,nomeJogador, nivel1, nivel2, nivel3); //construtor modelPrincipal do nivel 2
+        try {
+            modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, b9,
+                    b10, b11, b12, b13, b14, b15,b16, botaoFaseAnterior,
+                    botaoProximaFase, barraTempo,
+                    fase1, fase2, fase3, fase4, fase5,fase6,fase7, iconeAvatar,
+                    pontuacao,nomeJogador, nivel1, nivel2, nivel3); //construtor modelPrincipal do nivel 2
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PrincipalNivel3Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
         iniciarJogo();
     }
 
