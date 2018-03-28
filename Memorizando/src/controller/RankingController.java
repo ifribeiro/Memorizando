@@ -20,6 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -115,6 +118,10 @@ public class RankingController implements Initializable {
     private Label nome10;
     @FXML
     private Label pontos10;
+    @FXML
+    private Pane painelRanking;
+    @FXML
+    private AnchorPane pane;
     /**
      * Initializes the controller class.
      */
@@ -124,7 +131,7 @@ public class RankingController implements Initializable {
         avatar2,avatar3,avatar4,avatar5,avatar6,avatar7,avatar8,avatar9,avatar10,
         img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,nome1,nome2,nome3,nome4,
         nome5,nome6,nome7,nome8,nome9,nome10,pontos1,pontos2,pontos3,pontos4,pontos5,
-        pontos6,pontos7,pontos8,pontos9,pontos10);
+        pontos6,pontos7,pontos8,pontos9,pontos10,painelRanking);
         modelRanking.selecionarDefaultAvatar(1);
         try {
             modelRanking.atualizarRanking();

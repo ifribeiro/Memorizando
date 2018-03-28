@@ -5,3 +5,8 @@
 10>Paulo>20
 9>Flor>20
 1>guaresi>5
+6>Carlos>20
+7>Peu>5
+3>J.G>5
+7>Peu>20
+7>Peu>10

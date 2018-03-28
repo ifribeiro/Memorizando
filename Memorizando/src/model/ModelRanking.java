@@ -25,8 +25,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 /**
@@ -40,6 +44,7 @@ public class ModelRanking {
 
     @FXML
     private TextField nomeJogador;
+    @FXML
     private Stage janela;
     private FXMLLoader fxmloader;
     private Parent cenaPrincipal;
@@ -133,6 +138,8 @@ public class ModelRanking {
     private Label nome10;
     @FXML
     private Label pontos10;
+    @FXML
+    private Pane painelRanking;
 
     private ArrayList listaRanking = new ArrayList();
     private BufferedReader br;
@@ -143,7 +150,7 @@ public class ModelRanking {
             ImageView i5, ImageView i6, ImageView i7, ImageView i8, ImageView i9, ImageView i10,
             Label nm1, Label nm2, Label nm3, Label nm4, Label nm5, Label nm6, Label nm7, Label nm8,
             Label nm9, Label nm10, Label pt1, Label pt2, Label pt3, Label pt4, Label pt5, Label pt6,
-            Label pt7, Label pt8, Label pt9, Label pt10) {
+            Label pt7, Label pt8, Label pt9, Label pt10, Pane painelRanking) {
         this.avatarMaior = avatarMaior;
         this.nomeJogador = nomeJogador;
         this.iniciar = iniciar;
@@ -189,7 +196,7 @@ public class ModelRanking {
         this.pontos9 = pt9;
         this.pontos10 = pt10;
         this.br = null;
-
+        this.painelRanking = painelRanking;
     }
 
     public void trocarAvatar(ActionEvent event) {
@@ -219,6 +226,7 @@ public class ModelRanking {
         fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
         cenaPrincipal = (Parent) fxmloader.load();
         principalController = fxmloader.<PrincipalController>getController();
+        
         principalController.setFase(1);
         principalController.setNivel(1);
         principalController.iniciarJogo();
@@ -228,7 +236,7 @@ public class ModelRanking {
         janela.setScene(scene);
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
-        janela.show();
+        janela.show();      
 
     }
 
@@ -470,31 +478,17 @@ public class ModelRanking {
 
         }
         br.close();
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
 
     }
+
     /**
-     * Retorna um arraylist contendo vetores em ordem descrescente pela pontuação 
+     * Retorna um arraylist contendo vetores em ordem descrescente pela
+     * pontuação
+     *
      * @return lista ordenada
-     * @throws IOException 
+     * @throws IOException
      */
     public ArrayList ordenarRanking() throws IOException {
         String r1;
@@ -527,5 +521,5 @@ public class ModelRanking {
         });
         System.out.println(Arrays.toString((String[]) listaOriginal.get(0)));
         return listaOriginal;
-    }    
+    }
 }
