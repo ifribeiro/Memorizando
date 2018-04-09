@@ -6,29 +6,38 @@
 
 }
 
+#jogo{
+    //-fx-font-size: 32pt;
+}
+
 #b1,#b2,#b3,#b4,#b5,#b6,#b7,#b8,#b9,#b10,#b11,#b12,#b13,#b14,#b15,#b16{
     -fx-background-color: #9cb926;
 }
 
 #botaoProximaFase, #botaoFaseAnterior, #nivel1, #nivel2, #nivel3, #avatar1,#avatar2,
-#avatar2,#avatar3,#avatar4,#avatar5,#avatar6,#avatar7,#avatar8,#avatar9,#avatar10, #menuInicial{
+#avatar2,#avatar3,#avatar4,#avatar5,#avatar6,#avatar7,#avatar8,#avatar9,#avatar10,
+#menuInicial, #iniciar,#sobre, #sair{
     -fx-padding: 0px 0px;
     -fx-background-color: transparent;    
     -fx-background-radius: 75%;
 }
+
+
 
 .button{
     -fx-background-radius: 70%;
     -fx-cursor: hand;    
 }
 
-.button:hover{    
+.button:hover{
+     
     -fx-cursor: hand;    
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
 }
 
 #botaoSelecionado{
-    -fx-background-color: #26b99a;
+    //-fx-background-color: #26b99a;
+    -fx-background-color: #99ba97; 
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
     -fx-padding: 14px 22px;
     -fx-background-radius: 50%;
@@ -42,5 +51,8 @@
 }
 
 #fase1,#fase2,#fase3,#fase4,#fase5,#fase6,#fase7{
-    -fx-background-color: #26b99a;    
+    -fx-background-color: #99ba97;
+    -fx-padding: 0px 0px;
+    //-fx-background-color: transparent;    
+    -fx-background-radius: 75%;
 }

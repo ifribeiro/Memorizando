@@ -3,8 +3,6 @@ package model;
 import java.io.IOException;
 import controller.RankingController;
 import controller.PrincipalController;
-import controller.PrincipalNivel2Controller;
-import controller.PrincipalNivel3Controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -24,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -208,20 +207,23 @@ public class ModelPrincipal {
     private String[] ArrayNivel3 = new String[16];
     private PrincipalController principalController = null;
     private ArrayList arrayBotoes = new ArrayList<String>();
-    private boolean tocando = false, gameOver, timerIniciado;
-    private PrincipalNivel2Controller principalNivel2Controller = null;
-    private PrincipalNivel3Controller principalNivel3Controller = null;
+    private boolean tocando = false, gameOver, timerIniciado;   
     private RankingController rankingController = null;
-    private EventHandler<ActionEvent> evento1Botao, evento2Botao, eventoSomAcerto, eventoProximoNivel, eventoFimNivel;
+    private EventHandler<ActionEvent> evento1Botao, evento2Botao, eventoSomAcerto,
+            eventoProximoNivel, eventoFimNivel, eventoSomBotao;
     private int acerto, erro, fase, nivel, cliquesTotais, cliques, avatar, pontos;
     BufferedReader br;
+    private Group grupoNivel1;
+    private Group grupoNivel2;
+    private Group grupoNivel3;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
-            Button b6, Button b7, Button b8, Button faseAnterior, Button proximaFase,
+            Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
+            Button b13, Button b14, Button b15, Button b16, Button faseAnterior, Button proximaFase,
             ProgressBar barraTempo, Button f1, Button f2, Button f3, Button f4,
             Button f5, Button f6, Button f7, ImageView icoA, Label pont,
-            Label nmJogador, Button n1, Button n2, Button n3) throws FileNotFoundException {
-
+            Label nmJogador, Button n1, Button n2, Button n3, Group grupoNivel1, Group grupoNivel2, Group grupoNivel3) throws FileNotFoundException {
+        this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -230,6 +232,14 @@ public class ModelPrincipal {
         this.b6 = b6;
         this.b7 = b7;
         this.b8 = b8;
+        this.b9 = b9;
+        this.b10 = b10;
+        this.b11 = b11;
+        this.b12 = b12;
+        this.b13 = b13;
+        this.b14 = b14;
+        this.b15 = b15;
+        this.b16 = b16;
         this.erro = 0;
         this.fase = 1;
         this.nivel = 1;
@@ -258,130 +268,30 @@ public class ModelPrincipal {
         this.nivel2 = n2;
         this.nivel3 = n3;
         this.listaRanking = new ArrayList();
+        this.grupoNivel1 = grupoNivel1;
+        this.grupoNivel2 = grupoNivel2;
+        this.grupoNivel3 = grupoNivel3;
     }
-
-    public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
-            Button b6, Button b7, Button b8, Button b9, Button b10, Button faseAnterior,
-            Button proximaFase, ProgressBar barraTempo, Button fase1, Button fase2,
-            Button fase3, Button fase4, Button fase5, Button fase6, Button fase7,
-            ImageView iconeAvatar, Label pontuacao, Label nomeJogador, Button n1,
-            Button n2, Button n3) throws FileNotFoundException {
-        this.br = new BufferedReader(new FileReader("ranking.txt"));
-        this.b1 = b1;
-        this.b2 = b2;
-        this.b3 = b3;
-        this.b4 = b4;
-        this.b5 = b5;
-        this.b6 = b6;
-        this.b7 = b7;
-        this.b8 = b8;
-        this.b9 = b9;
-        this.erro = 0;
-        this.fase = 1;
-        this.b10 = b10;
-        this.nivel = 1;
-        this.avatar = 1;
-        this.acerto = 0;
-        this.cliques = 0;
-        this.botao1 = "";
-        this.botao2 = "";
-        this.fase1 = fase1;
-        this.fase2 = fase2;
-        this.fase3 = fase3;
-        this.fase4 = fase4;
-        this.fase5 = fase5;
-        this.fase6 = fase6;
-        this.fase7 = fase7;
-        this.gameOver = false;
-        this.cliquesTotais = 0;
-        this.timerIniciado = false;
-        this.barraTempo = barraTempo;
-        this.botaoProximaFase = proximaFase;
-        this.botaoFaseAnterior = faseAnterior;
-        this.iconeAvatar = iconeAvatar;
-        this.pontuacao = pontuacao;
-        this.nomeJogador = nomeJogador;
-        this.nivel1 = n1;
-        this.nivel2 = n2;
-        this.nivel3 = n3;
-    }
-
-    public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
-            Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
-            Button b13, Button b14, Button b15, Button b16, Button faseAnterior, Button proximaFase,
-            ProgressBar barraTempo, Button fase1, Button fase2, Button fase3, Button fase4,
-            Button fase5, Button fase6, Button fase7, ImageView iconeAvatar, Label pontuacao,
-            Label nomeJogador, Button n1, Button n2, Button n3) throws FileNotFoundException {
-        this.br = new BufferedReader(new FileReader("ranking.txt"));
-        this.b1 = b1;
-        this.b2 = b2;
-        this.b3 = b3;
-        this.b4 = b4;
-        this.b5 = b5;
-        this.b6 = b6;
-        this.b7 = b7;
-        this.b8 = b8;
-        this.b9 = b9;
-        this.erro = 0;
-        this.fase = 1;
-        this.nivel = 1;
-        this.b10 = b10;
-        this.b11 = b11;
-        this.b12 = b12;
-        this.b13 = b13;
-        this.b14 = b14;
-        this.b15 = b15;
-        this.b16 = b16;
-        this.acerto = 1;
-        this.cliques = 0;
-        this.botao1 = "";
-        this.botao2 = "";
-        this.fase1 = fase1;
-        this.fase2 = fase2;
-        this.fase3 = fase3;
-        this.fase4 = fase4;
-        this.fase5 = fase5;
-        this.fase6 = fase6;
-        this.fase7 = fase7;
-        this.gameOver = false;
-        this.cliquesTotais = 0;
-        this.timerIniciado = false;
-        this.barraTempo = barraTempo;
-        this.botaoProximaFase = proximaFase;
-        this.botaoFaseAnterior = faseAnterior;
-        this.iconeAvatar = iconeAvatar;
-        this.pontuacao = pontuacao;
-        this.nomeJogador = nomeJogador;
-        this.avatar = 1;
-        this.nivel1 = n1;
-        this.nivel2 = n2;
-        this.nivel3 = n3;
-    }
-
+    
     public void verificarOpcao(ActionEvent evento) {
-        if (primeiroClique() && !getTimerIniciado()) {
-            System.out.println("Primeiro clique");
+        if (primeiroClique() && !getTimerIniciado()) {            
             iniciarTimer();
             setTimerIniciado(true);
         }
-        //if (!isTocando()) {
         String nomeBotao = ((Button) evento.getSource()).getId();
         cliques++;
-        //iniciar timer
-        //verificar em qual fase está        
+        //verifica se é o primeiro clique
         if (cliques == 1) {
             //tocar audio do botao clicado
             tocarAudioBotao(evento);
-            btemp1 = ((Button) evento.getSource());
-            botao1 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];
-            System.out.println("Botao 1 " + botao1);
+            btemp1 = ((Button) evento.getSource());//grava qual botao foi clicado
+            botao1 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];//salva o audio contido no botao
+            setCorBotao(btemp1, "#ffff00");
 
-        } else if (cliques == 2) {
+        } else if (cliques == 2) { //verifica se é o segundo clique
             btemp2 = ((Button) evento.getSource());
             botao2 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];
-
-            if (botao1.equals(botao2) && (!btemp1.equals(btemp2))) {
-
+            if (botao1.equals(botao2) && (!btemp1.equals(btemp2))) {//verifica se os dois botoes não são correspondentes
                 incrementarAcerto();
                 evento1Botao = (ActionEvent event) -> {
                     setCorBotao(btemp2, "#00EE00");
@@ -405,18 +315,29 @@ public class ModelPrincipal {
                         new KeyFrame(Duration.seconds(0), evento1Botao),
                         new KeyFrame(Duration.seconds(0.7), evento2Botao),
                         new KeyFrame(Duration.seconds(0.2), eventoSomAcerto)).play();
-                //deixar os dois botoes invisiveis
                 //aumentar um pouco o tempo de acordo a fase 
 
-            } else {
-                tocarAudioBotao(evento);
+            } else {//os dois botões ficam vermelhos
+                evento1Botao = (ActionEvent event) -> {
+                    setCorBotao(btemp2, "#ff0000");
+                    setCorBotao(btemp1, "#ff0000");
+                    tocarAudioBotao(evento);
+                    //setTocando(true);
+                };
+                evento2Botao = (ActionEvent event) -> {
+                    setCorBotao(btemp1, "#00000");
+                    setCorBotao(btemp2, "#00000");
+                };
+
+                new Timeline(
+                        new KeyFrame(Duration.seconds(0), evento1Botao),
+                        new KeyFrame(Duration.seconds(0.5), evento2Botao)).play();
                 incrementarErro();
             }
             //se tiver errado
             //"desvira" os dois audios
             //incrementa erros
-            this.cliquesTotais = cliquesTotais + cliques;
-            System.out.println("Cliques totais: " + cliquesTotais);
+            this.cliquesTotais = cliquesTotais + cliques;           
             cliques = 0;
         }
         //quando não houver mais botoes 
@@ -432,48 +353,33 @@ public class ModelPrincipal {
     public void alterarNivel(ActionEvent event) throws IOException {
         Parent cenaPrincipal = null;
         FXMLLoader fxmloader = null;
-        String nomeBotao = ((Button) event.getSource()).getId();
+        String nomeBotao = ((Button) event.getSource()).getId();     
         switch (nomeBotao) {
-            case "nivel1":
-                janela = (Stage) barraTempo.getScene().getWindow();
-                fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
-                cenaPrincipal = (Parent) fxmloader.load();
-                principalController = fxmloader.<PrincipalController>getController();
-                principalController.setFase(getFase());
-                principalController.setNivel(1);
-                principalController.setIconeAvatar(getAvatar());
-                principalController.setNomeJogador(nomeJogador.getText());
-                principalController.iniciarJogo();
+            case "nivel1":              
+                grupoNivel1.setVisible(true);
+                grupoNivel2.setVisible(false);
+                grupoNivel3.setVisible(false);
+                setFase(getFase());
+                setNivel(1);
+                iniciarJogo();                
                 break;
             case "nivel2":
-                janela = (Stage) barraTempo.getScene().getWindow();
-                fxmloader = new FXMLLoader(getClass().getResource("/interfaces/PrincipalNivel2.fxml"));
-                cenaPrincipal = (Parent) fxmloader.load();
-                principalNivel2Controller = fxmloader.<PrincipalNivel2Controller>getController();
-                principalNivel2Controller.setFase(getFase());
-                principalNivel2Controller.setNivel(2);
-                principalNivel2Controller.setIconeAvatar(getAvatar());
-                principalNivel2Controller.setNomeJogador(nomeJogador.getText());
-                principalNivel2Controller.iniciarJogo();
+                grupoNivel1.setVisible(false);
+                grupoNivel2.setVisible(true);
+                grupoNivel3.setVisible(false);
+                setFase(getFase());
+                setNivel(2);
+                iniciarJogo();               
                 break;
             case "nivel3":
-                janela = (Stage) barraTempo.getScene().getWindow();
-                fxmloader = new FXMLLoader(getClass().getResource("/interfaces/PrincipalNivel3.fxml"));
-                cenaPrincipal = (Parent) fxmloader.load();
-                principalNivel3Controller = fxmloader.<PrincipalNivel3Controller>getController();
-                principalNivel3Controller.setFase(getFase());
-                principalNivel3Controller.setNivel(3);
-                principalNivel3Controller.setIconeAvatar(getAvatar());
-                principalNivel3Controller.setNomeJogador(nomeJogador.getText());
-                principalNivel3Controller.iniciarJogo();
+                grupoNivel1.setVisible(false);
+                grupoNivel2.setVisible(false);
+                grupoNivel3.setVisible(true);
+                setFase(getFase());
+                setNivel(3);
+                iniciarJogo();
                 break;
         }
-        Scene scene = new Scene(cenaPrincipal, 1200, 700);
-        janela.setScene(scene);
-        janela.setFullScreen(true);
-        janela.setFullScreenExitHint("");
-        janela.show();
-
     }
 
     public void gerarOpcoes(int fase) {
@@ -497,7 +403,7 @@ public class ModelPrincipal {
                 numeroFonemas = 8;
                 break;
         }
-        System.out.println(numeroFonemas);
+        
         switch (getFase()) {
             case 1://vogais
                 numeroFonemasVetores = 5;
@@ -521,15 +427,10 @@ public class ModelPrincipal {
                 numeroFonemasVetores = 101;
                 break;
 
-        }
-
-        System.out.println("Numero fonemas " + numeroFonemasVetores);
-        System.out.println("I " + i + " " + numeroFonemas);
-        System.out.println("Inidices " + indicesUtilizados.toString());
+        }        
         while (i < numeroFonemas) {
             proxValor = indice.nextInt(numeroFonemasVetores);//o valor do next int corresponde a quantidade de fonemas 
-            if (!indicesUtilizados.contains(proxValor)) {//se o índice ainda não foi utilizado
-                System.out.println("Entrou aqui indiicea");
+            if (!indicesUtilizados.contains(proxValor)) {//se o índice ainda não foi utilizado                
                 novasOpcoes.add(proxValor);//adiciona o indice no array
                 indicesUtilizados.add(proxValor);//adiciona o indice utilizado vetor de utilizados
                 i++;
@@ -541,8 +442,6 @@ public class ModelPrincipal {
             }
 
         }
-        System.out.println("Novas opcoes<><><>< " + novasOpcoes.toString());
-
         while (contador < numeroFonemas * 2) {
             for (int j = 0; j < novasOpcoes.size(); j++) {
 
@@ -561,12 +460,7 @@ public class ModelPrincipal {
                 contador = contador + 2;
 
             }
-
         }
-
-        System.out.println(Arrays.toString(ArrayNivel1));
-        System.out.println("Novas opcoes " + novasOpcoes);
-        //setArrayFonemas(ArrayNivel1, getNivel());
     }
 
     public void iniciarJogo() {
@@ -658,9 +552,7 @@ public class ModelPrincipal {
             }
 
         }
-        destacarBotao(fase);
-        System.out.println("FAse " + fase);
-
+        destacarBotao(fase);       
     }
 
     public void faseAnterior(ActionEvent event) {
@@ -683,8 +575,7 @@ public class ModelPrincipal {
     private void tocarAudioBotao(ActionEvent evento) {
         String nomeBotao = ((Button) evento.getSource()).getId();
         int posicaoAudio = Integer.parseInt(nomeBotao.substring(1));
-        String audio = ArrayNivel1[posicaoAudio - 1];
-        System.out.println("Audio " + audio);
+        String audio = ArrayNivel1[posicaoAudio - 1];       
         String caminhoAudio = "";
         switch (getFase()) {
             case 1:
@@ -708,8 +599,7 @@ public class ModelPrincipal {
             case 7:
                 caminhoAudio = "_audios/audios_palavrasComplexas/" + audio + ".mp3";
                 break;
-        }
-        System.out.println("Caminho " + caminhoAudio);
+        }    
         URL file = getClass().getResource(caminhoAudio);
         media = new Media(file.toString());
         mediaPlayer = new MediaPlayer(media);
@@ -797,7 +687,6 @@ public class ModelPrincipal {
                 b14.setVisible(true);
                 b15.setVisible(true);
                 b16.setVisible(true);
-
                 break;
 
         }
@@ -811,7 +700,7 @@ public class ModelPrincipal {
 
             @Override
             public void run() {
-                System.out.println(i);
+               
                 //Platform.runLater para alterar elementos da interface do javaFX
                 Platform.runLater(() -> {
                     if (!isGameOver()) {
@@ -948,8 +837,7 @@ public class ModelPrincipal {
 
     public void mudarFase(ActionEvent event) {
         String botaoClicado = ((Button) event.getSource()).getId();
-        int botaoFase = Integer.parseInt(botaoClicado.substring(4));
-        System.out.println("BotaoClicado " + botaoFase);
+        int botaoFase = Integer.parseInt(botaoClicado.substring(4));      
         if (botaoFase > 1) {
             botaoFaseAnterior.setVisible(true);
         }
@@ -1125,8 +1013,7 @@ public class ModelPrincipal {
     public void setIconeAvatar(int avatar) {
         setAvatar(avatar);
         URL arquivoImg = getClass().getResource("imagens/icones/" + getAvatar() + ".png");
-
-        System.out.println("Avatar " + getAvatar());
+       
         this.iconeAvatar.setImage(new Image(arquivoImg.toString()));
     }
 
@@ -1140,45 +1027,11 @@ public class ModelPrincipal {
     }
 
     public void tocarEfeitoAcerto() {
-        String caminhoAudio = "";
-        caminhoAudio = "_audios/efeitos/efeitoAcerto.mp3";
-        URL file = getClass().getResource(caminhoAudio);
-        media = new Media(file.toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setOnReady(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.play();
-                setTocando(true);
-            }
-        });
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                setTocando(false);
-            }
-        });
+        tocarEfeito("efeitoAcerto");
     }
 
     private void tocarEfeitoAcertoFinal() {
-        String caminhoAudio = "";
-        caminhoAudio = "_audios/efeitos/palmas.mp3";
-        URL file = getClass().getResource(caminhoAudio);
-        media = new Media(file.toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setOnReady(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.play();
-                setTocando(true);
-            }
-        });
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                setTocando(false);
-            }
-        });
+        tocarEfeito("palmas");
     }
 
     /**
@@ -1209,9 +1062,31 @@ public class ModelPrincipal {
             String part2 = split[1];//nome do jogador
             String part3 = split[2];//pontuação            
             listaOriginal.add(split);//lê todas as linhas do arquivo
-        }
-        System.out.println("Lista original "+listaOriginal);
+        }      
+    }
 
-        //r1 = (String) listaRanking.get(j);
+    public void tocarEfeitoErro() {
+        tocarEfeito("efeitoErro");
+    }
+
+    public void tocarEfeito(String efeito) {
+        String caminhoAudio = "";
+        caminhoAudio = "_audios/efeitos/" + efeito + ".mp3";
+        URL file = getClass().getResource(caminhoAudio);
+        media = new Media(file.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.play();
+                setTocando(true);
+            }
+        });
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                setTocando(false);
+            }
+        });
     }
 }

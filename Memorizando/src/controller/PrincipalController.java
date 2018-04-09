@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 import model.ModelPrincipal;
 
 /**
@@ -30,8 +33,6 @@ public class PrincipalController implements Initializable {
     private Button nivel2;
     @FXML
     private Button nivel3;
-    @FXML
-    private Group grupoBotoes;
     @FXML
     private Button b4;
     @FXML
@@ -56,7 +57,9 @@ public class PrincipalController implements Initializable {
     private ModelPrincipal modelPrincipal;
     @FXML
     private ProgressBar barraTempo;
+    @FXML
     private Button b10;
+    @FXML
     private Button b9;
     @FXML
     private Button fase1;
@@ -80,6 +83,28 @@ public class PrincipalController implements Initializable {
     private Label nomeJogador;
     @FXML
     private Button menuInicial;
+    @FXML
+    private Button sair;
+    @FXML
+    private Label titulo;
+    @FXML
+    private Group grupoNivel1;
+    @FXML
+    private Group grupoNivel2;
+    @FXML
+    private Group grupoNivel3;
+    @FXML
+    private Button b13;
+    @FXML
+    private Button b14;
+    @FXML
+    private Button b15;
+    @FXML
+    private Button b16;
+    @FXML
+    private Button b12;
+    @FXML
+    private Button b11;
 
     /**
      * Initializes the controller class.
@@ -109,13 +134,22 @@ public class PrincipalController implements Initializable {
         botaoFaseAnterior.setGraphic(new ImageView(faseAnterior));
         botaoFaseAnterior.setVisible(false);
         barraTempo.setStyle("-fx-accent: #00FF00");
+        Font labelJogador = null, labelPontos = null, fonteTitulo = null;
         try {
-            modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8, botaoFaseAnterior,
-                    botaoProximaFase, barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
-                    iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3); //construtor modelPrincipal do nível 1
+            modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8,b9,
+                    b10,b11,b12,b13,b14,b15,b16,botaoFaseAnterior,botaoProximaFase,
+                    barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
+                    iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3, grupoNivel1,
+                    grupoNivel2,grupoNivel3); //construtor modelPrincipal do nível 1
+            labelJogador = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 30);
+            labelPontos = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 30);
+            fonteTitulo = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 42);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        nomeJogador.setFont(labelJogador);
+        pontuacao.setFont(labelJogador);
+        titulo.setFont(fonteTitulo);
         iniciarJogo();
         
     }
@@ -168,8 +202,7 @@ public class PrincipalController implements Initializable {
     private void alterarNivel(ActionEvent event) throws IOException {
         modelPrincipal.alterarNivel(event);
     }
-
-
+    
     public void setFase(int fase) {
         modelPrincipal.setFase(fase);
     }
@@ -194,6 +227,10 @@ public class PrincipalController implements Initializable {
     @FXML
     private void menuInicial(ActionEvent event) throws IOException {
         modelPrincipal.menuInicial(event);
+    }
+
+    @FXML
+    private void sair(ActionEvent event) {
     }
 
 }

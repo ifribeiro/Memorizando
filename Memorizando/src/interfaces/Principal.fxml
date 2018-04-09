@@ -22,27 +22,343 @@
       </ImageView>
       <AnchorPane layoutX="411.0" layoutY="123.0" minHeight="600.0" minWidth="600.0" prefHeight="440.0" prefWidth="555.0" AnchorPane.leftAnchor="411.0" AnchorPane.rightAnchor="400.0">
          <children>
-            <Group id="grupoBotoes" fx:id="grupoBotoes" layoutX="-22.0" layoutY="-224.0" AnchorPane.rightAnchor="96.0">
+            <Group id="grupoBotoes" fx:id="grupoNivel1" layoutX="-22.0" layoutY="-224.0" visible="false" AnchorPane.rightAnchor="96.0">
                <children>
-                  <Button fx:id="b4" layoutX="318.0" layoutY="371.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
-                  <Button fx:id="b3" layoutX="222.0" layoutY="371.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
-                  <Button fx:id="b1" layoutX="152.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
-                  <Button fx:id="b5" layoutX="222.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
-                  <Button fx:id="b6" layoutX="318.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
-                  <Button fx:id="b8" layoutX="391.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
-                  <Button fx:id="b2" layoutX="391.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
-                  <Button fx:id="b7" layoutX="152.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0" />
+                  <Button fx:id="b4" layoutX="318.0" layoutY="371.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b3" layoutX="222.0" layoutY="371.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b1" layoutX="152.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b5" layoutX="222.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b6" layoutX="318.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b8" layoutX="391.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b2" layoutX="391.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b7" layoutX="152.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+               </children>
+            </Group>
+            <Group id="grupoBotoes" fx:id="grupoNivel3" layoutX="-22.0" layoutY="-224.0" visible="false" AnchorPane.rightAnchor="96.0">
+               <children>
+                  <Button fx:id="b4" layoutX="428.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b3" layoutX="336.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b1" layoutX="152.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b5" layoutX="152.0" layoutY="387.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b6" layoutX="244.0" layoutY="387.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b8" layoutX="428.0" layoutY="387.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b2" layoutX="244.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b7" layoutX="336.0" layoutY="387.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b13" layoutX="152.0" layoutY="571.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b14" layoutX="244.0" layoutY="571.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b15" layoutX="336.0" layoutY="571.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b16" layoutX="428.0" layoutY="571.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b12" layoutX="428.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b11" layoutX="336.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b10" layoutX="244.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b9" layoutX="152.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+               </children>
+            </Group>
+            <Group id="grupoBotoes" fx:id="grupoNivel2" layoutX="-22.0" layoutY="-224.0" AnchorPane.rightAnchor="96.0">
+               <children>
+                  <Button fx:id="b5" layoutX="317.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b4" layoutX="224.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b1" layoutX="152.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b6" layoutX="224.0" layoutY="466.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b7" layoutX="317.0" layoutY="466.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b10" layoutX="391.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b3" layoutX="391.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b8" layoutX="152.0" layoutY="542.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b2" layoutX="269.0" layoutY="296.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="b9" layoutX="269.0" layoutY="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarOpcao" prefHeight="90.0" prefWidth="90.0">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/som32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
             </Group>
             <Button fx:id="botaoProximaFase" layoutX="306.0" layoutY="505.0" mnemonicParsing="false" onAction="#proximaFase" AnchorPane.bottomAnchor="70.0" />
             <Button fx:id="botaoFaseAnterior" layoutX="193.0" layoutY="505.0" mnemonicParsing="false" onAction="#faseAnterior" AnchorPane.bottomAnchor="70.0" />
-            <Button fx:id="fase1" layoutX="112.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase2" layoutX="162.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase3" layoutX="212.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase4" layoutX="262.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase5" layoutX="312.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase6" layoutX="362.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="fase7" layoutX="412.0" layoutY="554.0" mnemonicParsing="false" onAction="#mudarFase" prefHeight="32.0" prefWidth="32.0" />
+            <Button fx:id="fase1" layoutX="52.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelFechado.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="fase2" layoutX="122.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelAberto.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="fase3" layoutX="192.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelAberto.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="fase4" layoutX="262.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelAberto.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="fase5" layoutX="332.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelAberto.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="fase6" layoutX="402.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelAberto.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="fase7" layoutX="472.0" layoutY="554.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelAberto.png" />
+                     </image></ImageView>
+               </graphic></Button>
          </children>
       </AnchorPane>
       <Pane layoutY="59.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -69,14 +385,14 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label fx:id="nomeJogador" layoutX="164.0" layoutY="-46.0" text="Nome">
+            <Label fx:id="nomeJogador" layoutX="164.0" layoutY="-25.0" text="Nome">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Button fx:id="menuInicial" layoutX="1119.0" layoutY="27.0" mnemonicParsing="false" onAction="#menuInicial" prefHeight="75.0" prefWidth="75.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="27.0">
+      <Button fx:id="menuInicial" layoutX="1119.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#menuInicial" prefHeight="64.0" prefWidth="64.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="45.0">
          <graphic>
             <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -84,5 +400,19 @@
                </image>
             </ImageView>
          </graphic></Button>
+      <Button fx:id="sair" layoutX="1274.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sair" prefHeight="32.0" prefWidth="32.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="45.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../model/imagens/icones/fechar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="titulo" layoutX="708.0" layoutY="55.0" text="Jogo de Memoria Auditiva" AnchorPane.rightAnchor="433.0" AnchorPane.topAnchor="45.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -5,6 +5,9 @@
  */
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +25,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -121,7 +125,15 @@ public class RankingController implements Initializable {
     @FXML
     private Pane painelRanking;
     @FXML
-    private AnchorPane pane;
+    private AnchorPane janela;
+    @FXML
+    private Label nome;
+    @FXML
+    private Label labelRanking;
+    @FXML
+    private Label titulo;
+    @FXML
+    private Button sair;
     /**
      * Initializes the controller class.
      */
@@ -138,6 +150,22 @@ public class RankingController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(RankingController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Font fonteTitulo = null, fonteNome = null, fonteRanking = null;
+        try {
+            File arquivoFonte = new File("src/fontes/Choko.ttf");
+            fonteTitulo = Font.loadFont(new FileInputStream(arquivoFonte), 42);
+            fonteNome = Font.loadFont(new FileInputStream(arquivoFonte), 34);
+            fonteRanking = Font.loadFont(new FileInputStream(arquivoFonte), 30);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(InicialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        titulo.setFont(fonteTitulo);
+        nome.setFont(fonteNome);
+        labelRanking.setFont(fonteRanking);
+        nomeJogador.setFont(fonteRanking);
+        //labelRanking.setStyle("-fx-color: white;");
+        
     }    
 
     @FXML
@@ -163,6 +191,15 @@ public class RankingController implements Initializable {
     @FXML
     private void efeitoMouse(MouseEvent event) {
         modelRanking.efeitoMouse(event);
+    }
+
+    @FXML
+    private void botaoClicado(MouseEvent event) {
+        modelRanking.efeitoBotaoClicado();
+    }
+
+    @FXML
+    private void sair(ActionEvent event) {
     }
     
 }

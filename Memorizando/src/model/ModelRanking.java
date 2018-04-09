@@ -246,6 +246,7 @@ public class ModelRanking {
      * @param event
      */
     public void avatarEscolhido(MouseEvent event) {
+        efeitoBotaoClicado();
         Button b_temp = (Button) event.getSource();
         String id = b_temp.getId().substring(6);
         String efeito = "-fx-background-color:\n"
@@ -380,26 +381,8 @@ public class ModelRanking {
     }
 
     public void efeitoMouse(MouseEvent event) {
-        String caminhoAudio = "";
-        caminhoAudio = "_audios/efeitos/transicaoBotao.mp3";
-        URL file = getClass().getResource(caminhoAudio);
-        media = new Media(file.toString());
-        mediaPlayer = new MediaPlayer(media);
-
-        mediaPlayer.setOnReady(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.play();
-                //setTocando(true);
-            }
-        });
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                //setTocando(false);
-                mediaPlayer.dispose();
-            }
-        });
+        tocarEfeito("transicaoBotao");
+        
     }
 
     /**
@@ -521,5 +504,39 @@ public class ModelRanking {
         });
         System.out.println(Arrays.toString((String[]) listaOriginal.get(0)));
         return listaOriginal;
+    }
+
+    /**
+     * Toca o efeito do botao clicado
+     */
+    public void efeitoBotaoClicado() {
+        tocarEfeito("botaoClicado");        
+    }
+    
+    /**
+     * Toca um audio rápido
+     * @param efeito som que deve ser tocado
+     */
+    public void tocarEfeito(String efeito) {
+        String caminhoAudio = "";
+        caminhoAudio = "_audios/efeitos/"+efeito+".mp3";
+        URL file = getClass().getResource(caminhoAudio);
+        media = new Media(file.toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        mediaPlayer.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.play();
+                //setTocando(true);
+            }
+        });
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                //setTocando(false);
+                mediaPlayer.dispose();
+            }
+        });
     }
 }
