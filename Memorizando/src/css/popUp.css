@@ -1,0 +1,21 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+#sair, #reiniciar, #continuar{
+    -fx-padding: 0px 0px;    
+    -fx-background-color: transparent;    
+    -fx-background-radius: 75%;
+
+}
+
+.button{
+    -fx-cursor: hand;
+}
+.button:hover{     
+    -fx-cursor: hand;    
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+}

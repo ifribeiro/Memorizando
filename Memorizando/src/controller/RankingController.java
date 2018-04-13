@@ -169,7 +169,7 @@ public class RankingController implements Initializable {
     }    
 
     @FXML
-    private void trocarAvatar(ActionEvent event) {
+    private void trocarAvatar(ActionEvent event) throws IOException {
         modelRanking.trocarAvatar(event);
     }
     
@@ -200,6 +200,7 @@ public class RankingController implements Initializable {
 
     @FXML
     private void sair(ActionEvent event) {
+        modelRanking.sairDoJogo(event);
     }
     
 }

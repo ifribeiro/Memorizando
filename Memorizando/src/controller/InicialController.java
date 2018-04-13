@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import model.ModelInicial;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,8 +61,7 @@ public class InicialController implements Initializable {
         de.setFont(f);
         memoria.setFont(f);
         auditiva.setFont(f);
-        sobre.setFont(f1);
-        
+        sobre.setFont(f1);        
         modelInicial = new ModelInicial();
         
         
@@ -80,6 +78,7 @@ public class InicialController implements Initializable {
 
     @FXML
     private void sair(ActionEvent event) {
+        modelInicial.sairDoJogo(event);
     }
     
 }

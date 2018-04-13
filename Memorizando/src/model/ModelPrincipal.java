@@ -1,5 +1,6 @@
 package model;
 
+import controller.PopUpController;
 import java.io.IOException;
 import controller.RankingController;
 import controller.PrincipalController;
@@ -12,9 +13,12 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -25,7 +29,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -33,7 +40,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 /**
@@ -207,7 +217,7 @@ public class ModelPrincipal {
     private String[] ArrayNivel3 = new String[16];
     private PrincipalController principalController = null;
     private ArrayList arrayBotoes = new ArrayList<String>();
-    private boolean tocando = false, gameOver, timerIniciado;   
+    private boolean tocando = false, gameOver, timerIniciado;
     private RankingController rankingController = null;
     private EventHandler<ActionEvent> evento1Botao, evento2Botao, eventoSomAcerto,
             eventoProximoNivel, eventoFimNivel, eventoSomBotao;
@@ -216,6 +226,9 @@ public class ModelPrincipal {
     private Group grupoNivel1;
     private Group grupoNivel2;
     private Group grupoNivel3;
+
+    FXMLLoader fxmlPopUp;
+    Parent popUp = null;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
@@ -271,10 +284,11 @@ public class ModelPrincipal {
         this.grupoNivel1 = grupoNivel1;
         this.grupoNivel2 = grupoNivel2;
         this.grupoNivel3 = grupoNivel3;
+        fxmlPopUp = null;
     }
-    
+
     public void verificarOpcao(ActionEvent evento) {
-        if (primeiroClique() && !getTimerIniciado()) {            
+        if (primeiroClique() && !getTimerIniciado()) {
             iniciarTimer();
             setTimerIniciado(true);
         }
@@ -304,19 +318,22 @@ public class ModelPrincipal {
                     btemp2.setDisable(true);
                     setCorBotao(btemp1, "#00000");
                     setCorBotao(btemp2, "#00000");
-                    verificarTerminoNivel();
                 };
 
                 eventoSomAcerto = (ActionEvent event) -> {
                     tocarEfeitoAcerto();
+                    try {
+                        verificarTerminoNivel();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 };
-
-                new Timeline(
-                        new KeyFrame(Duration.seconds(0), evento1Botao),
+                Timeline acerto = new Timeline(new KeyFrame(Duration.seconds(0), evento1Botao),
                         new KeyFrame(Duration.seconds(0.7), evento2Botao),
-                        new KeyFrame(Duration.seconds(0.2), eventoSomAcerto)).play();
-                //aumentar um pouco o tempo de acordo a fase 
+                        new KeyFrame(Duration.seconds(0.2), eventoSomAcerto));
+                acerto.play();
 
+                //aumentar um pouco o tempo de acordo a fase 
             } else {//os dois botões ficam vermelhos
                 evento1Botao = (ActionEvent event) -> {
                     setCorBotao(btemp2, "#ff0000");
@@ -337,7 +354,7 @@ public class ModelPrincipal {
             //se tiver errado
             //"desvira" os dois audios
             //incrementa erros
-            this.cliquesTotais = cliquesTotais + cliques;           
+            this.cliquesTotais = cliquesTotais + cliques;
             cliques = 0;
         }
         //quando não houver mais botoes 
@@ -353,15 +370,15 @@ public class ModelPrincipal {
     public void alterarNivel(ActionEvent event) throws IOException {
         Parent cenaPrincipal = null;
         FXMLLoader fxmloader = null;
-        String nomeBotao = ((Button) event.getSource()).getId();     
+        String nomeBotao = ((Button) event.getSource()).getId();
         switch (nomeBotao) {
-            case "nivel1":              
+            case "nivel1":
                 grupoNivel1.setVisible(true);
                 grupoNivel2.setVisible(false);
                 grupoNivel3.setVisible(false);
                 setFase(getFase());
                 setNivel(1);
-                iniciarJogo();                
+                iniciarJogo();
                 break;
             case "nivel2":
                 grupoNivel1.setVisible(false);
@@ -369,7 +386,7 @@ public class ModelPrincipal {
                 grupoNivel3.setVisible(false);
                 setFase(getFase());
                 setNivel(2);
-                iniciarJogo();               
+                iniciarJogo();
                 break;
             case "nivel3":
                 grupoNivel1.setVisible(false);
@@ -403,7 +420,7 @@ public class ModelPrincipal {
                 numeroFonemas = 8;
                 break;
         }
-        
+
         switch (getFase()) {
             case 1://vogais
                 numeroFonemasVetores = 5;
@@ -427,7 +444,7 @@ public class ModelPrincipal {
                 numeroFonemasVetores = 101;
                 break;
 
-        }        
+        }
         while (i < numeroFonemas) {
             proxValor = indice.nextInt(numeroFonemasVetores);//o valor do next int corresponde a quantidade de fonemas 
             if (!indicesUtilizados.contains(proxValor)) {//se o índice ainda não foi utilizado                
@@ -552,7 +569,7 @@ public class ModelPrincipal {
             }
 
         }
-        destacarBotao(fase);       
+        destacarBotao(fase);
     }
 
     public void faseAnterior(ActionEvent event) {
@@ -575,7 +592,7 @@ public class ModelPrincipal {
     private void tocarAudioBotao(ActionEvent evento) {
         String nomeBotao = ((Button) evento.getSource()).getId();
         int posicaoAudio = Integer.parseInt(nomeBotao.substring(1));
-        String audio = ArrayNivel1[posicaoAudio - 1];       
+        String audio = ArrayNivel1[posicaoAudio - 1];
         String caminhoAudio = "";
         switch (getFase()) {
             case 1:
@@ -599,7 +616,7 @@ public class ModelPrincipal {
             case 7:
                 caminhoAudio = "_audios/audios_palavrasComplexas/" + audio + ".mp3";
                 break;
-        }    
+        }
         URL file = getClass().getResource(caminhoAudio);
         media = new Media(file.toString());
         mediaPlayer = new MediaPlayer(media);
@@ -700,7 +717,7 @@ public class ModelPrincipal {
 
             @Override
             public void run() {
-               
+
                 //Platform.runLater para alterar elementos da interface do javaFX
                 Platform.runLater(() -> {
                     if (!isGameOver()) {
@@ -793,25 +810,29 @@ public class ModelPrincipal {
         return this.timerIniciado;
     }
 
-    private void verificarTerminoNivel() {
+    private void verificarTerminoNivel() throws IOException {
+        janela = (Stage) grupoNivel1.getScene().getWindow();
         switch (getNivel()) {
             case 1:
+
                 if (getAcertos() == 4) {
-                    eventoFimNivel = (ActionEvent event) -> {
-                        tocarEfeitoAcertoFinal();
-                    };
+                    exibirPopUp(janela);
 
-                    eventoProximoNivel = (ActionEvent event) -> {
-                        exibirBotoes(1);
-                        setFase(getFase() + 1);
-                        gerarOpcoes(getFase());
-                        setAcerto(0);
-                        mediaPlayer.dispose();
-                    };
-                    new Timeline(
-                            new KeyFrame(Duration.seconds(0), eventoFimNivel),
-                            new KeyFrame(Duration.seconds(5), eventoProximoNivel)).play();
+                    tocarEfeitoAcertoFinal();
 
+                    //  eventoProximoNivel = (ActionEvent event) -> {
+                    //exibirBotoes(1);
+                    //setFase(getFase() + 1);
+                    gerarOpcoes(getFase());
+                    setAcerto(0);
+                    mediaPlayer.dispose();
+                    //  };
+
+                    /*
+                     new Timeline(
+                     new KeyFrame(Duration.seconds(0), eventoFimNivel),
+                     new KeyFrame(Duration.seconds(5), eventoProximoNivel)).play();
+                     */
                 }
 
                 break;
@@ -837,7 +858,7 @@ public class ModelPrincipal {
 
     public void mudarFase(ActionEvent event) {
         String botaoClicado = ((Button) event.getSource()).getId();
-        int botaoFase = Integer.parseInt(botaoClicado.substring(4));      
+        int botaoFase = Integer.parseInt(botaoClicado.substring(4));
         if (botaoFase > 1) {
             botaoFaseAnterior.setVisible(true);
         }
@@ -1013,7 +1034,7 @@ public class ModelPrincipal {
     public void setIconeAvatar(int avatar) {
         setAvatar(avatar);
         URL arquivoImg = getClass().getResource("imagens/icones/" + getAvatar() + ".png");
-       
+
         this.iconeAvatar.setImage(new Image(arquivoImg.toString()));
     }
 
@@ -1062,7 +1083,7 @@ public class ModelPrincipal {
             String part2 = split[1];//nome do jogador
             String part3 = split[2];//pontuação            
             listaOriginal.add(split);//lê todas as linhas do arquivo
-        }      
+        }
     }
 
     public void tocarEfeitoErro() {
@@ -1088,5 +1109,66 @@ public class ModelPrincipal {
                 setTocando(false);
             }
         });
+    }
+
+    /**
+     * Sai do jogo quando o botão sair é clicado
+     *
+     * @param event botão sair é clicado
+     */
+    public void sairDoJogo(ActionEvent event) {
+        System.out.println("Said s");
+        janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+        //função para encerrar todos os processos quando o usuário clicar no "X"
+        Alert confirmacaoSaida = new Alert(AlertType.CONFIRMATION,
+                "Deseja mesmo sair do jogo?");
+        Button botaoSair = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
+        Button botaoNao = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.CANCEL);
+        botaoSair.setText("Sim");
+        botaoNao.setText("Não");
+        confirmacaoSaida.setTitle(null);
+        confirmacaoSaida.setHeaderText(null);
+        confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
+        Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
+        if (ButtonType.OK.equals(resposta.get())) {
+            janela.close();
+            System.exit(0);
+        }
+    }
+
+    private void exibirPopUp(Stage janela) {
+
+        Stage stage = new Stage();
+        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpNivelFinalizado.fxml"));
+
+        try {
+            popUp = (Parent) fxmlPopUp.load();
+        } catch (IOException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Popup popup = new Popup();
+
+        popup.getContent();
+
+        stage.setScene(new Scene(popUp));
+        stage.setTitle("Pop up");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(janela.getOwner());
+        PopUpController popUpController = fxmlPopUp.getController();
+        popUpController.setPontuacaoJogador(pontos);
+        stage.setAlwaysOnTop(true);
+        stage.show();
+
+        stage.toFront();
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(final WindowEvent event) {
+                Button botaoClicado = popUpController.getBotaoClicado();
+                System.out.println(botaoClicado.getId());
+            }
+        });
+
     }
 }

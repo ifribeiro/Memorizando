@@ -1,6 +1,8 @@
 package model;
 
+import controller.PopUpController;
 import controller.PrincipalController;
+import controller.RankingController;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,14 +12,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -28,10 +34,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -199,13 +206,13 @@ public class ModelRanking {
         this.painelRanking = painelRanking;
     }
 
-    public void trocarAvatar(ActionEvent event) {
-        String nomeBotao = ((Button) event.getSource()).getId();
+    public void trocarAvatar(ActionEvent event) throws IOException {
+        janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        String nomeBotao = ((Button) event.getSource()).getId();        
         int numeroBotao = Integer.parseInt(nomeBotao.substring(6));
         URL arquivoImg = getClass().getResource("imagens/icones/" + numeroBotao + ".png");
         avatarMaior.setImage(new Image(arquivoImg.toString()));
         this.avatar = numeroBotao;
-
     }
 
     public void verificarTextoInserido(InputMethodEvent event) {
@@ -226,7 +233,7 @@ public class ModelRanking {
         fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
         cenaPrincipal = (Parent) fxmloader.load();
         principalController = fxmloader.<PrincipalController>getController();
-        
+
         principalController.setFase(1);
         principalController.setNivel(1);
         principalController.iniciarJogo();
@@ -236,7 +243,7 @@ public class ModelRanking {
         janela.setScene(scene);
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
-        janela.show();      
+        janela.show();
 
     }
 
@@ -382,7 +389,7 @@ public class ModelRanking {
 
     public void efeitoMouse(MouseEvent event) {
         tocarEfeito("transicaoBotao");
-        
+
     }
 
     /**
@@ -462,8 +469,6 @@ public class ModelRanking {
         }
         br.close();
 
-        
-
     }
 
     /**
@@ -510,16 +515,17 @@ public class ModelRanking {
      * Toca o efeito do botao clicado
      */
     public void efeitoBotaoClicado() {
-        tocarEfeito("botaoClicado");        
+        tocarEfeito("botaoClicado");
     }
-    
+
     /**
      * Toca um audio rápido
+     *
      * @param efeito som que deve ser tocado
      */
     public void tocarEfeito(String efeito) {
         String caminhoAudio = "";
-        caminhoAudio = "_audios/efeitos/"+efeito+".mp3";
+        caminhoAudio = "_audios/efeitos/" + efeito + ".mp3";
         URL file = getClass().getResource(caminhoAudio);
         media = new Media(file.toString());
         mediaPlayer = new MediaPlayer(media);
@@ -538,5 +544,24 @@ public class ModelRanking {
                 mediaPlayer.dispose();
             }
         });
+    }
+    @FXML
+    public void sairDoJogo(ActionEvent event) {
+        janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        //função para encerrar todos os processos quando o usuário clicar no "X"
+        Alert confirmacaoSaida = new Alert(Alert.AlertType.CONFIRMATION,
+                "Deseja mesmo sair do jogo?");
+        Button botaoSair = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
+        Button botaoNao = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.CANCEL);
+        botaoSair.setText("Sim");
+        botaoNao.setText("Não");
+        confirmacaoSaida.setTitle(null);
+        confirmacaoSaida.setHeaderText(null);
+        confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
+        Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
+        if (ButtonType.OK.equals(resposta.get())) {
+            janela.close();
+            System.exit(0);
+        }
     }
 }

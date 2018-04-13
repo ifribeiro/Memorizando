@@ -117,16 +117,7 @@ public class PrincipalController implements Initializable {
         Image nivel3Icon = new Image(getClass().getResourceAsStream("nivel332.png"));
         Image proximaFase = new Image(getClass().getResourceAsStream("proximaFase64.png"));
         Image faseAnterior = new Image(getClass().getResourceAsStream("faseAnterior64.png"));
-        ImageView iconeSom = new ImageView(botoes);
-        //botões do primeiro e segundo nivel
-        b1.setGraphic(new ImageView(botoes));
-        b2.setGraphic(new ImageView(botoes));
-        b3.setGraphic(new ImageView(botoes));
-        b4.setGraphic(new ImageView(botoes));
-        b5.setGraphic(new ImageView(botoes));
-        b6.setGraphic(new ImageView(botoes));
-        b7.setGraphic(new ImageView(botoes));
-        b8.setGraphic(new ImageView(botoes));
+        ImageView iconeSom = new ImageView(botoes);       
         nivel1.setGraphic(new ImageView(nivel1Icon));
         nivel2.setGraphic(new ImageView(nivel2Icon));
         nivel3.setGraphic(new ImageView(nivel3Icon));
@@ -231,6 +222,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void sair(ActionEvent event) {
+        modelPrincipal.sairDoJogo(event);
     }
 
 }
