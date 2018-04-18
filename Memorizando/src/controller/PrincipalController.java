@@ -105,6 +105,8 @@ public class PrincipalController implements Initializable {
     private Button b12;
     @FXML
     private Button b11;
+    @FXML
+    private ImageView imagemFundo;
 
     /**
      * Initializes the controller class.
@@ -131,7 +133,7 @@ public class PrincipalController implements Initializable {
                     b10,b11,b12,b13,b14,b15,b16,botaoFaseAnterior,botaoProximaFase,
                     barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
                     iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3, grupoNivel1,
-                    grupoNivel2,grupoNivel3); //construtor modelPrincipal do nível 1
+                    grupoNivel2,grupoNivel3,imagemFundo); //construtor modelPrincipal do nível 1
             labelJogador = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 30);
             labelPontos = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 30);
             fonteTitulo = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 42);
@@ -222,7 +224,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void sair(ActionEvent event) {
-        modelPrincipal.sairDoJogo(event);
+        modelPrincipal.sairDoJogo();
     }
 
 }

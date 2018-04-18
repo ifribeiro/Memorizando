@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
@@ -229,13 +228,18 @@ public class ModelPrincipal {
 
     FXMLLoader fxmlPopUp;
     Parent popUp = null;
+    @FXML
+    private ImageView imagemFundo;
+
+    private ArrayList listaBotoes;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
             Button b13, Button b14, Button b15, Button b16, Button faseAnterior, Button proximaFase,
             ProgressBar barraTempo, Button f1, Button f2, Button f3, Button f4,
             Button f5, Button f6, Button f7, ImageView icoA, Label pont,
-            Label nmJogador, Button n1, Button n2, Button n3, Group grupoNivel1, Group grupoNivel2, Group grupoNivel3) throws FileNotFoundException {
+            Label nmJogador, Button n1, Button n2, Button n3, Group grupoNivel1,
+            Group grupoNivel2, Group grupoNivel3, ImageView imagemFundo) throws FileNotFoundException {
         this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
@@ -284,7 +288,9 @@ public class ModelPrincipal {
         this.grupoNivel1 = grupoNivel1;
         this.grupoNivel2 = grupoNivel2;
         this.grupoNivel3 = grupoNivel3;
-        fxmlPopUp = null;
+        this.fxmlPopUp = null;
+        this.imagemFundo = imagemFundo;
+        listaBotoes = new ArrayList();
     }
 
     public void verificarOpcao(ActionEvent evento) {
@@ -318,6 +324,8 @@ public class ModelPrincipal {
                     btemp2.setDisable(true);
                     setCorBotao(btemp1, "#00000");
                     setCorBotao(btemp2, "#00000");
+                    listaBotoes.add(btemp1);
+                    listaBotoes.add(btemp2);
                 };
 
                 eventoSomAcerto = (ActionEvent event) -> {
@@ -328,10 +336,9 @@ public class ModelPrincipal {
                         Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 };
-                Timeline acerto = new Timeline(new KeyFrame(Duration.seconds(0), evento1Botao),
+                new Timeline(new KeyFrame(Duration.seconds(0), evento1Botao),
                         new KeyFrame(Duration.seconds(0.7), evento2Botao),
-                        new KeyFrame(Duration.seconds(0.2), eventoSomAcerto));
-                acerto.play();
+                        new KeyFrame(Duration.seconds(0.2), eventoSomAcerto)).play();
 
                 //aumentar um pouco o tempo de acordo a fase 
             } else {//os dois botões ficam vermelhos
@@ -376,6 +383,9 @@ public class ModelPrincipal {
                 grupoNivel1.setVisible(true);
                 grupoNivel2.setVisible(false);
                 grupoNivel3.setVisible(false);
+                System.out.println("indice " + grupoNivel1.getChildren().indexOf(b1));
+                System.out.println("indice " + grupoNivel2.getChildren().indexOf(b1));
+                System.out.println("indice " + grupoNivel3.getChildren().indexOf(b1));
                 setFase(getFase());
                 setNivel(1);
                 iniciarJogo();
@@ -664,48 +674,23 @@ public class ModelPrincipal {
     }
 
     public void exibirBotoes(int nivel) {
+        System.out.println(nivel);
         switch (nivel) {
             case 1:
-                b1.setDisable(false);
-                b2.setDisable(false);
-                b3.setDisable(false);
-                b4.setDisable(false);
-                b5.setDisable(false);
-                b6.setDisable(false);
-                b7.setDisable(false);
-                b8.setDisable(false);
+                for (int k = 0; k < 8; k++) {
+                    ((Button) listaBotoes.get(k)).setDisable(false);
+                }
                 break;
             case 2:
-                b1.setVisible(true);
-                b2.setVisible(true);
-                b3.setVisible(true);
-                b4.setVisible(true);
-                b5.setVisible(true);
-                b6.setVisible(true);
-                b7.setVisible(true);
-                b8.setVisible(true);
-                b9.setVisible(true);
-                b10.setVisible(true);
+                for (int k = 0; k < 10; k++) {
+                    ((Button) listaBotoes.get(k)).setDisable(false);
+                }
                 break;
             case 3:
-                b1.setVisible(true);
-                b2.setVisible(true);
-                b3.setVisible(true);
-                b4.setVisible(true);
-                b5.setVisible(true);
-                b6.setVisible(true);
-                b7.setVisible(true);
-                b8.setVisible(true);
-                b9.setVisible(true);
-                b10.setVisible(true);
-                b11.setVisible(true);
-                b12.setVisible(true);
-                b13.setVisible(true);
-                b14.setVisible(true);
-                b15.setVisible(true);
-                b16.setVisible(true);
+                for (int k = 0; k < 16; k++) {
+                    ((Button) listaBotoes.get(k)).setDisable(false);
+                }
                 break;
-
         }
     }
 
@@ -799,6 +784,7 @@ public class ModelPrincipal {
     }
 
     public void setCorBotao(Button botao, String cor) {
+        System.out.println("aqui");
         botao.setStyle("-fx-background-color: " + cor);
     }
 
@@ -811,30 +797,15 @@ public class ModelPrincipal {
     }
 
     private void verificarTerminoNivel() throws IOException {
-        janela = (Stage) grupoNivel1.getScene().getWindow();
+        janela = (Stage) imagemFundo.getScene().getWindow();
         switch (getNivel()) {
             case 1:
-
                 if (getAcertos() == 4) {
-                    exibirPopUp(janela);
-
                     tocarEfeitoAcertoFinal();
-
-                    //  eventoProximoNivel = (ActionEvent event) -> {
-                    //exibirBotoes(1);
-                    //setFase(getFase() + 1);
-                    gerarOpcoes(getFase());
+                    exibirPopUp(janela);
                     setAcerto(0);
                     mediaPlayer.dispose();
-                    //  };
-
-                    /*
-                     new Timeline(
-                     new KeyFrame(Duration.seconds(0), eventoFimNivel),
-                     new KeyFrame(Duration.seconds(5), eventoProximoNivel)).play();
-                     */
                 }
-
                 break;
             case 2:
                 if (getAcertos() == 5) {
@@ -1114,11 +1085,10 @@ public class ModelPrincipal {
     /**
      * Sai do jogo quando o botão sair é clicado
      *
-     * @param event botão sair é clicado
+     *
      */
-    public void sairDoJogo(ActionEvent event) {
-        System.out.println("Said s");
-        janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
+    public void sairDoJogo() {
+        janela = (Stage) grupoNivel1.getScene().getWindow();
 
         //função para encerrar todos os processos quando o usuário clicar no "X"
         Alert confirmacaoSaida = new Alert(AlertType.CONFIRMATION,
@@ -1160,15 +1130,28 @@ public class ModelPrincipal {
         popUpController.setPontuacaoJogador(pontos);
         stage.setAlwaysOnTop(true);
         stage.show();
-
         stage.toFront();
         stage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(final WindowEvent event) {
                 Button botaoClicado = popUpController.getBotaoClicado();
-                System.out.println(botaoClicado.getId());
+                switch (botaoClicado.getId()) {
+                    case "sair":
+                        sairDoJogo();
+                        break;
+                    case "continuar":
+                        //continuar no jogo
+                        break;
+                    case "reiniciar":
+                        System.out.println("reiniciar");
+                        setFase(getFase());
+                        exibirBotoes(1);
+
+                        //reiniciar o nível                        
+                        break;
+                }
+
             }
         });
-
     }
 }
