@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.File;
@@ -24,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -134,6 +130,30 @@ public class RankingController implements Initializable {
     private Label titulo;
     @FXML
     private Button sair;
+    @FXML
+    private HBox posicao1;
+    @FXML
+    private HBox posicao2;
+    @FXML
+    private HBox posicao3;
+    @FXML
+    private HBox posicao4;
+    @FXML
+    private HBox posicao5;
+    @FXML
+    private HBox posicao6;
+    @FXML
+    private HBox posicao7;
+    @FXML
+    private HBox posicao8;
+    @FXML
+    private HBox posicao9;
+    @FXML
+    private HBox posicao10;
+    @FXML
+    private Label colunaJogador;
+    @FXML
+    private Label colunaPontos;
     /**
      * Initializes the controller class.
      */
@@ -150,12 +170,13 @@ public class RankingController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(RankingController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Font fonteTitulo = null, fonteNome = null, fonteRanking = null;
+        Font fonteTitulo = null, fonteNome = null, fonteRanking = null, fontColunas = null;
         try {
             File arquivoFonte = new File("src/fontes/Choko.ttf");
             fonteTitulo = Font.loadFont(new FileInputStream(arquivoFonte), 42);
             fonteNome = Font.loadFont(new FileInputStream(arquivoFonte), 34);
             fonteRanking = Font.loadFont(new FileInputStream(arquivoFonte), 30);
+            fontColunas = Font.loadFont(new FileInputStream(arquivoFonte), 22);
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(InicialController.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,6 +185,9 @@ public class RankingController implements Initializable {
         nome.setFont(fonteNome);
         labelRanking.setFont(fonteRanking);
         nomeJogador.setFont(fonteRanking);
+        colunaJogador.setFont(fontColunas);
+        colunaPontos.setFont(fontColunas);
+                
         //labelRanking.setStyle("-fx-color: white;");
         
     }    
@@ -201,6 +225,24 @@ public class RankingController implements Initializable {
     @FXML
     private void sair(ActionEvent event) {
         modelRanking.sairDoJogo(event);
+    }
+
+    /**
+     * Verifica se a tecla Enter foi pressionada
+     * @param event disparado quando uma tecla do teclado é pressionada
+     */
+    @FXML
+    private void verificarTeclaPressionada(KeyEvent event) {
+        modelRanking.verificarTeclaPressionada(event);
+    }
+    /**
+     * Inicia o jogo carregando as informções presentes na posição clicada
+     * pelo jogador
+     * @param event 
+     */
+    @FXML
+    private void iniciarJogoRanking(MouseEvent event) throws IOException {
+        modelRanking.iniciarJogoRanking(event);
     }
     
 }

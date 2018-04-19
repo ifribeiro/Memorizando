@@ -1,6 +1,7 @@
 package model;
 
 import controller.PopUpController;
+import controller.PopUpNivelFinalizadoController;
 import java.io.IOException;
 import controller.RankingController;
 import controller.PrincipalController;
@@ -201,6 +202,7 @@ public class ModelPrincipal {
     private Button nivel3;
 
     private Timer timer;
+    private double tempo;
     private Media media;
     private Stage janela;
     private Label pontuacao;
@@ -232,6 +234,8 @@ public class ModelPrincipal {
     private ImageView imagemFundo;
 
     private ArrayList listaBotoes;
+
+    private boolean mostrando;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
@@ -291,6 +295,8 @@ public class ModelPrincipal {
         this.fxmlPopUp = null;
         this.imagemFundo = imagemFundo;
         listaBotoes = new ArrayList();
+        tempo = 1.0;
+        this.mostrando = false;
     }
 
     public void verificarOpcao(ActionEvent evento) {
@@ -378,35 +384,30 @@ public class ModelPrincipal {
         Parent cenaPrincipal = null;
         FXMLLoader fxmloader = null;
         String nomeBotao = ((Button) event.getSource()).getId();
-        switch (nomeBotao) {
-            case "nivel1":
-                grupoNivel1.setVisible(true);
-                grupoNivel2.setVisible(false);
-                grupoNivel3.setVisible(false);
-                System.out.println("indice " + grupoNivel1.getChildren().indexOf(b1));
-                System.out.println("indice " + grupoNivel2.getChildren().indexOf(b1));
-                System.out.println("indice " + grupoNivel3.getChildren().indexOf(b1));
-                setFase(getFase());
-                setNivel(1);
-                iniciarJogo();
-                break;
-            case "nivel2":
-                grupoNivel1.setVisible(false);
-                grupoNivel2.setVisible(true);
-                grupoNivel3.setVisible(false);
-                setFase(getFase());
-                setNivel(2);
-                iniciarJogo();
-                break;
-            case "nivel3":
-                grupoNivel1.setVisible(false);
-                grupoNivel2.setVisible(false);
-                grupoNivel3.setVisible(true);
-                setFase(getFase());
-                setNivel(3);
-                iniciarJogo();
-                break;
+        int numBotaoTemp = Integer.parseInt(nomeBotao.substring(5));
+        if (!(numBotaoTemp == getNivel())) {
+            switch (nomeBotao) {
+                case "nivel1":
+                    grupoNivel1.setVisible(true);
+                    grupoNivel2.setVisible(false);
+                    grupoNivel3.setVisible(false);
+                    break;
+                case "nivel2":
+                    grupoNivel1.setVisible(false);
+                    grupoNivel2.setVisible(true);
+                    grupoNivel3.setVisible(false);
+                    break;
+                case "nivel3":
+                    grupoNivel1.setVisible(false);
+                    grupoNivel2.setVisible(false);
+                    grupoNivel3.setVisible(true);
+                    break;
+            }
+            setFase(getFase());
+            setNivel(numBotaoTemp);            
+            reiniciarTimer();            
         }
+
     }
 
     public void gerarOpcoes(int fase) {
@@ -509,6 +510,11 @@ public class ModelPrincipal {
         destacarBotao(fase);
     }
 
+    /**
+     * Retorna a fase em que o jogador está
+     *
+     * @return
+     */
     public int getFase() {
         return this.fase;
     }
@@ -582,6 +588,11 @@ public class ModelPrincipal {
         destacarBotao(fase);
     }
 
+    /**
+     * Altera para a fase anterior
+     *
+     * @param event
+     */
     public void faseAnterior(ActionEvent event) {
         botaoProximaFase.setVisible(true);
         if (fase == 2) {
@@ -599,6 +610,11 @@ public class ModelPrincipal {
         destacarBotao(fase);
     }
 
+    /**
+     * Reproduz o áudio do botão clicado
+     *
+     * @param evento disparado quando um botão é clicado
+     */
     private void tocarAudioBotao(ActionEvent evento) {
         String nomeBotao = ((Button) evento.getSource()).getId();
         int posicaoAudio = Integer.parseInt(nomeBotao.substring(1));
@@ -673,6 +689,11 @@ public class ModelPrincipal {
         this.erro++;
     }
 
+    /**
+     * Habilita todos os botões do nivel
+     *
+     * @param nivel nivel que terá seus botões exibidos
+     */
     public void exibirBotoes(int nivel) {
         System.out.println(nivel);
         switch (nivel) {
@@ -694,22 +715,37 @@ public class ModelPrincipal {
         }
     }
 
+    public Double getTempo() {
+        return this.tempo;
+    }
+
+    /**
+     * Define o tempo inicial que será descrescido de acordo o jogo
+     *
+     * @param tempo valor do tempo inicial
+     */
+    public void setTempoInicial(Double tempo) {
+        this.tempo = tempo;
+    }
+
     public void iniciarTimer() {
         timer = new Timer();
         //criação da tarefa que vai executar durante 1 segundo
         timer.scheduleAtFixedRate(new TimerTask() {
-            double i = 1.0;
+            Double tempo = getTempo();
 
             @Override
             public void run() {
-
                 //Platform.runLater para alterar elementos da interface do javaFX
                 Platform.runLater(() -> {
                     if (!isGameOver()) {
-                        i = i - 0.016;
-                        setBarraTempo(i);
+                        tempo = tempo - 0.016;
+                        setBarraTempo(tempo);
                     }
-                    if (i < 0) {
+                    if (mostrandoPopUp()) {
+                        timer.cancel();
+                    }
+                    if (tempo < 0) {
                         setGameOver(true);
                         timer.cancel();
                         //File arquivo = new File();
@@ -736,7 +772,7 @@ public class ModelPrincipal {
     }
 
     public void setBarraTempo(Double tempo) {
-        if (tempo < 0.9) {
+        if (tempo < 0.9 || tempo == 1.0) {
             barraTempo.setStyle("-fx-accent: #00EE00");
         }
         if (tempo < 0.8) {
@@ -802,7 +838,7 @@ public class ModelPrincipal {
             case 1:
                 if (getAcertos() == 4) {
                     tocarEfeitoAcertoFinal();
-                    exibirPopUp(janela);
+                    exibirPopUpNivel(janela);
                     setAcerto(0);
                     mediaPlayer.dispose();
                 }
@@ -1002,26 +1038,55 @@ public class ModelPrincipal {
         }
     }
 
+    /**
+     * Define um íncone para o avatar do jogador
+     *
+     * @param avatar valor do avatar escolhido
+     */
     public void setIconeAvatar(int avatar) {
         setAvatar(avatar);
         URL arquivoImg = getClass().getResource("imagens/icones/" + getAvatar() + ".png");
-
         this.iconeAvatar.setImage(new Image(arquivoImg.toString()));
     }
 
+    /**
+     * Define o avatar clicado no ranking
+     *
+     * @param imagem
+     */
+    public void setIconeAvatar(Image imagem) {
+        this.iconeAvatar.setImage(imagem);
+    }
+
+    /**
+     * Incrementa a pontuação do jogador
+     *
+     * @param acerto quantidade de acertos
+     */
     public void incrementarPontuacao(int acerto) {
         this.pontos = acerto * 5;
         pontuacao.setText(pontos + " pts");
     }
 
+    /**
+     * Define o nome do jogador
+     *
+     * @param text novo nome do jogador
+     */
     public void setNomeJogador(String text) {
         this.nomeJogador.setText(text);
     }
 
+    /**
+     * Toca o efeito de acerto quando um par é formado
+     */
     public void tocarEfeitoAcerto() {
         tocarEfeito("efeitoAcerto");
     }
 
+    /**
+     * Toca efeito de palmas no final da fase
+     */
     private void tocarEfeitoAcertoFinal() {
         tocarEfeito("palmas");
     }
@@ -1044,6 +1109,12 @@ public class ModelPrincipal {
         janela.show();
     }
 
+    /**
+     * Ordena o ranking de pontuações
+     *
+     * @param br bufferedreader que acessou o arquivo do ranking
+     * @throws IOException lança uma exceção caso o arquivo não exista
+     */
     public void ordenarRanking(BufferedReader br) throws IOException {
         String r1;
         ArrayList listaOriginal = new ArrayList();
@@ -1057,10 +1128,11 @@ public class ModelPrincipal {
         }
     }
 
-    public void tocarEfeitoErro() {
-        tocarEfeito("efeitoErro");
-    }
-
+    /**
+     * Toca um efeito sonoro
+     *
+     * @param efeito nome do efeito sonoro
+     */
     public void tocarEfeito(String efeito) {
         String caminhoAudio = "";
         caminhoAudio = "_audios/efeitos/" + efeito + ".mp3";
@@ -1107,10 +1179,17 @@ public class ModelPrincipal {
         }
     }
 
+    /**
+     * Exibe o pop up mostrando a pontuação do jogador, permitindo que ele saia
+     * do jogo, renicie a fase ou continue o jogo
+     *
+     * @param janela parametro do tipo Stage que define em qual janela o pop up
+     * será exibido
+     */
     private void exibirPopUp(Stage janela) {
-
+        setMostrandoPopUp(true);
         Stage stage = new Stage();
-        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpNivelFinalizado.fxml"));
+        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpFaseFinalizada.fxml"));
 
         try {
             popUp = (Parent) fxmlPopUp.load();
@@ -1134,24 +1213,176 @@ public class ModelPrincipal {
         stage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(final WindowEvent event) {
+
                 Button botaoClicado = popUpController.getBotaoClicado();
                 switch (botaoClicado.getId()) {
                     case "sair":
                         sairDoJogo();
                         break;
                     case "continuar":
-                        //continuar no jogo
+                        setMostrandoPopUp(false);
+                        barraTempo.setProgress(1.0);
+                        setBarraTempo(1.0);
+                        bloquearFase(getFase());
+                        setFase(getFase() + 1);
+                        exibirBotoes(getNivel());
+                        iniciarJogo();
                         break;
                     case "reiniciar":
-                        System.out.println("reiniciar");
                         setFase(getFase());
-                        exibirBotoes(1);
-
+                        exibirBotoes(getNivel());
+                        iniciarJogo();
                         //reiniciar o nível                        
                         break;
                 }
 
             }
+
         });
     }
+
+    /**
+     * Exibe um pop quando o jogador finaliza o nível
+     *
+     * @param janela janela principal do jogo
+     */
+    public void exibirPopUpNivel(Stage janela) {
+        setMostrandoPopUp(true);
+        Stage stage = new Stage();
+        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpNivelFinalizado.fxml"));
+
+        try {
+            popUp = (Parent) fxmlPopUp.load();
+        } catch (IOException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Popup popup = new Popup();
+
+        popup.getContent();
+
+        stage.setScene(new Scene(popUp));
+        stage.setTitle("");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(janela.getOwner());
+        PopUpNivelFinalizadoController popUpController = fxmlPopUp.getController();
+        stage.setAlwaysOnTop(true);
+        stage.show();
+        stage.toFront();
+        popUpController.bloquearNivel(getNivel());
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(final WindowEvent event) {
+
+                Button botaoClicado = popUpController.getBotaoClicado();
+                switch (botaoClicado.getId()) {
+                    case "sair":
+                        sairDoJogo();
+                        break;
+                    case "reiniciar":
+                        setFase(1);
+                        desbloquearFases();
+                        exibirBotoes(getNivel());
+                        iniciarJogo();
+                        //reiniciar o nível                        
+                        break;
+                    case "nivel1":
+                        nivel1.fire();
+                        break;
+                    case "nivel2":
+                        nivel2.fire();
+                        break;
+                    case "nivel3":
+                        nivel3.fire();
+                        break;
+                }
+            }
+        });
+    }
+
+    /**
+     * Retorna se algum pop up está sendo mostrado na tela
+     *
+     * @return booelan true or false
+     */
+    public boolean mostrandoPopUp() {
+        return this.mostrando;
+    }
+
+    /**
+     * Define se um pop up está sendo exibido na tela
+     *
+     * @param mostrando parâmetro true ou false
+     */
+    public void setMostrandoPopUp(boolean mostrando) {
+        this.mostrando = mostrando;
+    }
+
+    /**
+     * Bloqueia uma fase já finalizada
+     *
+     * @param fase fase a ser bloqueada
+     */
+    public void bloquearFase(int fase) {
+        switch (fase) {
+            case 1:
+                fase1.setDisable(true);
+                //adicionar valor de fase bloqueada no array;
+                break;
+            case 2:
+                fase2.setDisable(true);
+                break;
+            case 3:
+                fase3.setDisable(true);
+                break;
+            case 4:
+                fase4.setDisable(true);
+                break;
+            case 5:
+                fase5.setDisable(true);
+                break;
+            case 6:
+                fase6.setDisable(true);
+                break;
+            case 7:
+                fase7.setDisable(true);
+                break;
+        }
+    }
+
+    /**
+     * Bloqueia um nível já finalizado
+     *
+     * @param nivel nivel a ser bloqueado
+     */
+    public void bloquearNivel(int nivel) {
+        switch (nivel) {
+            case 1:
+                nivel1.setDisable(true);
+                break;
+            case 2:
+                nivel1.setDisable(true);
+                break;
+            case 3:
+                nivel1.setDisable(true);
+                break;
+        }
+    }
+
+    /**
+     * Desbloqueia todas as fases bloqueadas
+     */
+    public void desbloquearFases() {
+
+    }
+    /**
+     * Enche a barra de tempo e espera o jogador clicar em um botão para continuar o jogo
+     */
+    public void reiniciarTimer(){
+        setBarraTempo(1.0);        
+        barraTempo.setProgress(1.0);
+        timer.cancel();
+        iniciarJogo();        
+    }
+
 }

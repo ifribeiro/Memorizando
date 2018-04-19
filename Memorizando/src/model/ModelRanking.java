@@ -1,8 +1,6 @@
 package model;
 
-import controller.PopUpController;
 import controller.PrincipalController;
-import controller.RankingController;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,7 +14,6 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,16 +26,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 
 /**
  *
@@ -213,13 +208,18 @@ public class ModelRanking {
         URL arquivoImg = getClass().getResource("imagens/icones/" + numeroBotao + ".png");
         avatarMaior.setImage(new Image(arquivoImg.toString()));
         this.avatar = numeroBotao;
+        nomeJogador.requestFocus();
     }
 
     public void verificarTextoInserido(InputMethodEvent event) {
         System.out.println("Nomejogador " + nomeJogador.getText());
     }
-
-    public void verificarTexto(KeyEvent event) {
+    /**
+     * Verifica se o jogador digitou o seu nome na caixa de texto
+     * para habilitar o botão de iniciar o jogo
+     * @param event tamanho do texto alterado
+     */
+    public void verificarTexto(KeyEvent event) {        
         if (!nomeJogador.getText().isEmpty()) {
             iniciar.setDisable(false);
         } else {
@@ -563,5 +563,35 @@ public class ModelRanking {
             janela.close();
             System.exit(0);
         }
+    }
+    /**
+     * Inicia o jogo caso a tecla pressionada tenha sido a tecla Enter
+     * @param event disparado quando uma tecla é pressionada
+     */
+    public void verificarTeclaPressionada(KeyEvent event) {
+        
+       if ((event.getCode().equals(KeyCode.ENTER)) && (!nomeJogador.getText().isEmpty())) {
+            iniciar.fire();            
+       } 
+    }
+
+    public void iniciarJogoRanking(MouseEvent event) throws IOException {
+        ImageView avatarRanking = (ImageView)((HBox) event.getSource()).getChildren().get(0);
+        Label nomeRankingJogador = (Label)((HBox) event.getSource()).getChildren().get(1);
+        avatarRanking.getImage();
+        janela = (Stage) (avatarMaior).getScene().getWindow();
+        fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
+        cenaPrincipal = (Parent) fxmloader.load();
+        principalController = fxmloader.<PrincipalController>getController();
+        principalController.setFase(1);
+        principalController.setNivel(1);
+        principalController.iniciarJogo();
+        principalController.setIconeAvatar(avatarRanking.getImage());
+        principalController.setNomeJogador(nomeRankingJogador.getText());
+        Scene scene = new Scene(cenaPrincipal, 1200, 700);
+        janela.setScene(scene);
+        janela.setFullScreen(true);
+        janela.setFullScreenExitHint("");
+        janela.show();        
     }
 }

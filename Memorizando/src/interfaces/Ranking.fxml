@@ -145,7 +145,7 @@
             <Image url="@../model/imagens/icones/1.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nomeJogador" layoutX="747.0" layoutY="435.0" onKeyTyped="#verificarTexto" AnchorPane.rightAnchor="682.0">
+      <TextField fx:id="nomeJogador" layoutX="747.0" layoutY="435.0" onKeyPressed="#verificarTeclaPressionada" onKeyTyped="#verificarTexto" AnchorPane.rightAnchor="682.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -155,162 +155,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Pane id="ranking" fx:id="painelRanking" layoutX="1472.0" layoutY="250.0" prefHeight="380.0" prefWidth="200.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="250.0">
-         <children>
-            <VBox prefHeight="380.0" prefWidth="200.0">
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="labelRanking" text="Ranking">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome1" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos1" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img2" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome2" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos2" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img3" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome3" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos3" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img4" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome4" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos4" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img5" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome5" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos5" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img6" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome6" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos6" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img7" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome7" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos7" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img8" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome8" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos8" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img9" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome9" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos9" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="39.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="img10" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../model/imagens/icones/1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="nome10" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
-                        <Label fx:id="pontos10" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0" />
-                     </children>
-                  </HBox>
-               </children></VBox>
-         </children>
-      </Pane>
       <Button fx:id="iniciar" disable="true" layoutX="666.0" layoutY="548.0" mnemonicParsing="false" onAction="#iniciarJogo" onMouseClicked="#botaoClicado" onMouseEntered="#efeitoMouse" prefHeight="64.0" prefWidth="64.0">
          <graphic>
             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
@@ -333,5 +177,281 @@
             </ImageView>
          </graphic>
       </Button>
+      <Pane fx:id="painelRanking" layoutX="1472.0" layoutY="250.0" prefHeight="480.0" prefWidth="200.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="230.0">
+         <children>
+            <VBox prefHeight="380.0" prefWidth="200.0">
+               <children>
+                  <HBox fx:id="hboxRanking" prefHeight="24.0" prefWidth="241.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Label fx:id="labelRanking" alignment="CENTER" prefWidth="400.0" text="Ranking" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="tituloColunas" minHeight="-Infinity" prefHeight="40.0" prefWidth="240.0">
+                     <children>
+                        <Label fx:id="colunaJogador" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="100.0" text="Jogador">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="colunaPontos" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="100.0" text="Pontos">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao1" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome1" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos1" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao2" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img2" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome2" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos2" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao3" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img3" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome3" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos3" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao4" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img4" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome4" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos4" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao5" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img5" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome5" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos5" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao6" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img6" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome6" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos6" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao7" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img7" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome7" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos7" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao8" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img8" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome8" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos8" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao9" onMouseClicked="#iniciarJogoRanking" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img9" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome9" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos9" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="posicao10" prefHeight="39.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img10" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../model/imagens/icones/1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="nome10" prefHeight="40.0" prefWidth="85.0" text="Pedro" />
+                        <Label fx:id="pontos10" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="82.0" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding></Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

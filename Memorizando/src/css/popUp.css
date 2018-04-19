@@ -5,11 +5,10 @@
 .mainFxmlClass {
 
 }
-#sair, #reiniciar, #continuar{
+#sair, #reiniciar, #continuar, #nivel1, #nivel2, #nivel3{
     -fx-padding: 0px 0px;    
     -fx-background-color: transparent;    
     -fx-background-radius: 75%;
-
 }
 
 .button{

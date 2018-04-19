@@ -226,5 +226,9 @@ public class PrincipalController implements Initializable {
     private void sair(ActionEvent event) {
         modelPrincipal.sairDoJogo();
     }
+    
+    public void setIconeAvatar(Image imagem){
+        modelPrincipal.setIconeAvatar(imagem);
+    }
 
 }
