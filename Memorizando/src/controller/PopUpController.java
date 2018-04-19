@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.net.URL;
@@ -10,7 +5,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -40,17 +34,29 @@ public class PopUpController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
        
     }
-
+    /**
+     * Retorna qual dos três botões do pop up foi clicado
+     * @return botão clicado
+     */
     public Button getBotaoClicado() {
         return botaoClicado;
     }  
     
+    /**
+     * Salva o botão que foi clicado pelo jogador e fecha o pop up
+     * @param event botão clicado
+     */
     @FXML
     private void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button)event.getSource();
         ((Stage)botaoClicado.getScene().getWindow()).close();
     }
     
+    
+    /**
+     * Define a pontuação que aparecerá no pop-up
+     * @param pontuacao pontuação do jogador no nível
+     */
     public void setPontuacaoJogador(int pontuacao){
         pontuacaoJogador.setText(""+pontuacao);
     }

@@ -201,6 +201,7 @@ public class ModelPrincipal {
     private Button nivel3;
 
     private Timer timer;
+    private double tempo;
     private Media media;
     private Stage janela;
     private Label pontuacao;
@@ -232,6 +233,8 @@ public class ModelPrincipal {
     private ImageView imagemFundo;
 
     private ArrayList listaBotoes;
+
+    private boolean mostrando;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
@@ -291,6 +294,8 @@ public class ModelPrincipal {
         this.fxmlPopUp = null;
         this.imagemFundo = imagemFundo;
         listaBotoes = new ArrayList();
+        tempo = 1.0;
+        this.mostrando = false;
     }
 
     public void verificarOpcao(ActionEvent evento) {
@@ -509,6 +514,11 @@ public class ModelPrincipal {
         destacarBotao(fase);
     }
 
+    /**
+     * Retorna a fase em que o jogador está
+     *
+     * @return
+     */
     public int getFase() {
         return this.fase;
     }
@@ -694,22 +704,37 @@ public class ModelPrincipal {
         }
     }
 
+    public Double getTempo() {
+        return this.tempo;
+    }
+
+    /**
+     * Define o tempo inicial que será descrescido de acordo o jogo
+     *
+     * @param tempo valor do tempo inicial
+     */
+    public void setTempoInicial(Double tempo) {
+        this.tempo = tempo;
+    }
+
     public void iniciarTimer() {
         timer = new Timer();
         //criação da tarefa que vai executar durante 1 segundo
         timer.scheduleAtFixedRate(new TimerTask() {
-            double i = 1.0;
+            Double tempo = getTempo();
 
             @Override
             public void run() {
-
                 //Platform.runLater para alterar elementos da interface do javaFX
                 Platform.runLater(() -> {
                     if (!isGameOver()) {
-                        i = i - 0.016;
-                        setBarraTempo(i);
+                        tempo = tempo - 0.016;
+                        setBarraTempo(tempo);
                     }
-                    if (i < 0) {
+                    if (mostrandoPopUp()) {
+                        timer.cancel();
+                    }
+                    if (tempo < 0) {
                         setGameOver(true);
                         timer.cancel();
                         //File arquivo = new File();
@@ -735,8 +760,8 @@ public class ModelPrincipal {
         }, 0, 1000);
     }
 
-    public void setBarraTempo(Double tempo) {
-        if (tempo < 0.9) {
+    public void setBarraTempo(Double tempo) {        
+        if (tempo < 0.9 || tempo == 1.0) {
             barraTempo.setStyle("-fx-accent: #00EE00");
         }
         if (tempo < 0.8) {
@@ -1009,6 +1034,15 @@ public class ModelPrincipal {
         this.iconeAvatar.setImage(new Image(arquivoImg.toString()));
     }
 
+    /**
+     * Define o avatar clicado no ranking
+     *
+     * @param imagem
+     */
+    public void setIconeAvatar(Image imagem) {
+        this.iconeAvatar.setImage(imagem);
+    }
+
     public void incrementarPontuacao(int acerto) {
         this.pontos = acerto * 5;
         pontuacao.setText(pontos + " pts");
@@ -1106,9 +1140,14 @@ public class ModelPrincipal {
             System.exit(0);
         }
     }
-
+    /**
+     * Exibe o pop up mostrando a pontuação do jogador, permitindo que ele 
+     * saia do jogo, renicie a fase ou continue o jogo
+     * @param janela parametro do tipo Stage que define em qual janela o 
+     * pop up será exibido
+     */
     private void exibirPopUp(Stage janela) {
-
+        setMostrandoPopUp(true);
         Stage stage = new Stage();
         FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpNivelFinalizado.fxml"));
 
@@ -1134,24 +1173,66 @@ public class ModelPrincipal {
         stage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(final WindowEvent event) {
+
                 Button botaoClicado = popUpController.getBotaoClicado();
                 switch (botaoClicado.getId()) {
                     case "sair":
                         sairDoJogo();
                         break;
                     case "continuar":
-                        //continuar no jogo
+                        setMostrandoPopUp(false);
+                        barraTempo.setProgress(1.0);
+                        setBarraTempo(1.0);                        
+                        bloquearFase(getFase());                        
+                        setFase(getFase()+1);
+                        exibirBotoes(getNivel());
+                        iniciarJogo(); 
                         break;
-                    case "reiniciar":
-                        System.out.println("reiniciar");
+                    case "reiniciar":                        
                         setFase(getFase());
-                        exibirBotoes(1);
-
+                        exibirBotoes(getNivel());
+                        iniciarJogo();
                         //reiniciar o nível                        
                         break;
                 }
 
             }
+
         });
+    }
+
+    public boolean mostrandoPopUp() {
+        return this.mostrando;
+    }
+
+    public void setMostrandoPopUp(boolean mostrando) {
+        this.mostrando = mostrando;
+    }
+
+    public void bloquearFase(int fase) {
+        switch(fase){
+            case 1:
+                fase1.setDisable(true);
+                //adicionar valor de fase bloqueada no array;
+                break;
+            case 2:
+                fase2.setDisable(true);
+                break;
+            case 3:
+                fase3.setDisable(true);
+                break;
+            case 4:
+                fase4.setDisable(true);
+                break;
+            case 5:
+                fase5.setDisable(true);
+                break;
+            case 6:
+                fase6.setDisable(true);
+                break;
+            case 7:
+                fase7.setDisable(true);
+                break;
+        }
     }
 }
