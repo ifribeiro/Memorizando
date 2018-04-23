@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="555.0" prefWidth="300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PopUpGameOverController">
     <stylesheets>
-        <URL value="@/css/popupgameover.css" />
+        <URL value="@/css/popUp.css" />
     </stylesheets>
    <children>
       <VBox prefHeight="500.0" prefWidth="300.0">
@@ -28,82 +28,234 @@
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="150.0" text="Jogador">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="41.0" prefWidth="150.0" text="Pontos">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img1" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome1" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos1" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img2" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome2" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos2" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img3" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome3" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos3" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img4" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome4" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos4" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img5" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome5" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos5" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img6" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome6" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos6" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img7" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome7" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos7" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img8" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome8" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos8" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img9" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome9" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos9" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="41.1" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="img10" fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin></ImageView>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" />
-                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0" text="0" />
+                  <Label fx:id="nome10" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                  <Label fx:id="pontos10" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="41.0" prefWidth="260.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="48.0" prefWidth="200.0">
                <children>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0">
+                  <Button fx:id="sair" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tratarBotoaoClicado" prefHeight="48.0" prefWidth="48.0">
                      <HBox.margin>
                         <Insets bottom="15.0" left="15.0" right="55.0" />
                      </HBox.margin>
@@ -115,7 +267,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0">
+                  <Button fx:id="reiniciarJogo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tratarBotoaoClicado" prefHeight="48.0" prefWidth="48.0">
                      <HBox.margin>
                         <Insets bottom="15.0" right="70.0" />
                      </HBox.margin>
@@ -127,7 +279,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0">
+                  <Button fx:id="menuInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tratarBotoaoClicado" prefHeight="48.0" prefWidth="48.0">
                      <HBox.margin>
                         <Insets bottom="15.0" />
                      </HBox.margin>

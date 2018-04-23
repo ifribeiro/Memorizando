@@ -2,9 +2,13 @@ package model;
 
 import controller.PrincipalController;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -203,7 +207,7 @@ public class ModelRanking {
 
     public void trocarAvatar(ActionEvent event) throws IOException {
         janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        String nomeBotao = ((Button) event.getSource()).getId();        
+        String nomeBotao = ((Button) event.getSource()).getId();
         int numeroBotao = Integer.parseInt(nomeBotao.substring(6));
         URL arquivoImg = getClass().getResource("imagens/icones/" + numeroBotao + ".png");
         avatarMaior.setImage(new Image(arquivoImg.toString()));
@@ -214,12 +218,14 @@ public class ModelRanking {
     public void verificarTextoInserido(InputMethodEvent event) {
         System.out.println("Nomejogador " + nomeJogador.getText());
     }
+
     /**
-     * Verifica se o jogador digitou o seu nome na caixa de texto
-     * para habilitar o botão de iniciar o jogo
+     * Verifica se o jogador digitou o seu nome na caixa de texto para habilitar
+     * o botão de iniciar o jogo
+     *
      * @param event tamanho do texto alterado
      */
-    public void verificarTexto(KeyEvent event) {        
+    public void verificarTexto(KeyEvent event) {
         if (!nomeJogador.getText().isEmpty()) {
             iniciar.setDisable(false);
         } else {
@@ -448,11 +454,20 @@ public class ModelRanking {
 
         br = null;
         try {
-            br = new BufferedReader(new FileReader("ranking.txt"));
+            File arquivo = new File("ranking.txt");
+            if (arquivo.exists() == false) {
+
+                FileWriter fw = new FileWriter("ranking.txt", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter arquivoSaida = new PrintWriter(bw);
+                bw.close();
+            }
+            br = new BufferedReader(new FileReader(arquivo));
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        listaRanking = ordenarRanking();
+        listaRanking = ordenarRanking();//pega o valor ordeanado do ranking
         String r1;
         int j = 0;
         while (j <= (listaRanking.size() - 1) && j < 10) {
@@ -496,18 +511,24 @@ public class ModelRanking {
             //interno.add(part3);
             listaOriginal.add(split);
         }
-        System.out.println(listaOriginal.size());
-
+        listaOriginal.stream().forEach((o) -> {
+            System.out.println(Arrays.toString((String[]) o));
+        });
+        System.out.println("Lista size " + listaOriginal.size());
         Collections.sort(listaOriginal, new Comparator() {
 
             @Override
             public int compare(Object o1, Object o2) {
+                int i = 0;
+
                 String[] s1 = (String[]) o1;
                 String[] s2 = (String[]) o2;
-                return Integer.parseInt(s1[2]) > Integer.parseInt(s2[2]) ? -1 : (Integer.parseInt(s1[2]) > Integer.parseInt(s2[2]) ? +1 : 0);
+
+                return Integer.parseInt(s1[2]) > Integer.parseInt(s2[2]) ? -1 : (Integer.parseInt(s2[2]) > Integer.parseInt(s1[2]) ? +1 : 0);
+
             }
         });
-        System.out.println(Arrays.toString((String[]) listaOriginal.get(0)));
+
         return listaOriginal;
     }
 
@@ -545,6 +566,7 @@ public class ModelRanking {
             }
         });
     }
+
     @FXML
     public void sairDoJogo(ActionEvent event) {
         janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -564,34 +586,38 @@ public class ModelRanking {
             System.exit(0);
         }
     }
+
     /**
      * Inicia o jogo caso a tecla pressionada tenha sido a tecla Enter
+     *
      * @param event disparado quando uma tecla é pressionada
      */
     public void verificarTeclaPressionada(KeyEvent event) {
-        
-       if ((event.getCode().equals(KeyCode.ENTER)) && (!nomeJogador.getText().isEmpty())) {
-            iniciar.fire();            
-       } 
+
+        if ((event.getCode().equals(KeyCode.ENTER)) && (!nomeJogador.getText().isEmpty())) {
+            iniciar.fire();
+        }
     }
 
     public void iniciarJogoRanking(MouseEvent event) throws IOException {
-        ImageView avatarRanking = (ImageView)((HBox) event.getSource()).getChildren().get(0);
-        Label nomeRankingJogador = (Label)((HBox) event.getSource()).getChildren().get(1);
-        avatarRanking.getImage();
-        janela = (Stage) (avatarMaior).getScene().getWindow();
-        fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
-        cenaPrincipal = (Parent) fxmloader.load();
-        principalController = fxmloader.<PrincipalController>getController();
-        principalController.setFase(1);
-        principalController.setNivel(1);
-        principalController.iniciarJogo();
-        principalController.setIconeAvatar(avatarRanking.getImage());
-        principalController.setNomeJogador(nomeRankingJogador.getText());
-        Scene scene = new Scene(cenaPrincipal, 1200, 700);
-        janela.setScene(scene);
-        janela.setFullScreen(true);
-        janela.setFullScreenExitHint("");
-        janela.show();        
+        ImageView avatarRanking = (ImageView) ((HBox) event.getSource()).getChildren().get(0);
+        Label nomeRankingJogador = (Label) ((HBox) event.getSource()).getChildren().get(1);
+        if (!nomeRankingJogador.getText().isEmpty()) {
+            janela = (Stage) (avatarMaior).getScene().getWindow();
+            fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
+            cenaPrincipal = (Parent) fxmloader.load();
+            principalController = fxmloader.<PrincipalController>getController();
+            principalController.setFase(1);
+            principalController.setNivel(1);
+            principalController.iniciarJogo();
+            principalController.setIconeAvatar(avatarRanking.getImage());
+            principalController.setNomeJogador(nomeRankingJogador.getText());
+            Scene scene = new Scene(cenaPrincipal, 1200, 700);
+            janela.setScene(scene);
+            janela.setFullScreen(true);
+            janela.setFullScreenExitHint("");
+            janela.show();
+        }
+
     }
 }

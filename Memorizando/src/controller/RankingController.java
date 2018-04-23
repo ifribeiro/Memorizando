@@ -22,7 +22,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -154,6 +153,10 @@ public class RankingController implements Initializable {
     private Label colunaJogador;
     @FXML
     private Label colunaPontos;
+    @FXML
+    private HBox hboxRanking;
+    @FXML
+    private HBox tituloColunas;
     /**
      * Initializes the controller class.
      */

@@ -1,6 +1,7 @@
 package model;
 
 import controller.PopUpController;
+import controller.PopUpGameOverController;
 import controller.PopUpNivelFinalizadoController;
 import java.io.IOException;
 import controller.RankingController;
@@ -404,12 +405,17 @@ public class ModelPrincipal {
                     break;
             }
             setFase(getFase());
-            setNivel(numBotaoTemp);            
-            reiniciarTimer();            
+            setNivel(numBotaoTemp);
+            reiniciarTimer();
         }
-
     }
 
+    /**
+     * Gera novas opções aleatórias para os botões, baseadas nas fase que o
+     * jogador se encontra
+     *
+     * @param fase fase atual do jogador
+     */
     public void gerarOpcoes(int fase) {
         int i = 0;
         int proxValor = 0;
@@ -758,13 +764,18 @@ public class ModelPrincipal {
                             bw.close();
 
                             FileReader fr = new FileReader("ranking.txt");
-                            BufferedReader br = new BufferedReader(fr);
+                            BufferedReader br = new BufferedReader(fr, 100000);
                             ordenarRanking(br);
                         } catch (Exception e) {
 
                         }
 
                         setBarraTempo(0.0);
+                        try {
+                            exibirPopUpGameOver(janela);
+                        } catch (IOException ex) {
+                            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 });
             }
@@ -838,7 +849,8 @@ public class ModelPrincipal {
             case 1:
                 if (getAcertos() == 4) {
                     tocarEfeitoAcertoFinal();
-                    exibirPopUpNivel(janela);
+                    //exibirPopUpNivel(janela);
+                    exibirPopUpGameOver(janela);
                     setAcerto(0);
                     mediaPlayer.dispose();
                 }
@@ -1064,7 +1076,7 @@ public class ModelPrincipal {
      * @param acerto quantidade de acertos
      */
     public void incrementarPontuacao(int acerto) {
-        this.pontos = acerto * 5;
+        this.pontos = acerto * 50;
         pontuacao.setText(pontos + " pts");
     }
 
@@ -1301,6 +1313,72 @@ public class ModelPrincipal {
     }
 
     /**
+     * Exibe um pop quando o jogador finaliza o nível
+     *
+     * @param janela janela principal do jogo
+     */
+    public void exibirPopUpGameOver(Stage janela) throws IOException {
+        setMostrandoPopUp(true);
+        Stage stage = new Stage();
+        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/PopUpGameOver.fxml"));
+
+        try {
+            popUp = (Parent) fxmlPopUp.load();
+        } catch (IOException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Popup popup = new Popup();
+
+        popup.getContent();
+
+        stage.setScene(new Scene(popUp));
+        stage.setTitle("");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(janela.getOwner());
+        PopUpGameOverController popUpController = fxmlPopUp.getController();
+        popUpController.atualizarRanking();
+        stage.setAlwaysOnTop(true);
+        stage.show();
+        stage.toFront();
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(final WindowEvent event) {
+
+                Button botaoClicado = popUpController.getBotaoClicado();
+                switch (botaoClicado.getId()) {
+                    case "sair":
+                        sairDoJogo();
+                        break;
+                    case "reiniciarJogo":
+                        setFase(1);
+                        desbloquearFases();
+                        setNivel(1);
+                        exibirBotoes(getNivel());
+                        zerarPontuacaoJogador();
+                        iniciarJogo();
+                        //reiniciar o nível                        
+                        break;
+                    case "nivel1":
+                        nivel1.fire();
+                        break;
+                    case "nivel2":
+                        nivel2.fire();
+                        break;
+                    case "nivel3":
+                        nivel3.fire();
+                        break;
+                }
+            }
+
+        });
+    }
+
+    public void zerarPontuacaoJogador() {
+
+    }
+
+    /**
      * Retorna se algum pop up está sendo mostrado na tela
      *
      * @return booelan true or false
@@ -1375,14 +1453,16 @@ public class ModelPrincipal {
     public void desbloquearFases() {
 
     }
+
     /**
-     * Enche a barra de tempo e espera o jogador clicar em um botão para continuar o jogo
+     * Enche a barra de tempo e espera o jogador clicar em um botão para
+     * continuar o jogo
      */
-    public void reiniciarTimer(){
-        setBarraTempo(1.0);        
+    public void reiniciarTimer() {
+        setBarraTempo(1.0);
         barraTempo.setProgress(1.0);
         timer.cancel();
-        iniciarJogo();        
+        iniciarJogo();
     }
 
 }
