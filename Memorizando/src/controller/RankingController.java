@@ -168,6 +168,7 @@ public class RankingController implements Initializable {
         nome5,nome6,nome7,nome8,nome9,nome10,pontos1,pontos2,pontos3,pontos4,pontos5,
         pontos6,pontos7,pontos8,pontos9,pontos10,painelRanking);
         modelRanking.selecionarDefaultAvatar(1);
+        
         try {
             modelRanking.atualizarRanking();
         } catch (IOException ex) {

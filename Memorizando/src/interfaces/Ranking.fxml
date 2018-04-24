@@ -145,7 +145,7 @@
             <Image url="@../model/imagens/icones/1.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nomeJogador" layoutX="747.0" layoutY="435.0" onKeyPressed="#verificarTeclaPressionada" onKeyTyped="#verificarTexto" AnchorPane.rightAnchor="682.0">
+      <TextField fx:id="nomeJogador" layoutX="747.0" layoutY="435.0" onKeyPressed="#verificarTeclaPressionada" onKeyTyped="#verificarTexto" promptText="Digite seu nome" AnchorPane.rightAnchor="682.0">
          <font>
             <Font size="24.0" />
          </font>

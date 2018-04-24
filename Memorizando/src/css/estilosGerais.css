@@ -30,7 +30,7 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
 }
 
-#botaoSelecionado{
+#_btn1,#_btn2,#_btn3,#_btn4,#_btn5,#_btn6,#_btn7{
     //-fx-background-color: #26b99a;
     -fx-background-color: #99ba97; 
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
@@ -40,7 +40,7 @@
     -fx-translate-y: -7;
 }
 
-#nivelSelecionado{
+#selec1,#selec2,#selec3{
     -fx-background-color: transparent; 
     -fx-effect: dropshadow( three-pass-box , rgba(126,255,0,1) , 5, 0.5 , 0 , 0);
 }

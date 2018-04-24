@@ -149,6 +149,7 @@ public class ModelRanking {
 
     private ArrayList listaRanking = new ArrayList();
     private BufferedReader br;
+    ArrayList idNomesJogador = new ArrayList();
 
     public ModelRanking(ImageView avatarMaior, TextField nomeJogador, Button iniciar, Button av1,
             Button av2, Button av3, Button av4, Button av5, Button av6, Button av7, Button av8,
@@ -234,22 +235,48 @@ public class ModelRanking {
 
     }
 
+    /**
+     * Inicia um novo jogo
+     *
+     * @param event botão iniciar é clicado ou o jogador clica em uma das
+     * posições do ranking
+     * @throws IOException
+     */
     public void iniciarJogo(ActionEvent event) throws IOException {
-        janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
-        cenaPrincipal = (Parent) fxmloader.load();
-        principalController = fxmloader.<PrincipalController>getController();
+        if (!jogadorExiste()) {
+            janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
+            cenaPrincipal = (Parent) fxmloader.load();
+            principalController = fxmloader.<PrincipalController>getController();
 
-        principalController.setFase(1);
-        principalController.setNivel(1);
-        principalController.iniciarJogo();
-        principalController.setIconeAvatar(avatar);
-        principalController.setNomeJogador(nomeJogador.getText());
-        Scene scene = new Scene(cenaPrincipal, 1200, 700);
-        janela.setScene(scene);
-        janela.setFullScreen(true);
-        janela.setFullScreenExitHint("");
-        janela.show();
+            principalController.setFase(1);
+            principalController.setNivel(1);
+            principalController.iniciarJogo();
+            principalController.setIconeAvatar(avatar);
+            principalController.setNomeJogador(nomeJogador.getText());
+            Scene scene = new Scene(cenaPrincipal, 1200, 700);
+            janela.setScene(scene);
+            janela.setFullScreen(true);
+            janela.setFullScreenExitHint("");
+            janela.show();
+        } else {
+            Alert confirmacaoSaida = new Alert(Alert.AlertType.WARNING,
+                    "Esse nome já foi usado!");
+            Button botaoOk = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
+
+            botaoOk.setText("Ok");
+
+            confirmacaoSaida.setTitle(null);
+            confirmacaoSaida.setHeaderText(null);
+            confirmacaoSaida.setContentText("Esse nome já foi usado!");
+            Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
+            if (ButtonType.OK.equals(resposta.get())) {
+                nomeJogador.setText("");
+                destacarPosicaoJogador();
+
+            }
+
+        }
 
     }
 
@@ -428,7 +455,6 @@ public class ModelRanking {
         idImagens.add(img9);
         idImagens.add(img10);
 
-        ArrayList idNomesJogador = new ArrayList();
         idNomesJogador.add(nome1);
         idNomesJogador.add(nome2);
         idNomesJogador.add(nome3);
@@ -567,6 +593,11 @@ public class ModelRanking {
         });
     }
 
+    /**
+     * Sai do jogo
+     *
+     * @param event botão sair é clicado
+     */
     @FXML
     public void sairDoJogo(ActionEvent event) {
         janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -617,6 +648,37 @@ public class ModelRanking {
             janela.setFullScreen(true);
             janela.setFullScreenExitHint("");
             janela.show();
+        }
+
+    }
+
+    /**
+     * Verifica se o nome digitado pelo jogador já existe no ranking
+     *
+     * @return true ou false
+     */
+    private boolean jogadorExiste() {
+        boolean existe = false;
+        Label tempLabel = null;
+        System.out.println(((Label) idNomesJogador.get(0)).getText());
+        for (int i = 0; i < 10; i++) {
+            tempLabel = ((Label) idNomesJogador.get(i));
+            if (tempLabel.getText().equals(nomeJogador.getText())) {
+                return true;
+            }
+        }
+
+        return existe;
+    }
+
+    private void destacarPosicaoJogador() {
+        Label tempLabel = ((Label) idNomesJogador.get(0));
+        for (int i = 0; i < 10; i++) {
+            if (tempLabel.getText().equals(nomeJogador.getText())) {
+                //tempLabel.getParent().setStyle("-fx-background-color: black;");
+                break;
+            }
+            tempLabel = ((Label) idNomesJogador.get(i));
         }
 
     }

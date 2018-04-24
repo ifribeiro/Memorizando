@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
@@ -234,7 +235,8 @@ public class ModelPrincipal {
     @FXML
     private ImageView imagemFundo;
 
-    private ArrayList listaBotoes;
+    private ArrayList listaBotoes, fasesBloqueadasNivel1, fasesBloqueadasNivel2,
+            fasesBloqueadasNivel3, niveisBloquedos;
 
     private boolean mostrando;
 
@@ -296,8 +298,12 @@ public class ModelPrincipal {
         this.fxmlPopUp = null;
         this.imagemFundo = imagemFundo;
         listaBotoes = new ArrayList();
+        this.fasesBloqueadasNivel1 = new ArrayList();
+        this.fasesBloqueadasNivel2 = new ArrayList();
+        this.fasesBloqueadasNivel3 = new ArrayList();
         tempo = 1.0;
         this.mostrando = false;
+        this.niveisBloquedos = new ArrayList();
     }
 
     public void verificarOpcao(ActionEvent evento) {
@@ -385,28 +391,41 @@ public class ModelPrincipal {
         Parent cenaPrincipal = null;
         FXMLLoader fxmloader = null;
         String nomeBotao = ((Button) event.getSource()).getId();
-        int numBotaoTemp = Integer.parseInt(nomeBotao.substring(5));
-        if (!(numBotaoTemp == getNivel())) {
+        int numBotao = Integer.parseInt(nomeBotao.substring(5));
+        System.out.println("Num " + numBotao);
+
+        if (!(numBotao == getNivel())) {
             switch (nomeBotao) {
+                case "selec1":
                 case "nivel1":
                     grupoNivel1.setVisible(true);
                     grupoNivel2.setVisible(false);
                     grupoNivel3.setVisible(false);
                     break;
+                case "selec2":
                 case "nivel2":
                     grupoNivel1.setVisible(false);
                     grupoNivel2.setVisible(true);
                     grupoNivel3.setVisible(false);
                     break;
+                case "selec3":
                 case "nivel3":
                     grupoNivel1.setVisible(false);
                     grupoNivel2.setVisible(false);
                     grupoNivel3.setVisible(true);
                     break;
             }
-            setFase(getFase());
-            setNivel(numBotaoTemp);
-            reiniciarTimer();
+
+            
+            setNivel(numBotao);
+            setFase(getFaseDisponivel());
+            destacarNivel(getNivel());
+            gerarOpcoes(getFase());
+            atualizarBloqueios();
+            if (timerIniciado) {
+                reiniciarTimer();
+            }
+
         }
     }
 
@@ -498,6 +517,8 @@ public class ModelPrincipal {
     }
 
     public void iniciarJogo() {
+        setTimerIniciado(false);
+        setPrimeiroClique();
         gerarOpcoes(getFase());
         destacarBotao(getFase());
         destacarNivel(getNivel());
@@ -649,6 +670,7 @@ public class ModelPrincipal {
                 caminhoAudio = "_audios/audios_palavrasComplexas/" + audio + ".mp3";
                 break;
         }
+        System.out.println("Audio " + audio);
         URL file = getClass().getResource(caminhoAudio);
         media = new Media(file.toString());
         mediaPlayer = new MediaPlayer(media);
@@ -701,14 +723,17 @@ public class ModelPrincipal {
      * @param nivel nivel que terá seus botões exibidos
      */
     public void exibirBotoes(int nivel) {
-        System.out.println(nivel);
+
         switch (nivel) {
             case 1:
+                System.out.println("Entrou aqui");
                 for (int k = 0; k < 8; k++) {
                     ((Button) listaBotoes.get(k)).setDisable(false);
                 }
                 break;
             case 2:
+                listaBotoes.add(b9);
+                listaBotoes.add(b10);
                 for (int k = 0; k < 10; k++) {
                     ((Button) listaBotoes.get(k)).setDisable(false);
                 }
@@ -772,6 +797,7 @@ public class ModelPrincipal {
 
                         setBarraTempo(0.0);
                         try {
+                            janela = (Stage) imagemFundo.getScene().getWindow();
                             exibirPopUpGameOver(janela);
                         } catch (IOException ex) {
                             Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -814,8 +840,15 @@ public class ModelPrincipal {
         barraTempo.setProgress(tempo);
     }
 
-    private boolean primeiroClique() {
+    public boolean primeiroClique() {
         return this.cliquesTotais == 0;
+    }
+
+    /**
+     * Define a quantidade de cliques
+     */
+    public void setPrimeiroClique() {
+        this.cliquesTotais = 0;
     }
 
     public void setGameOver(boolean valor) {
@@ -843,34 +876,36 @@ public class ModelPrincipal {
         return this.timerIniciado;
     }
 
+    /**
+     * Verifica se o jogador terminou a fase
+     *
+     * @throws IOException
+     */
     private void verificarTerminoNivel() throws IOException {
         janela = (Stage) imagemFundo.getScene().getWindow();
+        boolean terminou = false;
         switch (getNivel()) {
             case 1:
                 if (getAcertos() == 4) {
-                    tocarEfeitoAcertoFinal();
-                    //exibirPopUpNivel(janela);
-                    exibirPopUpGameOver(janela);
-                    setAcerto(0);
-                    mediaPlayer.dispose();
+                    terminou = true;
                 }
                 break;
             case 2:
                 if (getAcertos() == 5) {
-                    exibirBotoes(2);
-                    gerarOpcoes(getFase());
-                    setAcerto(0);
-                    mediaPlayer.dispose();
+                    terminou = true;
                 }
                 break;
             case 3:
                 if (getAcertos() == 8) {
-                    exibirBotoes(3);
-                    gerarOpcoes(getFase());
-                    setAcerto(0);
-                    mediaPlayer.dispose();
+                    terminou = true;
                 }
                 break;
+        }
+        if (terminou) {
+            tocarEfeitoAcertoFinal();
+            exibirPopUp(janela);
+            setAcerto(0);
+            mediaPlayer.dispose();
         }
 
     }
@@ -890,7 +925,7 @@ public class ModelPrincipal {
 
         switch (botaoFase) {
             case 1:
-                fase1.setId("botaoSelecionado");
+                fase1.setId("_btn1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
                 fase4.setId("fase4");
@@ -901,7 +936,7 @@ public class ModelPrincipal {
                 break;
             case 2:
                 fase1.setId("fase1");
-                fase2.setId("botaoSelecionado");
+                fase2.setId("_btn2");
                 fase3.setId("fase3");
                 fase4.setId("fase4");
                 fase5.setId("fase5");
@@ -912,7 +947,7 @@ public class ModelPrincipal {
             case 3:
                 fase1.setId("fase1");
                 fase2.setId("fase2");
-                fase3.setId("botaoSelecionado");
+                fase3.setId("_btn3");
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
@@ -922,7 +957,7 @@ public class ModelPrincipal {
                 fase1.setId("fase1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
-                fase4.setId("botaoSelecionado");
+                fase4.setId("_btn4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
                 fase7.setId("fase7");
@@ -932,7 +967,7 @@ public class ModelPrincipal {
                 fase2.setId("fase2");
                 fase3.setId("fase3");
                 fase4.setId("fase4");
-                fase5.setId("botaoSelecionado");
+                fase5.setId("_btn5");
                 fase6.setId("fase6");
                 fase7.setId("fase7");
                 break;
@@ -942,7 +977,7 @@ public class ModelPrincipal {
                 fase3.setId("fase3");
                 fase4.setId("fase4");
                 fase5.setId("fase5");
-                fase6.setId("botaoSelecionado");
+                fase6.setId("_btn6");
                 fase7.setId("fase7");
                 botaoProximaFase.setVisible(true);
                 break;
@@ -953,19 +988,20 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("botaoSelecionado");
+                fase7.setId("_btn7");
                 botaoProximaFase.setVisible(false);
                 break;
         }
         setFase(botaoFase);
         gerarOpcoes(botaoFase);
+        System.out.println("Nivel " + getNivel());
         exibirBotoes(getNivel());
     }
 
     private void destacarBotao(int fase) {
         switch (fase) {
             case 1:
-                fase1.setId("botaoSelecionado");
+                fase1.setId("_btn1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
                 fase4.setId("fase4");
@@ -975,7 +1011,7 @@ public class ModelPrincipal {
                 break;
             case 2:
                 fase1.setId("fase1");
-                fase2.setId("botaoSelecionado");
+                fase2.setId("_btn2");
                 fase3.setId("fase3");
                 fase4.setId("fase4");
                 fase5.setId("fase5");
@@ -985,7 +1021,7 @@ public class ModelPrincipal {
             case 3:
                 fase1.setId("fase1");
                 fase2.setId("fase2");
-                fase3.setId("botaoSelecionado");
+                fase3.setId("_btn3");
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
@@ -995,7 +1031,7 @@ public class ModelPrincipal {
                 fase1.setId("fase1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
-                fase4.setId("botaoSelecionado");
+                fase4.setId("_btn4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
                 fase7.setId("fase7");
@@ -1005,7 +1041,7 @@ public class ModelPrincipal {
                 fase2.setId("fase2");
                 fase3.setId("fase3");
                 fase4.setId("fase4");
-                fase5.setId("botaoSelecionado");
+                fase5.setId("_btn5");
                 fase6.setId("fase6");
                 fase7.setId("fase7");
                 break;
@@ -1015,7 +1051,7 @@ public class ModelPrincipal {
                 fase3.setId("fase3");
                 fase4.setId("fase4");
                 fase5.setId("fase5");
-                fase6.setId("botaoSelecionado");
+                fase6.setId("_btn6");
                 fase7.setId("fase7");
                 break;
             case 7:
@@ -1025,7 +1061,7 @@ public class ModelPrincipal {
                 fase4.setId("fase4");
                 fase5.setId("fase5");
                 fase6.setId("fase6");
-                fase7.setId("botaoSelecionado");
+                fase7.setId("_btn7");
                 break;
         }
     }
@@ -1033,17 +1069,17 @@ public class ModelPrincipal {
     public void destacarNivel(int nivel) {
         switch (nivel) {
             case 1:
-                nivel1.setId("nivelSelecionado");
+                nivel1.setId("selec1");
                 nivel2.setId("nivel2");
                 nivel3.setId("nivel3");
                 break;
             case 2:
-                nivel2.setId("nivelSelecionado");
+                nivel2.setId("selec2");
                 nivel1.setId("nivel1");
                 nivel3.setId("nivel3");
                 break;
             case 3:
-                nivel3.setId("nivelSelecionado");
+                nivel3.setId("selec3");
                 nivel2.setId("nivel2");
                 nivel1.setId("nivel1");
                 break;
@@ -1076,7 +1112,8 @@ public class ModelPrincipal {
      * @param acerto quantidade de acertos
      */
     public void incrementarPontuacao(int acerto) {
-        this.pontos = acerto * 50;
+        System.out.println("Pontos " + pontos);
+        this.pontos = pontos + 50;
         pontuacao.setText(pontos + " pts");
     }
 
@@ -1357,6 +1394,8 @@ public class ModelPrincipal {
                         exibirBotoes(getNivel());
                         zerarPontuacaoJogador();
                         iniciarJogo();
+                        setTimerIniciado(false);
+                        setPrimeiroClique();
                         //reiniciar o nível                        
                         break;
                     case "nivel1":
@@ -1402,30 +1441,50 @@ public class ModelPrincipal {
      * @param fase fase a ser bloqueada
      */
     public void bloquearFase(int fase) {
+        Button faseTemp = null;
         switch (fase) {
             case 1:
                 fase1.setDisable(true);
-                //adicionar valor de fase bloqueada no array;
+                faseTemp = fase1;
                 break;
             case 2:
                 fase2.setDisable(true);
+                faseTemp = fase2;
                 break;
             case 3:
                 fase3.setDisable(true);
+                faseTemp = fase3;
                 break;
             case 4:
                 fase4.setDisable(true);
+                faseTemp = fase4;
                 break;
             case 5:
                 fase5.setDisable(true);
+                faseTemp = fase5;
                 break;
             case 6:
                 fase6.setDisable(true);
+                faseTemp = fase6;
                 break;
             case 7:
                 fase7.setDisable(true);
+                faseTemp = fase7;
                 break;
         }
+
+        switch (getNivel()) {
+            case 1:
+                fasesBloqueadasNivel1.add(faseTemp);
+                break;
+            case 2:
+                fasesBloqueadasNivel2.add(faseTemp);
+                break;
+            case 3:
+                fasesBloqueadasNivel3.add(faseTemp);
+                break;
+        }
+
     }
 
     /**
@@ -1463,6 +1522,92 @@ public class ModelPrincipal {
         barraTempo.setProgress(1.0);
         timer.cancel();
         iniciarJogo();
+    }
+
+    /**
+     * Quando o layout é alterado atualiza as fases que estão bloqueadas
+     */
+    private void atualizarBloqueios() {
+        fase1.setDisable(false);
+        fase2.setDisable(false);
+        fase3.setDisable(false);
+        fase4.setDisable(false);
+        fase5.setDisable(false);
+        fase6.setDisable(false);
+        fase7.setDisable(false);
+        switch (getNivel()) {
+            case 1:
+                for (Object faseTemp : fasesBloqueadasNivel1) {
+                    ((Button) faseTemp).setDisable(true);
+                }
+                break;
+
+            case 2:
+                for (Object faseTemp : fasesBloqueadasNivel2) {
+                    ((Button) faseTemp).setDisable(true);
+                }
+                break;
+            case 3:
+                for (Object faseTemp : fasesBloqueadasNivel3) {
+                    ((Button) faseTemp).setDisable(true);
+                }
+                break;
+        }
+    }
+
+    private int getFaseDisponivel() {
+        int faseDisponivel = 1;
+        ArrayList<Integer> arrayBloqueados = new ArrayList<Integer>();
+        switch (getNivel()) {
+            case 1:
+                System.out.println("Nivel 1");
+                if (!fasesBloqueadasNivel1.isEmpty()) {
+                    //fasesBloqueadasNivel1
+                    for (int k = 0; k < fasesBloqueadasNivel1.size(); k++) {
+                        String idFase = ((Button) fasesBloqueadasNivel1.get(k)).getId();
+                        int numeroFase = Integer.parseInt(idFase.substring(4));
+                        System.out.println("Nume " + numeroFase);
+                        arrayBloqueados.add(numeroFase);
+                    }
+                }
+                break;
+            case 2:
+                System.out.println("Nivel 2");
+                if (!fasesBloqueadasNivel2.isEmpty()) {
+                    for (int k = 0; k < fasesBloqueadasNivel2.size(); k++) {
+                        String idFase = ((Button) fasesBloqueadasNivel2.get(k)).getId();
+                        int numeroFase = Integer.parseInt(idFase.substring(4));
+                        arrayBloqueados.add(numeroFase);
+                    }
+                }
+                System.out.println("Bloqueados "+arrayBloqueados.isEmpty());
+                break;
+            case 3:
+                if (!fasesBloqueadasNivel3.isEmpty()) {
+                    for (int k = 0; k < fasesBloqueadasNivel3.size(); k++) {
+                        String idFase = ((Button) fasesBloqueadasNivel3.get(k)).getId();
+                        int numeroFase = Integer.parseInt(idFase.substring(4));
+                        arrayBloqueados.add(numeroFase);
+                    }
+                }
+                break;
+        }
+
+        if (arrayBloqueados.isEmpty()) {
+            System.out.println("Vazio");
+            return 1;
+        }
+
+        for (int j = 1; j <= 7; j++) {
+            if (!arrayBloqueados.contains((Integer) j)) {
+                faseDisponivel = j;
+                System.out.println("Não contem");
+                break;
+            }
+        }
+        arrayBloqueados.clear();
+        System.out.println("Fase disponivel " + faseDisponivel);
+        return faseDisponivel;
     }
 
 }
