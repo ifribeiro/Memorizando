@@ -531,16 +531,12 @@ public class ModelRanking {
             String part1 = split[0];//numero do avatar
             String part2 = split[1];//nome do jogador
             String part3 = split[2];//pontuação            
-            System.out.println("parte " + part3);
             //interno.add(part1);
             //interno.add(part2);
             //interno.add(part3);
             listaOriginal.add(split);
-        }
-        listaOriginal.stream().forEach((o) -> {
-            System.out.println(Arrays.toString((String[]) o));
-        });
-        System.out.println("Lista size " + listaOriginal.size());
+        }   
+       
         Collections.sort(listaOriginal, new Comparator() {
 
             @Override
@@ -629,7 +625,11 @@ public class ModelRanking {
             iniciar.fire();
         }
     }
-
+    /**
+     * Inicia o jogo quando o jogador clica em uma das posições do ranking
+     * @param event
+     * @throws IOException 
+     */
     public void iniciarJogoRanking(MouseEvent event) throws IOException {
         ImageView avatarRanking = (ImageView) ((HBox) event.getSource()).getChildren().get(0);
         Label nomeRankingJogador = (Label) ((HBox) event.getSource()).getChildren().get(1);

@@ -8,6 +8,7 @@ import controller.RankingController;
 import controller.PrincipalController;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -416,7 +417,6 @@ public class ModelPrincipal {
                     break;
             }
 
-            
             setNivel(numBotao);
             setFase(getFaseDisponivel());
             destacarNivel(getNivel());
@@ -783,9 +783,7 @@ public class ModelPrincipal {
                         try {
                             FileWriter fw = new FileWriter("ranking.txt", true);
                             BufferedWriter bw = new BufferedWriter(fw);
-                            PrintWriter arquivoSaida = new PrintWriter(bw);
-                            String linha = "" + getAvatar() + ">" + nomeJogador.getText() + ">" + getPontos() + "\n";
-                            bw.append(linha);
+                            maiorPontuacao("ranking.txt");
                             bw.close();
 
                             FileReader fr = new FileReader("ranking.txt");
@@ -1555,6 +1553,11 @@ public class ModelPrincipal {
         }
     }
 
+    /**
+     * Retorna a menor fase disponível para quando o jogador trocar de nível
+     *
+     * @return
+     */
     private int getFaseDisponivel() {
         int faseDisponivel = 1;
         ArrayList<Integer> arrayBloqueados = new ArrayList<Integer>();
@@ -1580,7 +1583,7 @@ public class ModelPrincipal {
                         arrayBloqueados.add(numeroFase);
                     }
                 }
-                System.out.println("Bloqueados "+arrayBloqueados.isEmpty());
+                System.out.println("Bloqueados " + arrayBloqueados.isEmpty());
                 break;
             case 3:
                 if (!fasesBloqueadasNivel3.isEmpty()) {
@@ -1610,4 +1613,62 @@ public class ModelPrincipal {
         return faseDisponivel;
     }
 
+    public void maiorPontuacao(String arquivo) throws IOException {
+        boolean maior = false;
+        FileReader fr = null;
+        FileWriter fw = null;
+        try {
+            fr = new FileReader(arquivo);
+            fw = new FileWriter("rankingTemp.txt", true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        BufferedReader br = new BufferedReader(fr, 100000);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        //loop que copia todos os registros de um arquivo para um arquivo temporario
+        //caso o jogador atual já esteja no ranking a sua pontuação será substuída se for maior
+        //que a pontuação presente no ranking
+        while (br.ready()) {
+            String linha = br.readLine();
+            String[] split = linha.split(">");//separa a linha em 3 partes
+            String part1 = split[0];//numero do avatar
+            String part2 = split[1];//nome do jogador
+            String part3 = split[2];//pontuação  
+
+            if (split[1].equals(nomeJogador.getText()) && (pontos > Integer.parseInt(part3))) {
+                part3 = "" + pontos;
+                maior = true;
+                bw.append(part1 + ">" + part2 + ">" + part3 + "\n");
+            } else {
+                bw.append(linha + "\n");
+            }
+
+        }
+        br.close();
+        bw.close();
+        try {
+            File fileToDelete = new File("ranking.txt");
+            fileToDelete.delete();
+            fr = new FileReader("rankingTemp.txt");
+            fw = new FileWriter("ranking.txt", true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        br = new BufferedReader(fr);
+        bw = new BufferedWriter(fw);
+        while (br.ready()) {
+            String linha = br.readLine();
+            String[] split = linha.split(">");//separa a linha em 3 partes
+            String part1 = split[0];//numero do avatar
+            String part2 = split[1];//nome do jogador
+            String part3 = split[2];//pontuação
+            bw.append(linha + "\n");
+        }
+        File fileToDelete = new File("rankingTemp.txt");
+        fileToDelete.delete();
+        br.close();
+        bw.close();
+    }
 }
