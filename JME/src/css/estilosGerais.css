@@ -1,0 +1,115 @@
+
+.mainFxmlClass {
+
+}
+.fonte20,.fonte22,.fonte30,.fonte34,.fonte42, .fonte64{
+    -fx-font-family: "Choko";
+}
+
+.fonte64{    
+    -fx-font-size: 64;
+}
+
+.fonte20{    
+    -fx-font-size: 20;
+}
+
+.fonte42{
+    -fx-font-size: 42;
+}
+.fonte34{
+    -fx-font-size: 34;
+}
+
+.fonte30{
+    -fx-font-size: 30;
+}
+
+.fonte22{
+    -fx-font-size: 22;
+}
+
+#b1,#b2,#b3,#b4,#b5,#b6,#b7,#b8,#b9,#b10,#b11,#b12,#b13,#b14,#b15,#b16{
+    -fx-background-color: #9cb926;
+}
+
+#botaoProximaFase, #botaoFaseAnterior, #nivel1, #nivel2, #nivel3, #avatar1,#avatar2,
+#avatar2,#avatar3,#avatar4,#avatar5,#avatar6,#avatar7,#avatar8,#avatar9,#avatar10,
+#menuInicial, #iniciar,#sobre, #sair{
+    -fx-padding: 0px 0px;
+    -fx-background-color: transparent;    
+    -fx-background-radius: 75%;
+}
+
+
+
+.button{
+    -fx-background-radius: 70%;
+    -fx-cursor: hand;    
+}
+
+.button:hover{     
+    -fx-cursor: hand;    
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+}
+
+#_btn1,#_btn2,#_btn3,#_btn4,#_btn5,#_btn6,#_btn7{
+    //-fx-background-color: #26b99a;
+    -fx-background-color: #99ba97; 
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+    -fx-padding: 14px 22px;
+    -fx-background-radius: 50%;
+    -fx-translate-x: -7;
+    -fx-translate-y: -7;
+}
+
+#selec1,#selec2,#selec3{
+    -fx-background-color: transparent; 
+    -fx-effect: dropshadow( three-pass-box , rgba(126,255,0,1) , 5, 0.5 , 0 , 0);
+}
+
+#fase1,#fase2,#fase3,#fase4,#fase5,#fase6,#fase7{
+    -fx-background-color: #99ba97;
+    -fx-padding: 0px 0px;
+    //-fx-background-color: transparent;    
+    -fx-background-radius: 75%;
+}
+
+
+//Stilos interface Ranking
+#posicao1:hover, #posicao2:hover, #posicao3:hover, #posicao4:hover, #posicao5:hover, 
+#posicao6:hover, #posicao7:hover, #posicao8:hover, #posicao9:hover, #posicao10:hover{
+    -fx-cursor: hand;  
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+}
+
+#posicao1, #posicao2, #posicao3, #posicao4, #posicao5, 
+#posicao6, #posicao7, #posicao8, #posicao9, #posicao10{
+    -fx-cursor: hand;    
+}
+
+#painelRanking{    
+    -fx-border-style: solid;
+    -fx-border-radius: 5%;
+    -fx-border-width: 2;
+    
+}
+
+#hboxRanking{
+    //-fx-border-style: solid;
+    //-fx-border-top-left-radius: 5%;
+}
+
+#tituloColunas{
+    //-fx-border-style: solid;
+    -fx-border-width: 2;
+}
+
+#colunaJogador{ // esquerda direita baixo cima          
+   -fx-border-width: 2 2 2 0;
+    -fx-border-color: black;   
+}
+#colunaPontos{    // cima direita  baixo esquerda
+    -fx-border-width: 2 0 2 0;
+    -fx-border-color: black;
+}
