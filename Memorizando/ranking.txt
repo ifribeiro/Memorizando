@@ -1,7 +1,0 @@
-1>Iran>150
-8>Cleo>200
-5>Ade>200
-1>Cleo>0
-1>Adel>0
-1>Carlos>0
-1>Carlos>0

@@ -643,6 +643,7 @@ public class ModelRanking {
             principalController.iniciarJogo();
             principalController.setIconeAvatar(avatarRanking.getImage());
             principalController.setNomeJogador(nomeRankingJogador.getText());
+            principalController.setJogadorExiste();
             Scene scene = new Scene(cenaPrincipal, 1200, 700);
             janela.setScene(scene);
             janela.setFullScreen(true);

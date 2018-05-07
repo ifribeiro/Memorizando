@@ -49,19 +49,11 @@ public class InicialController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font f = null, f1 = null;
-        try {
-            f = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 64);
-            f1 = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 20);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(InicialController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        jogo.setFont(f);        
-        de.setFont(f);
-        memoria.setFont(f);
-        auditiva.setFont(f);
-        sobre.setFont(f1);        
+        jogo.getStyleClass().add("fonte64");
+        de.getStyleClass().add("fonte64");
+        memoria.getStyleClass().add("fonte64");
+        auditiva.getStyleClass().add("fonte64");
+        sobre.getStyleClass().add("fonte20");
         modelInicial = new ModelInicial();
         
         

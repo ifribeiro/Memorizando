@@ -126,23 +126,19 @@ public class PrincipalController implements Initializable {
         botaoProximaFase.setGraphic(new ImageView(proximaFase));
         botaoFaseAnterior.setGraphic(new ImageView(faseAnterior));
         botaoFaseAnterior.setVisible(false);
-        barraTempo.setStyle("-fx-accent: #00FF00");
-        Font labelJogador = null, labelPontos = null, fonteTitulo = null;
+        barraTempo.setStyle("-fx-accent: #00FF00");        
         try {
             modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8,b9,
                     b10,b11,b12,b13,b14,b15,b16,botaoFaseAnterior,botaoProximaFase,
                     barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
                     iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3, grupoNivel1,
-                    grupoNivel2,grupoNivel3,imagemFundo); //construtor modelPrincipal do nível 1
-            labelJogador = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 30);
-            labelPontos = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 30);
-            fonteTitulo = Font.loadFont(new FileInputStream(new File("src/fontes/Choko.ttf")), 42);
+                    grupoNivel2,grupoNivel3,imagemFundo); //construtor modelPrincipal do nível 1            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        nomeJogador.setFont(labelJogador);
-        pontuacao.setFont(labelJogador);
-        titulo.setFont(fonteTitulo);
+        nomeJogador.getStyleClass().add("fonte30");
+        pontuacao.getStyleClass().add("fonte30");
+        titulo.getStyleClass().add("fonte42");
         iniciarJogo();
         
     }
@@ -229,6 +225,10 @@ public class PrincipalController implements Initializable {
     
     public void setIconeAvatar(Image imagem){
         modelPrincipal.setIconeAvatar(imagem);
+    }
+
+    public void setJogadorExiste() {
+        modelPrincipal.setJogadorExiste(true);
     }
 
 }

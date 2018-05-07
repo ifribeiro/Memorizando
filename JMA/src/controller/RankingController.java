@@ -174,23 +174,14 @@ public class RankingController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(RankingController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Font fonteTitulo = null, fonteNome = null, fonteRanking = null, fontColunas = null;
-        try {
-            File arquivoFonte = new File("src/fontes/Choko.ttf");
-            fonteTitulo = Font.loadFont(new FileInputStream(arquivoFonte), 42);
-            fonteNome = Font.loadFont(new FileInputStream(arquivoFonte), 34);
-            fonteRanking = Font.loadFont(new FileInputStream(arquivoFonte), 30);
-            fontColunas = Font.loadFont(new FileInputStream(arquivoFonte), 22);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(InicialController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        titulo.setFont(fonteTitulo);
-        nome.setFont(fonteNome);
-        labelRanking.setFont(fonteRanking);
-        nomeJogador.setFont(fonteRanking);
-        colunaJogador.setFont(fontColunas);
-        colunaPontos.setFont(fontColunas);
+        //Font.loadFont(getClass().getResource("fontes/Choko.ttf").toExternalForm(), 42);
+        
+        titulo.getStyleClass().add("fonte42");
+        nome.getStyleClass().add("fonte34");
+        labelRanking.getStyleClass().add("fonte30");
+        nomeJogador.getStyleClass().add("fonte30");
+        colunaJogador.getStyleClass().add("fonte22");
+        colunaPontos.getStyleClass().add("fonte22");
                 
         //labelRanking.setStyle("-fx-color: white;");
         

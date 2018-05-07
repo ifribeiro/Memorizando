@@ -12,10 +12,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
@@ -240,6 +238,7 @@ public class ModelPrincipal {
             fasesBloqueadasNivel3, niveisBloquedos;
 
     private boolean mostrando;
+    private boolean jogadorExiste;
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
@@ -305,12 +304,14 @@ public class ModelPrincipal {
         tempo = 1.0;
         this.mostrando = false;
         this.niveisBloquedos = new ArrayList();
+        this.jogadorExiste = false;
     }
 
     public void verificarOpcao(ActionEvent evento) {
         if (primeiroClique() && !getTimerIniciado()) {
+            System.out.println("Entrou aqui");
             iniciarTimer();
-            setTimerIniciado(true);
+            
         }
         String nomeBotao = ((Button) evento.getSource()).getId();
         cliques++;
@@ -392,9 +393,7 @@ public class ModelPrincipal {
         Parent cenaPrincipal = null;
         FXMLLoader fxmloader = null;
         String nomeBotao = ((Button) event.getSource()).getId();
-        int numBotao = Integer.parseInt(nomeBotao.substring(5));
-        System.out.println("Num " + numBotao);
-
+        int numBotao = Integer.parseInt(nomeBotao.substring(5));      
         if (!(numBotao == getNivel())) {
             switch (nomeBotao) {
                 case "selec1":
@@ -642,7 +641,7 @@ public class ModelPrincipal {
      *
      * @param evento disparado quando um botão é clicado
      */
-    private void tocarAudioBotao(ActionEvent evento) {
+    public void tocarAudioBotao(ActionEvent evento) {
         String nomeBotao = ((Button) evento.getSource()).getId();
         int posicaoAudio = Integer.parseInt(nomeBotao.substring(1));
         String audio = ArrayNivel1[posicaoAudio - 1];
@@ -669,8 +668,7 @@ public class ModelPrincipal {
             case 7:
                 caminhoAudio = "_audios/audios_palavrasComplexas/" + audio + ".mp3";
                 break;
-        }
-        System.out.println("Audio " + audio);
+        }      
         URL file = getClass().getResource(caminhoAudio);
         media = new Media(file.toString());
         mediaPlayer = new MediaPlayer(media);
@@ -725,8 +723,7 @@ public class ModelPrincipal {
     public void exibirBotoes(int nivel) {
 
         switch (nivel) {
-            case 1:
-                System.out.println("Entrou aqui");
+            case 1:                
                 for (int k = 0; k < 8; k++) {
                     ((Button) listaBotoes.get(k)).setDisable(false);
                 }
@@ -760,6 +757,7 @@ public class ModelPrincipal {
     }
 
     public void iniciarTimer() {
+        setTimerIniciado(true);
         timer = new Timer();
         //criação da tarefa que vai executar durante 1 segundo
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -783,7 +781,13 @@ public class ModelPrincipal {
                         try {
                             FileWriter fw = new FileWriter("ranking.txt", true);
                             BufferedWriter bw = new BufferedWriter(fw);
-                            maiorPontuacao("ranking.txt");
+                            if(jogadorExiste){
+                                maiorPontuacao("ranking.txt");
+                            }else{
+                                bw.append(getAvatar()+">"+nomeJogador.getText()+
+                                        ">"+getPontos()+"\n");
+                            }
+                            bw.flush();
                             bw.close();
 
                             FileReader fr = new FileReader("ranking.txt");
@@ -860,17 +864,26 @@ public class ModelPrincipal {
     public int getPontos() {
         return this.pontos;
     }
-
-    public void setCorBotao(Button botao, String cor) {
-        System.out.println("aqui");
+    /***
+     * Define a cor do botao
+     * @param botao botao clicado
+     * @param cor cor que deve ser aplicada ao botão
+     */
+    public void setCorBotao(Button botao, String cor) {        
         botao.setStyle("-fx-background-color: " + cor);
     }
-
+    /**
+     * Define que o timer foi iniciado ou não
+     * @param b true ou false
+     */
     public void setTimerIniciado(boolean b) {
         this.timerIniciado = b;
     }
-
-    private boolean getTimerIniciado() {
+    /**
+     * Verifica se o timer foi iniciado
+     * @return true ou false
+     */
+    public boolean getTimerIniciado() {
         return this.timerIniciado;
     }
 
@@ -879,7 +892,7 @@ public class ModelPrincipal {
      *
      * @throws IOException
      */
-    private void verificarTerminoNivel() throws IOException {
+    public void verificarTerminoNivel() throws IOException {
         janela = (Stage) imagemFundo.getScene().getWindow();
         boolean terminou = false;
         switch (getNivel()) {
@@ -991,8 +1004,7 @@ public class ModelPrincipal {
                 break;
         }
         setFase(botaoFase);
-        gerarOpcoes(botaoFase);
-        System.out.println("Nivel " + getNivel());
+        gerarOpcoes(botaoFase);  
         exibirBotoes(getNivel());
     }
 
@@ -1110,7 +1122,6 @@ public class ModelPrincipal {
      * @param acerto quantidade de acertos
      */
     public void incrementarPontuacao(int acerto) {
-        System.out.println("Pontos " + pontos);
         this.pontos = pontos + 50;
         pontuacao.setText(pontos + " pts");
     }
@@ -1134,7 +1145,7 @@ public class ModelPrincipal {
     /**
      * Toca efeito de palmas no final da fase
      */
-    private void tocarEfeitoAcertoFinal() {
+    public void tocarEfeitoAcertoFinal() {
         tocarEfeito("palmas");
     }
 
@@ -1276,9 +1287,12 @@ public class ModelPrincipal {
                         iniciarJogo();
                         break;
                     case "reiniciar":
+                        setMostrandoPopUp(false);
                         setFase(getFase());
+                        zerarPontuacao();
                         exibirBotoes(getNivel());
                         iniciarJogo();
+                        iniciarTimer();
                         //reiniciar o nível                        
                         break;
                 }
@@ -1609,11 +1623,10 @@ public class ModelPrincipal {
             }
         }
         arrayBloqueados.clear();
-        System.out.println("Fase disponivel " + faseDisponivel);
         return faseDisponivel;
     }
 
-    public void maiorPontuacao(String arquivo) throws IOException {
+    public boolean maiorPontuacao(String arquivo) throws IOException {
         boolean maior = false;
         FileReader fr = null;
         FileWriter fw = null;
@@ -1627,7 +1640,7 @@ public class ModelPrincipal {
         BufferedWriter bw = new BufferedWriter(fw);
 
         //loop que copia todos os registros de um arquivo para um arquivo temporario
-        //caso o jogador atual já esteja no ranking a sua pontuação será substuída se for maior
+        //caso o jogador atual já esteja no ranking a sua pontuação será atualizada se for maior
         //que a pontuação presente no ranking
         while (br.ready()) {
             String linha = br.readLine();
@@ -1670,5 +1683,17 @@ public class ModelPrincipal {
         fileToDelete.delete();
         br.close();
         bw.close();
+        
+        return maior;
+    }
+
+    public void setJogadorExiste(boolean existe) {
+        this.jogadorExiste = existe;
+    }
+    
+    public void zerarPontuacao(){
+        this.pontos = 0;
+        pontuacao.setText(pontos+" pts");
+        setBarraTempo(1.0);        
     }
 }

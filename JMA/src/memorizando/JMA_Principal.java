@@ -13,13 +13,14 @@ import javafx.stage.Stage;
  *
  * @author iran
  */
-public class Memorizando extends Application {
+public class JMA_Principal extends Application {
 
     @FXML
     private Stage janela;
 
     @Override
     public void start(Stage janela) throws IOException {
+        Font.loadFont(getClass().getResource("/fontes/Choko.ttf").toExternalForm(), 42);
         Parent cenaInicial = FXMLLoader.load(getClass().getResource("/interfaces/Inicial.fxml"));       
         
         Scene cena = new Scene(cenaInicial, 1366, 768);
