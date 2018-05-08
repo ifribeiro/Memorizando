@@ -107,6 +107,20 @@ public class PrincipalController implements Initializable {
     private Button b11;
     @FXML
     private ImageView imagemFundo;
+    @FXML
+    private ImageView imgFase1;
+    @FXML
+    private ImageView imgFase2;
+    @FXML
+    private ImageView imgFase3;
+    @FXML
+    private ImageView imgFase4;
+    @FXML
+    private ImageView imgFase5;
+    @FXML
+    private ImageView imgFase6;
+    @FXML
+    private ImageView imgFase7;
 
     /**
      * Initializes the controller class.
@@ -132,7 +146,8 @@ public class PrincipalController implements Initializable {
                     b10,b11,b12,b13,b14,b15,b16,botaoFaseAnterior,botaoProximaFase,
                     barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
                     iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3, grupoNivel1,
-                    grupoNivel2,grupoNivel3,imagemFundo); //construtor modelPrincipal do nível 1            
+                    grupoNivel2,grupoNivel3,imagemFundo,imgFase1,imgFase2,imgFase3,
+                    imgFase4,imgFase5,imgFase6,imgFase7); //construtor modelPrincipal do nível 1            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }

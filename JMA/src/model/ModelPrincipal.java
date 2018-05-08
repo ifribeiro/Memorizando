@@ -240,13 +240,32 @@ public class ModelPrincipal {
     private boolean mostrando;
     private boolean jogadorExiste;
 
+    @FXML
+    private ImageView imgFase1;
+    @FXML
+    private ImageView imgFase2;
+    @FXML
+    private ImageView imgFase3;
+    @FXML
+    private ImageView imgFase4;
+    @FXML
+    private ImageView imgFase5;
+    @FXML
+    private ImageView imgFase6;
+    @FXML
+    private ImageView imgFase7;
+    Image faseBloqueada = new Image(getClass().getResourceAsStream("imagens/icones/nivelFechado.png"));
+    Image faseAberta = new Image(getClass().getResourceAsStream("imagens/icones/nivelAberto.png"));
+
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
             Button b13, Button b14, Button b15, Button b16, Button faseAnterior, Button proximaFase,
             ProgressBar barraTempo, Button f1, Button f2, Button f3, Button f4,
             Button f5, Button f6, Button f7, ImageView icoA, Label pont,
             Label nmJogador, Button n1, Button n2, Button n3, Group grupoNivel1,
-            Group grupoNivel2, Group grupoNivel3, ImageView imagemFundo) throws FileNotFoundException {
+            Group grupoNivel2, Group grupoNivel3, ImageView imagemFundo, ImageView imgFase1,
+            ImageView imgFase2, ImageView imgFase3, ImageView imgFase4, ImageView imgFase5,
+            ImageView imgFase6, ImageView imgFase7) throws FileNotFoundException {
         this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
@@ -301,17 +320,27 @@ public class ModelPrincipal {
         this.fasesBloqueadasNivel1 = new ArrayList();
         this.fasesBloqueadasNivel2 = new ArrayList();
         this.fasesBloqueadasNivel3 = new ArrayList();
-        tempo = 1.0;
+        this.tempo = 1.0;
         this.mostrando = false;
         this.niveisBloquedos = new ArrayList();
         this.jogadorExiste = false;
+        this.imgFase1 = imgFase1;
+        this.imgFase2 = imgFase2;
+        this.imgFase3 = imgFase3;
+        this.imgFase4 = imgFase4;
+        this.imgFase5 = imgFase5;
+        this.imgFase6 = imgFase6;
+        this.imgFase7 = imgFase7;
     }
 
     public void verificarOpcao(ActionEvent evento) {
+        System.out.println(primeiroClique());
+        System.out.println(!getTimerIniciado());
+        System.out.println("game over "+isGameOver());
         if (primeiroClique() && !getTimerIniciado()) {
-            System.out.println("Entrou aqui");
+            System.out.println("Iniciar timer");
             iniciarTimer();
-            
+
         }
         String nomeBotao = ((Button) evento.getSource()).getId();
         cliques++;
@@ -321,7 +350,7 @@ public class ModelPrincipal {
             tocarAudioBotao(evento);
             btemp1 = ((Button) evento.getSource());//grava qual botao foi clicado
             botao1 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];//salva o audio contido no botao
-            setCorBotao(btemp1, "#ffff00");
+            setCorBotao(btemp1, "#ffff00");//botao fica amarelo
 
         } else if (cliques == 2) { //verifica se é o segundo clique
             btemp2 = ((Button) evento.getSource());
@@ -393,7 +422,7 @@ public class ModelPrincipal {
         Parent cenaPrincipal = null;
         FXMLLoader fxmloader = null;
         String nomeBotao = ((Button) event.getSource()).getId();
-        int numBotao = Integer.parseInt(nomeBotao.substring(5));      
+        int numBotao = Integer.parseInt(nomeBotao.substring(5));
         if (!(numBotao == getNivel())) {
             switch (nomeBotao) {
                 case "selec1":
@@ -668,7 +697,7 @@ public class ModelPrincipal {
             case 7:
                 caminhoAudio = "_audios/audios_palavrasComplexas/" + audio + ".mp3";
                 break;
-        }      
+        }
         URL file = getClass().getResource(caminhoAudio);
         media = new Media(file.toString());
         mediaPlayer = new MediaPlayer(media);
@@ -721,12 +750,13 @@ public class ModelPrincipal {
      * @param nivel nivel que terá seus botões exibidos
      */
     public void exibirBotoes(int nivel) {
-
+        setCorBotao(btemp1, "#00000");
         switch (nivel) {
-            case 1:                
-                for (int k = 0; k < 8; k++) {
-                    ((Button) listaBotoes.get(k)).setDisable(false);
-                }
+            case 1:
+                System.out.println("Lista " + listaBotoes.size());
+                listaBotoes.stream().forEach((botaoDesativado) -> {
+                    ((Button) botaoDesativado).setDisable(false);
+                });
                 break;
             case 2:
                 listaBotoes.add(b9);
@@ -772,6 +802,7 @@ public class ModelPrincipal {
                         setBarraTempo(tempo);
                     }
                     if (mostrandoPopUp()) {
+                        System.out.println("Etrou aqui nexta bosta");
                         timer.cancel();
                     }
                     if (tempo < 0) {
@@ -781,11 +812,11 @@ public class ModelPrincipal {
                         try {
                             FileWriter fw = new FileWriter("ranking.txt", true);
                             BufferedWriter bw = new BufferedWriter(fw);
-                            if(jogadorExiste){
+                            if (jogadorExiste) {
                                 maiorPontuacao("ranking.txt");
-                            }else{
-                                bw.append(getAvatar()+">"+nomeJogador.getText()+
-                                        ">"+getPontos()+"\n");
+                            } else {
+                                bw.append(getAvatar() + ">" + nomeJogador.getText()
+                                        + ">" + getPontos() + "\n");
                             }
                             bw.flush();
                             bw.close();
@@ -801,13 +832,15 @@ public class ModelPrincipal {
                         try {
                             janela = (Stage) imagemFundo.getScene().getWindow();
                             exibirPopUpGameOver(janela);
+
                         } catch (IOException ex) {
-                            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(ModelPrincipal.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 });
             }
-        }, 0, 1000);
+        }, 0, 500);
     }
 
     public void setBarraTempo(Double tempo) {
@@ -864,23 +897,30 @@ public class ModelPrincipal {
     public int getPontos() {
         return this.pontos;
     }
-    /***
+
+    /**
+     * *
      * Define a cor do botao
+     *
      * @param botao botao clicado
      * @param cor cor que deve ser aplicada ao botão
      */
-    public void setCorBotao(Button botao, String cor) {        
+    public void setCorBotao(Button botao, String cor) {
         botao.setStyle("-fx-background-color: " + cor);
     }
+
     /**
      * Define que o timer foi iniciado ou não
+     *
      * @param b true ou false
      */
     public void setTimerIniciado(boolean b) {
         this.timerIniciado = b;
     }
+
     /**
      * Verifica se o timer foi iniciado
+     *
      * @return true ou false
      */
     public boolean getTimerIniciado() {
@@ -1004,13 +1044,19 @@ public class ModelPrincipal {
                 break;
         }
         setFase(botaoFase);
-        gerarOpcoes(botaoFase);  
+        gerarOpcoes(botaoFase);
         exibirBotoes(getNivel());
     }
 
-    private void destacarBotao(int fase) {
+    /**
+     * Destaca qual fase está sendo jogada
+     *
+     * @param fase fase a ser destacada
+     */
+    public void destacarBotao(int fase) {
         switch (fase) {
             case 1:
+                imgFase1.setImage(faseAberta);
                 fase1.setId("_btn1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
@@ -1020,6 +1066,7 @@ public class ModelPrincipal {
                 fase7.setId("fase7");
                 break;
             case 2:
+                imgFase2.setImage(faseAberta);
                 fase1.setId("fase1");
                 fase2.setId("_btn2");
                 fase3.setId("fase3");
@@ -1029,6 +1076,7 @@ public class ModelPrincipal {
                 fase7.setId("fase7");
                 break;
             case 3:
+                imgFase3.setImage(faseAberta);
                 fase1.setId("fase1");
                 fase2.setId("fase2");
                 fase3.setId("_btn3");
@@ -1038,6 +1086,7 @@ public class ModelPrincipal {
                 fase7.setId("fase7");
                 break;
             case 4:
+                imgFase4.setImage(faseAberta);
                 fase1.setId("fase1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
@@ -1047,6 +1096,7 @@ public class ModelPrincipal {
                 fase7.setId("fase7");
                 break;
             case 5:
+                imgFase5.setImage(faseAberta);
                 fase1.setId("fase1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
@@ -1056,6 +1106,7 @@ public class ModelPrincipal {
                 fase7.setId("fase7");
                 break;
             case 6:
+                imgFase6.setImage(faseAberta);
                 fase1.setId("fase1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
@@ -1065,6 +1116,7 @@ public class ModelPrincipal {
                 fase7.setId("fase7");
                 break;
             case 7:
+                imgFase7.setImage(faseAberta);
                 fase1.setId("fase1");
                 fase2.setId("fase2");
                 fase3.setId("fase3");
@@ -1160,6 +1212,7 @@ public class ModelPrincipal {
         FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
         Parent cenaPrincipal = (Parent) fxmloader.load();
         rankingController = fxmloader.<RankingController>getController();
+        timer.cancel();
         Scene scene = new Scene(cenaPrincipal, 1200, 700);
         janela.setScene(scene);
         janela.setFullScreen(true);
@@ -1251,8 +1304,10 @@ public class ModelPrincipal {
 
         try {
             popUp = (Parent) fxmlPopUp.load();
+
         } catch (IOException ex) {
-            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelPrincipal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         Popup popup = new Popup();
@@ -1314,8 +1369,10 @@ public class ModelPrincipal {
 
         try {
             popUp = (Parent) fxmlPopUp.load();
+
         } catch (IOException ex) {
-            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelPrincipal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         Popup popup = new Popup();
@@ -1369,12 +1426,14 @@ public class ModelPrincipal {
     public void exibirPopUpGameOver(Stage janela) throws IOException {
         setMostrandoPopUp(true);
         Stage stage = new Stage();
-        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/PopUpGameOver.fxml"));
+        fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/PopUpGameOver.fxml"));
 
         try {
             popUp = (Parent) fxmlPopUp.load();
+
         } catch (IOException ex) {
-            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelPrincipal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         Popup popup = new Popup();
@@ -1404,21 +1463,14 @@ public class ModelPrincipal {
                         desbloquearFases();
                         setNivel(1);
                         exibirBotoes(getNivel());
-                        zerarPontuacaoJogador();
-                        iniciarJogo();
+                        zerarPontuacao();
                         setTimerIniciado(false);
+                        setMostrandoPopUp(false);
+                        setGameOver(false);
                         setPrimeiroClique();
-                        //reiniciar o nível                        
-                        break;
-                    case "nivel1":
-                        nivel1.fire();
-                        break;
-                    case "nivel2":
-                        nivel2.fire();
-                        break;
-                    case "nivel3":
-                        nivel3.fire();
-                        break;
+                        setBarraTempo(1.0);                    
+                        iniciarJogo();                      
+                        break;                    
                 }
             }
 
@@ -1426,7 +1478,9 @@ public class ModelPrincipal {
     }
 
     public void zerarPontuacaoJogador() {
-
+        this.pontos = 0;
+        incrementarPontuacao(-50);
+        
     }
 
     /**
@@ -1456,30 +1510,38 @@ public class ModelPrincipal {
         Button faseTemp = null;
         switch (fase) {
             case 1:
+                imgFase1.setImage(faseBloqueada);
                 fase1.setDisable(true);
+                //fase1.setGraphic(imgFase1);
                 faseTemp = fase1;
                 break;
             case 2:
+                imgFase2.setImage(faseBloqueada);
                 fase2.setDisable(true);
                 faseTemp = fase2;
                 break;
             case 3:
+                imgFase3.setImage(faseBloqueada);
                 fase3.setDisable(true);
                 faseTemp = fase3;
                 break;
             case 4:
+                imgFase4.setImage(faseBloqueada);
                 fase4.setDisable(true);
                 faseTemp = fase4;
                 break;
             case 5:
+                imgFase5.setImage(faseBloqueada);
                 fase5.setDisable(true);
                 faseTemp = fase5;
                 break;
             case 6:
+                imgFase6.setImage(faseBloqueada);
                 fase6.setDisable(true);
                 faseTemp = fase6;
                 break;
             case 7:
+                imgFase7.setImage(faseBloqueada);
                 fase7.setDisable(true);
                 faseTemp = fase7;
                 break;
@@ -1551,6 +1613,8 @@ public class ModelPrincipal {
             case 1:
                 for (Object faseTemp : fasesBloqueadasNivel1) {
                     ((Button) faseTemp).setDisable(true);
+                    int faseBloq = Integer.parseInt(((Button) faseTemp).getId().substring(4));
+                    atualizarFase(faseBloq);
                 }
                 break;
 
@@ -1611,14 +1675,12 @@ public class ModelPrincipal {
         }
 
         if (arrayBloqueados.isEmpty()) {
-            System.out.println("Vazio");
             return 1;
         }
 
         for (int j = 1; j <= 7; j++) {
             if (!arrayBloqueados.contains((Integer) j)) {
                 faseDisponivel = j;
-                System.out.println("Não contem");
                 break;
             }
         }
@@ -1633,8 +1695,10 @@ public class ModelPrincipal {
         try {
             fr = new FileReader(arquivo);
             fw = new FileWriter("rankingTemp.txt", true);
+
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelPrincipal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         BufferedReader br = new BufferedReader(fr, 100000);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -1665,8 +1729,10 @@ public class ModelPrincipal {
             fileToDelete.delete();
             fr = new FileReader("rankingTemp.txt");
             fw = new FileWriter("ranking.txt", true);
+
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelPrincipal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         br = new BufferedReader(fr);
@@ -1683,17 +1749,44 @@ public class ModelPrincipal {
         fileToDelete.delete();
         br.close();
         bw.close();
-        
+
         return maior;
     }
 
     public void setJogadorExiste(boolean existe) {
         this.jogadorExiste = existe;
     }
-    
-    public void zerarPontuacao(){
+
+    public void zerarPontuacao() {
         this.pontos = 0;
-        pontuacao.setText(pontos+" pts");
-        setBarraTempo(1.0);        
+        pontuacao.setText(pontos + " pts");
+        setBarraTempo(1.0);
+    }
+
+    public void atualizarFase(int faseBloq) {
+        switch (faseBloq) {
+            case 1:
+                imgFase1.setImage(faseBloqueada);
+                break;
+            case 2:
+                imgFase2.setImage(faseBloqueada);
+                break;
+            case 3:
+                imgFase3.setImage(faseBloqueada);
+                break;
+            case 4:
+                imgFase4.setImage(faseBloqueada);
+                break;
+            case 5:
+                imgFase5.setImage(faseBloqueada);
+                break;
+            case 6:
+                imgFase6.setImage(faseBloqueada);
+                break;
+            case 7:
+                imgFase7.setImage(faseBloqueada);
+                break;
+
+        }
     }
 }

@@ -308,53 +308,53 @@
             </Group>
             <Button fx:id="botaoProximaFase" layoutX="306.0" layoutY="505.0" mnemonicParsing="false" onAction="#proximaFase" AnchorPane.bottomAnchor="70.0" />
             <Button fx:id="botaoFaseAnterior" layoutX="193.0" layoutY="505.0" mnemonicParsing="false" onAction="#faseAnterior" AnchorPane.bottomAnchor="70.0" />
-            <Button fx:id="fase1" layoutX="52.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="fase1" layoutX="52.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../model/imagens/icones/nivelFechado.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button fx:id="fase2" layoutX="122.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgFase1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../model/imagens/icones/nivelAberto.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="fase3" layoutX="192.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="fase2" layoutX="122.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgFase2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../model/imagens/icones/nivelAberto.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="fase3" layoutX="192.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fx:id="imgFase3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../model/imagens/icones/nivelAberto.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="fase4" layoutX="262.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgFase4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../model/imagens/icones/nivelAberto.png" />
                      </image></ImageView>
                </graphic></Button>
-            <Button fx:id="fase5" layoutX="332.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="fase5" layoutX="332.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgFase5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../model/imagens/icones/nivelAberto.png" />
                      </image></ImageView>
                </graphic></Button>
-            <Button fx:id="fase6" layoutX="402.0" layoutY="554.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="fase6" layoutX="402.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgFase6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../model/imagens/icones/nivelAberto.png" />
                      </image></ImageView>
                </graphic></Button>
-            <Button fx:id="fase7" layoutX="472.0" layoutY="554.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="fase7" layoutX="472.0" layoutY="554.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mudarFase" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgFase7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../model/imagens/icones/nivelAberto.png" />
                      </image></ImageView>
