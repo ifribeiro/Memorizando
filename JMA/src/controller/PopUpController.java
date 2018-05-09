@@ -47,7 +47,7 @@ public class PopUpController implements Initializable {
      * @param event botão clicado
      */
     @FXML
-    private void tratarBotaoClicado(ActionEvent event) {
+    public void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button)event.getSource();
         ((Stage)botaoClicado.getScene().getWindow()).close();
     }

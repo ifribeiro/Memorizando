@@ -336,7 +336,7 @@ public class ModelPrincipal {
     public void verificarOpcao(ActionEvent evento) {
         System.out.println(primeiroClique());
         System.out.println(!getTimerIniciado());
-        System.out.println("game over "+isGameOver());
+        System.out.println("game over " + isGameOver());
         if (primeiroClique() && !getTimerIniciado()) {
             System.out.println("Iniciar timer");
             iniciarTimer();
@@ -937,17 +937,17 @@ public class ModelPrincipal {
         boolean terminou = false;
         switch (getNivel()) {
             case 1:
-                if (getAcertos() == 4) {
+                if (getAcertos() == 1) {
                     terminou = true;
                 }
                 break;
             case 2:
-                if (getAcertos() == 5) {
+                if (getAcertos() == 1) {
                     terminou = true;
                 }
                 break;
             case 3:
-                if (getAcertos() == 8) {
+                if (getAcertos() == 1) {
                     terminou = true;
                 }
                 break;
@@ -1333,13 +1333,30 @@ public class ModelPrincipal {
                         sairDoJogo();
                         break;
                     case "continuar":
-                        setMostrandoPopUp(false);
-                        barraTempo.setProgress(1.0);
-                        setBarraTempo(1.0);
+                        int fasesBloqueadas = 0;
                         bloquearFase(getFase());
-                        setFase(getFase() + 1);
-                        exibirBotoes(getNivel());
-                        iniciarJogo();
+                        switch (getNivel()) {
+                            case 1:
+                                fasesBloqueadas = fasesBloqueadasNivel1.size();
+                                break;
+                            case 2:
+                                fasesBloqueadas = fasesBloqueadasNivel2.size();
+                                break;
+                            case 3:
+                                fasesBloqueadas = fasesBloqueadasNivel3.size();
+                                break;
+                        }
+                        if (fasesBloqueadas != 7) {
+                            setMostrandoPopUp(false);
+                            barraTempo.setProgress(1.0);
+                            setBarraTempo(1.0);
+                            setFase(getFase() + 1);
+                            exibirBotoes(getNivel());
+                            iniciarJogo();
+                        } else {
+                            exibirPopUpNivel(janela);
+                        }
+
                         break;
                     case "reiniciar":
                         setMostrandoPopUp(false);
@@ -1365,7 +1382,7 @@ public class ModelPrincipal {
     public void exibirPopUpNivel(Stage janela) {
         setMostrandoPopUp(true);
         Stage stage = new Stage();
-        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpNivelFinalizado.fxml"));
+        fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpNivelFinalizado.fxml"));
 
         try {
             popUp = (Parent) fxmlPopUp.load();
@@ -1388,32 +1405,30 @@ public class ModelPrincipal {
         stage.show();
         stage.toFront();
         popUpController.bloquearNivel(getNivel());
-        stage.setOnHidden(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(final WindowEvent event) {
-
-                Button botaoClicado = popUpController.getBotaoClicado();
-                switch (botaoClicado.getId()) {
-                    case "sair":
-                        sairDoJogo();
-                        break;
-                    case "reiniciar":
-                        setFase(1);
-                        desbloquearFases();
-                        exibirBotoes(getNivel());
-                        iniciarJogo();
-                        //reiniciar o nível                        
-                        break;
-                    case "nivel1":
-                        nivel1.fire();
-                        break;
-                    case "nivel2":
-                        nivel2.fire();
-                        break;
-                    case "nivel3":
-                        nivel3.fire();
-                        break;
-                }
+        stage.setOnHidden((final WindowEvent event) -> {
+            Button botaoClicado = popUpController.getBotaoClicado();
+            switch (botaoClicado.getId()) {
+                case "sair":
+                    sairDoJogo();
+                    break;
+                case "reiniciar":
+                    setMostrandoPopUp(false);
+                    setFase(1);
+                    desbloquearFases();
+                    exibirBotoes(getNivel());
+                    iniciarJogo();
+                    zerarPontuacao();
+                    //reiniciar o nível
+                    break;
+                case "nivel1":
+                    nivel1.fire();
+                    break;
+                case "nivel2":
+                    nivel2.fire();
+                    break;
+                case "nivel3":
+                    nivel3.fire();
+                    break;
             }
         });
     }
@@ -1468,21 +1483,14 @@ public class ModelPrincipal {
                         setMostrandoPopUp(false);
                         setGameOver(false);
                         setPrimeiroClique();
-                        setBarraTempo(1.0);                    
-                        iniciarJogo();                      
-                        break;                    
+                        setBarraTempo(1.0);
+                        iniciarJogo();
+                        break;
                 }
             }
 
         });
-    }
-
-    public void zerarPontuacaoJogador() {
-        this.pontos = 0;
-        incrementarPontuacao(-50);
-        
-    }
-
+    }   
     /**
      * Retorna se algum pop up está sendo mostrado na tela
      *
@@ -1584,7 +1592,29 @@ public class ModelPrincipal {
      * Desbloqueia todas as fases bloqueadas
      */
     public void desbloquearFases() {
-
+        switch (getNivel()) {
+            case 1:
+                for (Object fases : fasesBloqueadasNivel1) {
+                    ((Button) fases).setDisable(false);
+                    int faseBloq = Integer.parseInt(((Button) fases).getId().substring(4));
+                    atualizarFases(faseBloq, false);
+                }
+                break;
+            case 2:
+                for (Object fases : fasesBloqueadasNivel2) {
+                    ((Button) fases).setDisable(false);
+                    int faseBloq = Integer.parseInt(((Button) fases).getId().substring(4));
+                    atualizarFases(faseBloq, false);
+                }
+                break;
+            case 3:
+                for (Object fases : fasesBloqueadasNivel3) {
+                    ((Button) fases).setDisable(false);
+                    int faseBloq = Integer.parseInt(((Button) fases).getId().substring(4));
+                    atualizarFases(faseBloq, false);
+                }
+                break;
+        }
     }
 
     /**
@@ -1601,7 +1631,7 @@ public class ModelPrincipal {
     /**
      * Quando o layout é alterado atualiza as fases que estão bloqueadas
      */
-    private void atualizarBloqueios() {
+    public void atualizarBloqueios() {
         fase1.setDisable(false);
         fase2.setDisable(false);
         fase3.setDisable(false);
@@ -1614,18 +1644,22 @@ public class ModelPrincipal {
                 for (Object faseTemp : fasesBloqueadasNivel1) {
                     ((Button) faseTemp).setDisable(true);
                     int faseBloq = Integer.parseInt(((Button) faseTemp).getId().substring(4));
-                    atualizarFase(faseBloq);
+                    atualizarFases(faseBloq, true);
                 }
                 break;
 
             case 2:
                 for (Object faseTemp : fasesBloqueadasNivel2) {
                     ((Button) faseTemp).setDisable(true);
+                    int faseBloq = Integer.parseInt(((Button) faseTemp).getId().substring(4));
+                    atualizarFases(faseBloq, true);
                 }
                 break;
             case 3:
                 for (Object faseTemp : fasesBloqueadasNivel3) {
                     ((Button) faseTemp).setDisable(true);
+                    int faseBloq = Integer.parseInt(((Button) faseTemp).getId().substring(4));
+                    atualizarFases(faseBloq, true);
                 }
                 break;
         }
@@ -1763,30 +1797,57 @@ public class ModelPrincipal {
         setBarraTempo(1.0);
     }
 
-    public void atualizarFase(int faseBloq) {
-        switch (faseBloq) {
-            case 1:
-                imgFase1.setImage(faseBloqueada);
-                break;
-            case 2:
-                imgFase2.setImage(faseBloqueada);
-                break;
-            case 3:
-                imgFase3.setImage(faseBloqueada);
-                break;
-            case 4:
-                imgFase4.setImage(faseBloqueada);
-                break;
-            case 5:
-                imgFase5.setImage(faseBloqueada);
-                break;
-            case 6:
-                imgFase6.setImage(faseBloqueada);
-                break;
-            case 7:
-                imgFase7.setImage(faseBloqueada);
-                break;
+    public void atualizarFases(int faseBloq, boolean bloqueio) {
+        if (bloqueio) {
+            switch (faseBloq) {
+                case 1:
+                    imgFase1.setImage(faseBloqueada);
+                    break;
+                case 2:
+                    imgFase2.setImage(faseBloqueada);
+                    break;
+                case 3:
+                    imgFase3.setImage(faseBloqueada);
+                    break;
+                case 4:
+                    imgFase4.setImage(faseBloqueada);
+                    break;
+                case 5:
+                    imgFase5.setImage(faseBloqueada);
+                    break;
+                case 6:
+                    imgFase6.setImage(faseBloqueada);
+                    break;
+                case 7:
+                    imgFase7.setImage(faseBloqueada);
+                    break;
 
+            }
+        } else {
+            switch (faseBloq) {
+                case 1:
+                    imgFase1.setImage(faseAberta);
+                    break;
+                case 2:
+                    imgFase2.setImage(faseAberta);
+                    break;
+                case 3:
+                    imgFase3.setImage(faseAberta);
+                    break;
+                case 4:
+                    imgFase4.setImage(faseAberta);
+                    break;
+                case 5:
+                    imgFase5.setImage(faseAberta);
+                    break;
+                case 6:
+                    imgFase6.setImage(faseAberta);
+                    break;
+                case 7:
+                    imgFase7.setImage(faseAberta);
+                    break;
+
+            }
         }
     }
 }
