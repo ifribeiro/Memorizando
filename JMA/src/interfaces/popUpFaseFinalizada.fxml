@@ -14,22 +14,22 @@
         <URL value="@/css/popUp.css" />
     </stylesheets>
    <children>
-      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="24.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="estrela1" fitHeight="64.0" fitWidth="64.0" layoutX="24.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../model/imagens/icones/estrela.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="118.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="estrela2" fitHeight="64.0" fitWidth="64.0" layoutX="118.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../model/imagens/icones/estrela.png" />
          </image>
       </ImageView>
-      <Label layoutX="52.0" layoutY="30.0" text="Parabéns!!!">
+      <Label fx:id="labelParabens" layoutX="50.0" layoutY="30.0" text="Parabéns!!!">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="208.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="estrela3" fitHeight="64.0" fitWidth="64.0" layoutX="208.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../model/imagens/icones/estrela.png" />
          </image>
@@ -58,7 +58,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Label fx:id="pontuacaoJogador" layoutX="137.0" layoutY="129.0" text="0">
+      <Label fx:id="pontuacaoJogador" layoutX="114.0" layoutY="129.0" text="0">
          <font>
             <Font size="42.0" />
          </font>

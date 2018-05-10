@@ -1,5 +1,6 @@
 package controller;
 
+import model.ModelPopUpFase;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -7,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -26,12 +28,24 @@ public class PopUpController implements Initializable {
     private Button botaoClicado = new Button();
     @FXML
     private Label pontuacaoJogador;
+    @FXML
+    private ImageView estrela1;
+    @FXML
+    private ImageView estrela2;
+    @FXML
+    private ImageView estrela3;
+    
+    private ModelPopUpFase modelPopUp;
+    @FXML
+    private Label labelParabens;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        modelPopUp = new ModelPopUpFase(estrela1,estrela2,estrela3,pontuacaoJogador,continuar);
+        
        
     }
     /**
@@ -57,8 +71,12 @@ public class PopUpController implements Initializable {
      * Define a pontuação que aparecerá no pop-up
      * @param pontuacao pontuação do jogador no nível
      */
-    public void setPontuacaoJogador(int pontuacao){
-        pontuacaoJogador.setText(""+pontuacao);
+    public void setPontuacaoJogador(int pontuacao, Double tempo, int cliques,int fase, int nivel){
+        modelPopUp.setPontuacaoJogador(pontuacao,tempo,cliques,fase,nivel);
+        
     }
 
+    public long getPontuacaoJogador() {
+        return modelPopUp.getPontuacaoJogador();
+    }
 }

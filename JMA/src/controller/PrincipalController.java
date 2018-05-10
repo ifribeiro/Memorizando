@@ -121,6 +121,20 @@ public class PrincipalController implements Initializable {
     private ImageView imgFase6;
     @FXML
     private ImageView imgFase7;
+    @FXML
+    private Label ptFase1;
+    @FXML
+    private Label ptFase2;
+    @FXML
+    private Label ptFase3;
+    @FXML
+    private Label ptFase4;
+    @FXML
+    private Label ptFase5;
+    @FXML
+    private Label ptFase6;
+    @FXML
+    private Label ptFase7;
 
     /**
      * Initializes the controller class.
@@ -147,13 +161,21 @@ public class PrincipalController implements Initializable {
                     barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
                     iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3, grupoNivel1,
                     grupoNivel2,grupoNivel3,imagemFundo,imgFase1,imgFase2,imgFase3,
-                    imgFase4,imgFase5,imgFase6,imgFase7); //construtor modelPrincipal do nível 1            
+                    imgFase4,imgFase5,imgFase6,imgFase7,ptFase1,ptFase2,ptFase3,ptFase4,
+                    ptFase5,ptFase6,ptFase7); //construtor modelPrincipal do nível 1            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
         nomeJogador.getStyleClass().add("fonte30");
         pontuacao.getStyleClass().add("fonte30");
         titulo.getStyleClass().add("fonte42");
+        ptFase1.getStyleClass().add("fonte13");
+        ptFase2.getStyleClass().add("fonte13");
+        ptFase3.getStyleClass().add("fonte13");
+        ptFase4.getStyleClass().add("fonte13");
+        ptFase5.getStyleClass().add("fonte13");
+        ptFase6.getStyleClass().add("fonte13");
+        ptFase7.getStyleClass().add("fonte13");
         iniciarJogo();
         
     }

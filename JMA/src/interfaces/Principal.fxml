@@ -359,6 +359,13 @@
                         <Image url="@../model/imagens/icones/nivelAberto.png" />
                      </image></ImageView>
                </graphic></Button>
+            <Label fx:id="ptFase1" alignment="CENTER" layoutX="52.0" layoutY="523.0" prefHeight="15.0" prefWidth="50.0" text="0" />
+            <Label fx:id="ptFase2" alignment="CENTER" layoutX="122.0" layoutY="523.0" prefWidth="50.0" text="0" />
+            <Label fx:id="ptFase3" alignment="CENTER" contentDisplay="CENTER" layoutX="192.0" layoutY="523.0" prefWidth="50.0" text="0" />
+            <Label fx:id="ptFase4" alignment="CENTER" layoutX="262.0" layoutY="523.0" prefWidth="50.0" text="0" />
+            <Label fx:id="ptFase5" alignment="CENTER" layoutX="332.0" layoutY="523.0" prefWidth="50.0" text="0" />
+            <Label fx:id="ptFase6" alignment="CENTER" layoutX="402.0" layoutY="523.0" prefWidth="50.0" text="0" />
+            <Label fx:id="ptFase7" alignment="CENTER" layoutX="472.0" layoutY="523.0" prefWidth="50.0" text="0" />
          </children>
       </AnchorPane>
       <Pane layoutY="59.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -409,7 +416,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="titulo" layoutX="708.0" layoutY="55.0" text="Jogo de Memoria Auditiva" AnchorPane.rightAnchor="433.0" AnchorPane.topAnchor="45.0">
+      <Label fx:id="titulo" layoutX="708.0" layoutY="55.0" text="Jogo de Memória Auditiva" AnchorPane.rightAnchor="433.0" AnchorPane.topAnchor="45.0">
          <font>
             <Font size="32.0" />
          </font>

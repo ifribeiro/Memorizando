@@ -2,7 +2,7 @@
 .mainFxmlClass {
 
 }
-.fonte20,.fonte22,.fonte30,.fonte34,.fonte42, .fonte64{
+.fonte13, .fonte20,.fonte22,.fonte30,.fonte34,.fonte42, .fonte64{
     -fx-font-family: "Choko";
 }
 
@@ -28,6 +28,10 @@
 .fonte22{
     -fx-font-size: 22;
 }
+.fonte13{
+    -fx-font-size: 22;
+}
+
 
 #b1,#b2,#b3,#b4,#b5,#b6,#b7,#b8,#b9,#b10,#b11,#b12,#b13,#b14,#b15,#b16{
     -fx-background-color: #9cb926;

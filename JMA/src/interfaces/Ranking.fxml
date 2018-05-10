@@ -163,7 +163,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Label fx:id="titulo" layoutX="698.0" layoutY="45.0" text="Jogo de Memoria Auditiva" AnchorPane.rightAnchor="433.0">
+      <Label fx:id="titulo" layoutX="698.0" layoutY="45.0" text="Jogo de Memória Auditiva" AnchorPane.rightAnchor="433.0">
          <font>
             <Font size="32.0" />
          </font>

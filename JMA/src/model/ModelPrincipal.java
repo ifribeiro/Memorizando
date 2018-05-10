@@ -235,7 +235,8 @@ public class ModelPrincipal {
     private ImageView imagemFundo;
 
     private ArrayList listaBotoes, fasesBloqueadasNivel1, fasesBloqueadasNivel2,
-            fasesBloqueadasNivel3, niveisBloquedos;
+            fasesBloqueadasNivel3, niveisBloquedos, pontuacoesNivel1, pontuacoesNivel2,
+            pontuacoesNivel3;
 
     private boolean mostrando;
     private boolean jogadorExiste;
@@ -254,8 +255,24 @@ public class ModelPrincipal {
     private ImageView imgFase6;
     @FXML
     private ImageView imgFase7;
+    @FXML
+    private Label ptFase1;
+    @FXML
+    private Label ptFase2;
+    @FXML
+    private Label ptFase3;
+    @FXML
+    private Label ptFase4;
+    @FXML
+    private Label ptFase5;
+    @FXML
+    private Label ptFase6;
+    @FXML
+    private Label ptFase7;
     Image faseBloqueada = new Image(getClass().getResourceAsStream("imagens/icones/nivelFechado.png"));
     Image faseAberta = new Image(getClass().getResourceAsStream("imagens/icones/nivelAberto.png"));
+
+    Label vetorLabel[];
 
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
@@ -265,7 +282,9 @@ public class ModelPrincipal {
             Label nmJogador, Button n1, Button n2, Button n3, Group grupoNivel1,
             Group grupoNivel2, Group grupoNivel3, ImageView imagemFundo, ImageView imgFase1,
             ImageView imgFase2, ImageView imgFase3, ImageView imgFase4, ImageView imgFase5,
-            ImageView imgFase6, ImageView imgFase7) throws FileNotFoundException {
+            ImageView imgFase6, ImageView imgFase7, Label ptFase1, Label ptFase2, Label ptFase3,
+            Label ptFase4, Label ptFase5, Label ptFase6, Label ptFase7) throws FileNotFoundException {
+        this.vetorLabel = new Label[]{ptFase1, ptFase2, ptFase3, ptFase4, ptFase5, ptFase6, ptFase7};
         this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
@@ -320,6 +339,9 @@ public class ModelPrincipal {
         this.fasesBloqueadasNivel1 = new ArrayList();
         this.fasesBloqueadasNivel2 = new ArrayList();
         this.fasesBloqueadasNivel3 = new ArrayList();
+        this.pontuacoesNivel1 = new ArrayList(7);
+        this.pontuacoesNivel2 = new ArrayList(7);
+        this.pontuacoesNivel3 = new ArrayList(7);
         this.tempo = 1.0;
         this.mostrando = false;
         this.niveisBloquedos = new ArrayList();
@@ -331,6 +353,14 @@ public class ModelPrincipal {
         this.imgFase5 = imgFase5;
         this.imgFase6 = imgFase6;
         this.imgFase7 = imgFase7;
+        this.ptFase1 = ptFase1;
+        this.ptFase2 = ptFase2;
+        this.ptFase3 = ptFase3;
+        this.ptFase4 = ptFase4;
+        this.ptFase5 = ptFase5;
+        this.ptFase6 = ptFase6;
+        this.ptFase7 = ptFase7;
+        iniciarPontuacoesLabels();
     }
 
     public void verificarOpcao(ActionEvent evento) {
@@ -450,6 +480,7 @@ public class ModelPrincipal {
             destacarNivel(getNivel());
             gerarOpcoes(getFase());
             atualizarBloqueios();
+            atualizarPontosFase();
             if (timerIniciado) {
                 reiniciarTimer();
             }
@@ -800,9 +831,11 @@ public class ModelPrincipal {
                     if (!isGameOver()) {
                         tempo = tempo - 0.016;
                         setBarraTempo(tempo);
+                        setTempoJogador(tempo);
                     }
+                    System.out.println("Tempo " + tempo);
                     if (mostrandoPopUp()) {
-                        System.out.println("Etrou aqui nexta bosta");
+
                         timer.cancel();
                     }
                     if (tempo < 0) {
@@ -840,7 +873,7 @@ public class ModelPrincipal {
                     }
                 });
             }
-        }, 0, 500);
+        }, 0, 1000);
     }
 
     public void setBarraTempo(Double tempo) {
@@ -937,17 +970,17 @@ public class ModelPrincipal {
         boolean terminou = false;
         switch (getNivel()) {
             case 1:
-                if (getAcertos() == 1) {
+                if (getAcertos() == 4) {
                     terminou = true;
                 }
                 break;
             case 2:
-                if (getAcertos() == 1) {
+                if (getAcertos() == 5) {
                     terminou = true;
                 }
                 break;
             case 3:
-                if (getAcertos() == 1) {
+                if (getAcertos() == 8) {
                     terminou = true;
                 }
                 break;
@@ -1174,7 +1207,7 @@ public class ModelPrincipal {
      * @param acerto quantidade de acertos
      */
     public void incrementarPontuacao(int acerto) {
-        this.pontos = pontos + 50;
+        this.pontos = pontos + 10;
         pontuacao.setText(pontos + " pts");
     }
 
@@ -1297,7 +1330,7 @@ public class ModelPrincipal {
      * @param janela parametro do tipo Stage que define em qual janela o pop up
      * será exibido
      */
-    private void exibirPopUp(Stage janela) {
+    public void exibirPopUp(Stage janela) {
         setMostrandoPopUp(true);
         Stage stage = new Stage();
         FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpFaseFinalizada.fxml"));
@@ -1319,10 +1352,10 @@ public class ModelPrincipal {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(janela.getOwner());
         PopUpController popUpController = fxmlPopUp.getController();
-        popUpController.setPontuacaoJogador(pontos);
         stage.setAlwaysOnTop(true);
         stage.show();
         stage.toFront();
+        popUpController.setPontuacaoJogador(pontos, getTempo(), cliquesTotais, getFase(), getNivel());
         stage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(final WindowEvent event) {
@@ -1335,28 +1368,31 @@ public class ModelPrincipal {
                     case "continuar":
                         int fasesBloqueadas = 0;
                         bloquearFase(getFase());
+                        long pontosFase = popUpController.getPontuacaoJogador();
+                        setPontosLabelFase(pontosFase);
                         switch (getNivel()) {
                             case 1:
                                 fasesBloqueadas = fasesBloqueadasNivel1.size();
+                                pontuacoesNivel1.add(getFase(), pontosFase);
                                 break;
                             case 2:
                                 fasesBloqueadas = fasesBloqueadasNivel2.size();
+                                pontuacoesNivel2.add(getFase(), pontosFase);
                                 break;
                             case 3:
                                 fasesBloqueadas = fasesBloqueadasNivel3.size();
+                                pontuacoesNivel3.add(getFase(), pontosFase);
                                 break;
                         }
                         if (fasesBloqueadas != 7) {
                             setMostrandoPopUp(false);
-                            barraTempo.setProgress(1.0);
                             setBarraTempo(1.0);
-                            setFase(getFase() + 1);
+                            setFase(getFaseDisponivel());
                             exibirBotoes(getNivel());
                             iniciarJogo();
                         } else {
                             exibirPopUpNivel(janela);
                         }
-
                         break;
                     case "reiniciar":
                         setMostrandoPopUp(false);
@@ -1490,7 +1526,8 @@ public class ModelPrincipal {
             }
 
         });
-    }   
+    }
+
     /**
      * Retorna se algum pop up está sendo mostrado na tela
      *
@@ -1625,6 +1662,7 @@ public class ModelPrincipal {
         setBarraTempo(1.0);
         barraTempo.setProgress(1.0);
         timer.cancel();
+        this.tempo = 1.0;
         iniciarJogo();
     }
 
@@ -1660,6 +1698,41 @@ public class ModelPrincipal {
                     ((Button) faseTemp).setDisable(true);
                     int faseBloq = Integer.parseInt(((Button) faseTemp).getId().substring(4));
                     atualizarFases(faseBloq, true);
+                }
+                break;
+        }
+    }
+
+    public void atualizarPontosFase() {
+        vetorLabel[0].setText("0");
+        vetorLabel[1].setText("0");
+        vetorLabel[2].setText("0");
+        vetorLabel[3].setText("0");
+        vetorLabel[4].setText("0");
+        vetorLabel[5].setText("0");
+        vetorLabel[6].setText("0");
+
+        switch (getNivel()) {
+            case 1:
+                for (int j = 1; j < pontuacoesNivel1.size(); j++) {
+                    if (!pontuacoesNivel1.get(j).equals((long) 0)) {
+                        vetorLabel[j - 1].setText("" + (long) pontuacoesNivel1.get(j));
+                    }
+                }
+                break;
+
+            case 2:
+                for (int j = 1; j < pontuacoesNivel2.size(); j++) {
+                    if (!pontuacoesNivel2.get(j).equals((long) 0)) {
+                        vetorLabel[j - 1].setText("" + (long) pontuacoesNivel2.get(j));
+                    }
+                }
+                break;
+            case 3:
+                for (int j = 1; j < pontuacoesNivel3.size(); j++) {
+                    if (!pontuacoesNivel3.get(j).equals((long) 0)) {
+                        vetorLabel[j - 1].setText("" + (long) pontuacoesNivel3.get(j));
+                    }
                 }
                 break;
         }
@@ -1848,6 +1921,59 @@ public class ModelPrincipal {
                     break;
 
             }
+        }
+    }
+
+    /**
+     * Define o tempo que o jogador terminou a fase
+     *
+     * @param tempo
+     */
+    public void setTempoJogador(Double tempo) {
+        this.tempo = tempo;
+    }
+
+    /**
+     * Retorna o tempo do jogador na fase
+     *
+     * @return tempo
+     */
+    public Double getTempoJogador() {
+        return this.tempo;
+    }
+
+    public void setPontosLabelFase(Long pontosFase) {
+        switch (getFase()) {
+            case 1:
+                ptFase1.setText("" + pontosFase);
+                break;
+            case 2:
+                ptFase2.setText("" + pontosFase);
+                break;
+            case 3:
+                ptFase3.setText("" + pontosFase);
+                break;
+            case 4:
+                ptFase4.setText("" + pontosFase);
+                break;
+            case 5:
+                ptFase5.setText("" + pontosFase);
+                break;
+            case 6:
+                ptFase6.setText("" + pontosFase);
+                break;
+            case 7:
+                ptFase7.setText("" + pontosFase);
+                break;
+
+        }
+    }
+
+    public void iniciarPontuacoesLabels() {
+        for (int j = 0; j < 7; j++) {
+            pontuacoesNivel1.add((long) 0);
+            pontuacoesNivel2.add((long) 0);
+            pontuacoesNivel3.add((long) 0);
         }
     }
 }

@@ -39,17 +39,7 @@ public class ModelInicial {
         janela.setScene(scene);
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
-        //Popup popup = new Popup();
-        
-        
-        
-        
-        
-
-        //popup.show(janela);
-        
         janela.show();
-
     }
 
     /**
