@@ -38,6 +38,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.runtime.ListAdapter;
 
 /**
  *
@@ -150,6 +151,7 @@ public class ModelRanking {
     private ArrayList listaRanking = new ArrayList();
     private BufferedReader br;
     ArrayList idNomesJogador = new ArrayList();
+    private ArrayList listaAvatar = new ArrayList();
 
     public ModelRanking(ImageView avatarMaior, TextField nomeJogador, Button iniciar, Button av1,
             Button av2, Button av3, Button av4, Button av5, Button av6, Button av7, Button av8,
@@ -203,7 +205,8 @@ public class ModelRanking {
         this.pontos9 = pt9;
         this.pontos10 = pt10;
         this.br = null;
-        this.painelRanking = painelRanking;
+        this.painelRanking = painelRanking;       
+        
     }
 
     public void trocarAvatar(ActionEvent event) throws IOException {
@@ -444,39 +447,59 @@ public class ModelRanking {
 
         //Array com os ids das imagens dos avatares no ranking
         ArrayList idImagens = new ArrayList();
-        idImagens.add(img1);
-        idImagens.add(img2);
-        idImagens.add(img3);
-        idImagens.add(img4);
-        idImagens.add(img5);
-        idImagens.add(img6);
-        idImagens.add(img7);
-        idImagens.add(img8);
-        idImagens.add(img9);
-        idImagens.add(img10);
+        new Thread() {
 
-        idNomesJogador.add(nome1);
-        idNomesJogador.add(nome2);
-        idNomesJogador.add(nome3);
-        idNomesJogador.add(nome4);
-        idNomesJogador.add(nome5);
-        idNomesJogador.add(nome6);
-        idNomesJogador.add(nome7);
-        idNomesJogador.add(nome8);
-        idNomesJogador.add(nome9);
-        idNomesJogador.add(nome10);
+            @Override
+            public void run() {
+                idImagens.add(img1);
+                idImagens.add(img2);
+                idImagens.add(img3);
+                idImagens.add(img4);
+                idImagens.add(img5);
+                idImagens.add(img6);
+                idImagens.add(img7);
+                idImagens.add(img8);
+                idImagens.add(img9);
+                idImagens.add(img10);
+            }
+
+        }.start();
+
+        new Thread() {
+            @Override
+            public void run() {
+                idNomesJogador.add(nome1);
+                idNomesJogador.add(nome2);
+                idNomesJogador.add(nome3);
+                idNomesJogador.add(nome4);
+                idNomesJogador.add(nome5);
+                idNomesJogador.add(nome6);
+                idNomesJogador.add(nome7);
+                idNomesJogador.add(nome8);
+                idNomesJogador.add(nome9);
+                idNomesJogador.add(nome10);
+            }
+
+        }.start();
 
         ArrayList idPontos = new ArrayList();
-        idPontos.add(pontos1);
-        idPontos.add(pontos2);
-        idPontos.add(pontos3);
-        idPontos.add(pontos4);
-        idPontos.add(pontos5);
-        idPontos.add(pontos6);
-        idPontos.add(pontos7);
-        idPontos.add(pontos8);
-        idPontos.add(pontos9);
-        idPontos.add(pontos10);
+        new Thread() {
+
+            @Override
+            public void run() {
+                idPontos.add(pontos1);
+                idPontos.add(pontos2);
+                idPontos.add(pontos3);
+                idPontos.add(pontos4);
+                idPontos.add(pontos5);
+                idPontos.add(pontos6);
+                idPontos.add(pontos7);
+                idPontos.add(pontos8);
+                idPontos.add(pontos9);
+                idPontos.add(pontos10);
+            }
+
+        }.start();        
 
         br = null;
         try {
@@ -511,6 +534,29 @@ public class ModelRanking {
         br.close();
 
     }
+    
+    public void carregarImagens(){
+        listaAvatar.add(avatar1);
+        listaAvatar.add(avatar2);
+        listaAvatar.add(avatar3);
+        listaAvatar.add(avatar4);
+        listaAvatar.add(avatar5);
+        listaAvatar.add(avatar6);
+        listaAvatar.add(avatar7);
+        listaAvatar.add(avatar8);
+        listaAvatar.add(avatar9);
+        listaAvatar.add(avatar10);
+        
+        for(int i = 0;i< 10;i++){
+           // URL arquivoImg = getClass().getResource("imagens/icones/"+i+".png");
+            Image image = new Image(getClass().getResourceAsStream("imagens/icones/"+(i+1)+".png"));
+            ((Button)listaAvatar.get(i)).setGraphic(new ImageView(image));
+        }
+       // URL arquivoImg = getClass().getResource("imagens/icones/1.png");
+        
+        
+        
+    }
 
     /**
      * Retorna um arraylist contendo vetores em ordem descrescente pela
@@ -535,8 +581,8 @@ public class ModelRanking {
             //interno.add(part2);
             //interno.add(part3);
             listaOriginal.add(split);
-        }   
-       
+        }
+
         Collections.sort(listaOriginal, new Comparator() {
 
             @Override
@@ -625,10 +671,12 @@ public class ModelRanking {
             iniciar.fire();
         }
     }
+
     /**
      * Inicia o jogo quando o jogador clica em uma das posições do ranking
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     public void iniciarJogoRanking(MouseEvent event) throws IOException {
         ImageView avatarRanking = (ImageView) ((HBox) event.getSource()).getChildren().get(0);

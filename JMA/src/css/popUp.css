@@ -5,7 +5,7 @@
 .mainFxmlClass {
 
 }
-#pontuacaoJogador, #labelParabens{
+ .label{
     -fx-font-family: "Choko";
 }
 #sair, #reiniciar, #continuar, #nivel1, #nivel2, #nivel3, #reiniciarJogo, #menuInicial{

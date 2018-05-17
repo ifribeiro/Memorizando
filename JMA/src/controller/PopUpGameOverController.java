@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
+import model.ClasseEstatica;
 
 /**
  * FXML Controller class
@@ -92,6 +92,14 @@ public class PopUpGameOverController implements Initializable {
     private Button botaoClicado;
     
     private ModelPopUpGameOver modelGameOver;
+    
+    public ClasseEstatica classe;
+    @FXML
+    private Label tituloRanking;
+    @FXML
+    private Label colunaJogador;
+    @FXML
+    private Label colunaPontos;
     /**
      * Initializes the controller class.
      */
@@ -100,6 +108,21 @@ public class PopUpGameOverController implements Initializable {
         modelGameOver = new ModelPopUpGameOver(img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,
             nome1,nome2,nome3,nome4,nome5,nome6,nome7,nome8,nome9,nome10,
             pontos1,pontos2,pontos3,pontos4,pontos5,pontos6,pontos7,pontos8,pontos9,pontos10);
+        
+        tituloRanking.getStyleClass().add("fonte32"); 
+       // colunaJogador.getStyleClass().add("fonte16"); 
+        //colunaPontos.getStyleClass().add("fonte16"); 
+        //nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+       // nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+        //nome1.getStyleClass().add("fonte13");
+        
     }
     
     /**
@@ -113,7 +136,7 @@ public class PopUpGameOverController implements Initializable {
     @FXML
     private void tratarBotoaoClicado(ActionEvent event) {
         this.botaoClicado = (Button) event.getSource();
-        ((Stage) botaoClicado.getScene().getWindow()).close();
+        classe.idBotao = botaoClicado.getId();
     }
 
     public void atualizarRanking() throws IOException {

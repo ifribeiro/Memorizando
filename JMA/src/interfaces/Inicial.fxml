@@ -9,40 +9,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="966.0" prefWidth="1742.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InicialController">
+<AnchorPane id="AnchorPane" prefHeight="966.0" prefWidth="1560.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InicialController">
     <stylesheets>
         <URL value="@/css/estilosGerais.css" />
     </stylesheets>
     <children>
-      <ImageView fitHeight="966.0" fitWidth="1742.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="966.0" fitWidth="1742.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../model/imagens/imagemFundo2.jpg" />
+            <Image url="@../model/imagens/background.png" />
          </image>
       </ImageView>
       <Button fx:id="iniciar" layoutX="1200.0" layoutY="500.0" mnemonicParsing="false" onAction="#iniciarJogo" prefHeight="64.0" prefWidth="64.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="45.0">
          <graphic>
             <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../controller/proximaFase64.png" />
+                  <Image url="@../model/imagens/icones/proximo.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Label fx:id="jogo" layoutX="247.0" layoutY="240.0" text="Jogo">
-         <font>
-            <Font size="64.0" />
-         </font>
-      </Label>
-      <Label fx:id="de" layoutX="415.0" layoutY="240.0" text="de">
-         <font>
-            <Font size="64.0" />
-         </font>
-      </Label>
-      <Label fx:id="auditiva" layoutX="850.0" layoutY="240.0" text="Auditiva">
-         <font>
-            <Font size="64.0" />
-         </font>
-      </Label>
-      <Label fx:id="memoria" layoutX="522.0" layoutY="240.0" text="Memória">
+      <Label fx:id="jogo" layoutX="247.0" layoutY="240.0" text="Jogo de Memória Auditiva">
          <font>
             <Font size="64.0" />
          </font>

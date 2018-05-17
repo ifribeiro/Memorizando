@@ -25,6 +25,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.WeakEventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -41,7 +42,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -230,7 +230,7 @@ public class ModelPrincipal {
     private Group grupoNivel3;
 
     FXMLLoader fxmlPopUp;
-    Parent popUp = null;
+    Parent popUppppp = null;
     @FXML
     private ImageView imagemFundo;
 
@@ -271,9 +271,12 @@ public class ModelPrincipal {
     private Label ptFase7;
     Image faseBloqueada = new Image(getClass().getResourceAsStream("imagens/icones/nivelFechado.png"));
     Image faseAberta = new Image(getClass().getResourceAsStream("imagens/icones/nivelAberto.png"));
-
-    Label vetorLabel[];
-
+    
+    @FXML
+    private Button menuInicial;
+    @FXML
+    private Button sair;
+    Label vetorLabel[];  
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
             Button b13, Button b14, Button b15, Button b16, Button faseAnterior, Button proximaFase,
@@ -283,8 +286,9 @@ public class ModelPrincipal {
             Group grupoNivel2, Group grupoNivel3, ImageView imagemFundo, ImageView imgFase1,
             ImageView imgFase2, ImageView imgFase3, ImageView imgFase4, ImageView imgFase5,
             ImageView imgFase6, ImageView imgFase7, Label ptFase1, Label ptFase2, Label ptFase3,
-            Label ptFase4, Label ptFase5, Label ptFase6, Label ptFase7) throws FileNotFoundException {
-        this.vetorLabel = new Label[]{ptFase1, ptFase2, ptFase3, ptFase4, ptFase5, ptFase6, ptFase7};
+            Label ptFase4, Label ptFase5, Label ptFase6, Label ptFase7, Button menuInicial,
+            Button sair) throws FileNotFoundException {
+        this.vetorLabel = new Label[]{ptFase1, ptFase2, ptFase3, ptFase4, ptFase5, ptFase6, ptFase7,};
         this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
@@ -360,6 +364,8 @@ public class ModelPrincipal {
         this.ptFase5 = ptFase5;
         this.ptFase6 = ptFase6;
         this.ptFase7 = ptFase7;
+        this.menuInicial = menuInicial;
+        this.sair = sair;
         iniciarPontuacoesLabels();
     }
 
@@ -488,6 +494,28 @@ public class ModelPrincipal {
         }
     }
 
+    /**
+     * Altera para a fase anterior
+     *
+     * @param event
+     */
+    public void faseAnterior(ActionEvent event) {
+        botaoProximaFase.setVisible(true);
+        if (fase == 2) {
+            this.fase = fase - 1;
+            gerarOpcoes(fase);
+            exibirBotoes(getNivel());
+            botaoFaseAnterior.setVisible(false);
+        } else {
+            if (!(fase == 1)) {
+                gerarOpcoes(fase);
+                exibirBotoes(getNivel());
+                this.fase = fase - 1;
+            }
+        }
+        destacarBotao(fase);
+    }
+    
     /**
      * Gera novas opções aleatórias para os botões, baseadas nas fase que o
      * jogador se encontra
@@ -675,28 +703,6 @@ public class ModelPrincipal {
     }
 
     /**
-     * Altera para a fase anterior
-     *
-     * @param event
-     */
-    public void faseAnterior(ActionEvent event) {
-        botaoProximaFase.setVisible(true);
-        if (fase == 2) {
-            this.fase = fase - 1;
-            gerarOpcoes(fase);
-            exibirBotoes(getNivel());
-            botaoFaseAnterior.setVisible(false);
-        } else {
-            if (!(fase == 1)) {
-                gerarOpcoes(fase);
-                exibirBotoes(getNivel());
-                this.fase = fase - 1;
-            }
-        }
-        destacarBotao(fase);
-    }
-
-    /**
      * Reproduz o áudio do botão clicado
      *
      * @param evento disparado quando um botão é clicado
@@ -829,7 +835,7 @@ public class ModelPrincipal {
                 //Platform.runLater para alterar elementos da interface do javaFX
                 Platform.runLater(() -> {
                     if (!isGameOver()) {
-                        tempo = tempo - 0.016;
+                        tempo = tempo - 0.26;
                         setBarraTempo(tempo);
                         setTempoJogador(tempo);
                     }
@@ -907,7 +913,28 @@ public class ModelPrincipal {
 
         barraTempo.setProgress(tempo);
     }
-
+    
+     
+   public void setDesabilitado(boolean valor){
+       //botoes de niveis
+       nivel1.setDisable(valor);
+       nivel2.setDisable(valor);
+       nivel3.setDisable(valor);
+       
+       //botoes de fase
+       fase1.setDisable(valor);
+       fase2.setDisable(valor);
+       fase3.setDisable(valor);
+       fase4.setDisable(valor);
+       fase5.setDisable(valor);
+       fase6.setDisable(valor);
+       fase7.setDisable(valor);
+       
+       //menu e sair
+       menuInicial.setDisable(valor);
+       sair.setDisable(valor);
+   }
+   
     public boolean primeiroClique() {
         return this.cliquesTotais == 0;
     }
@@ -1332,40 +1359,37 @@ public class ModelPrincipal {
      */
     public void exibirPopUp(Stage janela) {
         setMostrandoPopUp(true);
-        Stage stage = new Stage();
-        FXMLLoader fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpFaseFinalizada.fxml"));
-
+        setDesabilitado(true);
+        fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpFaseFinalizada.fxml"));
+          
+        Popup popup = new Popup();    
+        
         try {
-            popUp = (Parent) fxmlPopUp.load();
-
+            popup.getContent().add((Parent) fxmlPopUp.load());
         } catch (IOException ex) {
-            Logger.getLogger(ModelPrincipal.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Popup popup = new Popup();
-
-        popup.getContent();
-
-        stage.setScene(new Scene(popUp));
-        stage.setTitle("Pop up");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(janela.getOwner());
         PopUpController popUpController = fxmlPopUp.getController();
-        stage.setAlwaysOnTop(true);
-        stage.show();
-        stage.toFront();
+        popup.show(janela);
         popUpController.setPontuacaoJogador(pontos, getTempo(), cliquesTotais, getFase(), getNivel());
-        stage.setOnHidden(new EventHandler<WindowEvent>() {
+        popup.addEventHandler(ActionEvent.ACTION, new WeakEventHandler<>(evento -> {            
+            popup.hide();     
+            
+        }));
+
+        
+        
+        popup.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(final WindowEvent event) {
 
-                Button botaoClicado = popUpController.getBotaoClicado();
-                switch (botaoClicado.getId()) {
+                String botaoClicado = ClasseEstatica.idBotao;
+                switch (botaoClicado) {
                     case "sair":
                         sairDoJogo();
                         break;
                     case "continuar":
+                        setDesabilitado(false);
                         int fasesBloqueadas = 0;
                         bloquearFase(getFase());
                         long pontosFase = popUpController.getPontuacaoJogador();
@@ -1387,6 +1411,8 @@ public class ModelPrincipal {
                         if (fasesBloqueadas != 7) {
                             setMostrandoPopUp(false);
                             setBarraTempo(1.0);
+                            zerarPontuacao();
+                            setTempoInicial(1.0);
                             setFase(getFaseDisponivel());
                             exibirBotoes(getNivel());
                             iniciarJogo();
@@ -1395,9 +1421,11 @@ public class ModelPrincipal {
                         }
                         break;
                     case "reiniciar":
+                        setDesabilitado(false);
                         setMostrandoPopUp(false);
                         setFase(getFase());
                         zerarPontuacao();
+                        setTempoInicial(1.0);
                         exibirBotoes(getNivel());
                         iniciarJogo();
                         iniciarTimer();
@@ -1417,37 +1445,36 @@ public class ModelPrincipal {
      */
     public void exibirPopUpNivel(Stage janela) {
         setMostrandoPopUp(true);
+        setDesabilitado(true);
         Stage stage = new Stage();
         fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpNivelFinalizado.fxml"));
 
+        Popup popup = new Popup();    
+        
         try {
-            popUp = (Parent) fxmlPopUp.load();
-
+            popup.getContent().add((Parent) fxmlPopUp.load());
         } catch (IOException ex) {
-            Logger.getLogger(ModelPrincipal.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Popup popup = new Popup();
-
-        popup.getContent();
-
-        stage.setScene(new Scene(popUp));
-        stage.setTitle("");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(janela.getOwner());
+        
         PopUpNivelFinalizadoController popUpController = fxmlPopUp.getController();
-        stage.setAlwaysOnTop(true);
-        stage.show();
-        stage.toFront();
+        popup.show(janela);
+        
+        popup.addEventHandler(ActionEvent.ACTION, new WeakEventHandler<>(evento -> {            
+            popup.hide();     
+            
+        }));
+        
+        
         popUpController.bloquearNivel(getNivel());
-        stage.setOnHidden((final WindowEvent event) -> {
-            Button botaoClicado = popUpController.getBotaoClicado();
-            switch (botaoClicado.getId()) {
+        popup.setOnHidden((final WindowEvent event) -> {
+            String botaoClicado = ClasseEstatica.idBotao;
+            switch (botaoClicado) {
                 case "sair":
                     sairDoJogo();
                     break;
                 case "reiniciar":
+                    setDesabilitado(false);
                     setMostrandoPopUp(false);
                     setFase(1);
                     desbloquearFases();
@@ -1476,43 +1503,40 @@ public class ModelPrincipal {
      */
     public void exibirPopUpGameOver(Stage janela) throws IOException {
         setMostrandoPopUp(true);
-        Stage stage = new Stage();
+        setDesabilitado(true);        
         fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/PopUpGameOver.fxml"));
 
+        Popup popup = new Popup();    
+        
         try {
-            popUp = (Parent) fxmlPopUp.load();
-
+            popup.getContent().add((Parent) fxmlPopUp.load());
         } catch (IOException ex) {
-            Logger.getLogger(ModelPrincipal.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Popup popup = new Popup();
-
-        popup.getContent();
-
-        stage.setScene(new Scene(popUp));
-        stage.setTitle("");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(janela.getOwner());
+        
         PopUpGameOverController popUpController = fxmlPopUp.getController();
+        popup.show(janela);
         popUpController.atualizarRanking();
-        stage.setAlwaysOnTop(true);
-        stage.show();
-        stage.toFront();
-        stage.setOnHidden(new EventHandler<WindowEvent>() {
+        
+        popup.addEventHandler(ActionEvent.ACTION, new WeakEventHandler<>(evento -> {            
+            popup.hide();            
+        }));
+        
+        popup.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(final WindowEvent event) {
-
-                Button botaoClicado = popUpController.getBotaoClicado();
-                switch (botaoClicado.getId()) {
+                setDesabilitado(false);
+                String botaoClicado = ClasseEstatica.idBotao;
+                System.out.println("");
+                switch (botaoClicado) {
                     case "sair":
                         sairDoJogo();
                         break;
-                    case "reiniciarJogo":
+                    case "reiniciarJogo":                        
                         setFase(1);
                         desbloquearFases();
                         setNivel(1);
+                        setTempoInicial(1.0);
                         exibirBotoes(getNivel());
                         zerarPontuacao();
                         setTimerIniciado(false);
@@ -1521,6 +1545,10 @@ public class ModelPrincipal {
                         setPrimeiroClique();
                         setBarraTempo(1.0);
                         iniciarJogo();
+                        break;
+                    case "menuInicial":
+                        timer.cancel();
+                        menuInicial.fire();
                         break;
                 }
             }
@@ -1624,7 +1652,8 @@ public class ModelPrincipal {
                 break;
         }
     }
-
+   
+    
     /**
      * Desbloqueia todas as fases bloqueadas
      */
@@ -1976,4 +2005,5 @@ public class ModelPrincipal {
             pontuacoesNivel3.add((long) 0);
         }
     }
+    
 }

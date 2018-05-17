@@ -1,12 +1,14 @@
-
 .mainFxmlClass {
 
 }
-.fonte13, .fonte20,.fonte22,.fonte30,.fonte34,.fonte42, .fonte64{
+.fonte13, .fonte20,.fonte22,.fonte30,.fonte32, .fonte34,.fonte42, .fonte64{
+    
+    //-fx-text-fill: #8d0f13;
     -fx-font-family: "Choko";
+    
 }
 
-.fonte64{    
+.fonte64{ 
     -fx-font-size: 64;
 }
 
@@ -45,16 +47,22 @@
     -fx-background-radius: 75%;
 }
 
-
+#_btn1:disabled,#_btn2:disabled,#_btn3:disabled,#_btn4:disabled,#_btn5:disabled,#_btn6:disabled,#_btn7:disabled,
+#fase1:disabled,#fase2:disabled,#fase3:disabled,#fase4:disabled,#fase5:disabled,#fase6:disabled,#fase7:disabled{
+    -fx-opacity: 1.0;
+}
 
 .button{
     -fx-background-radius: 70%;
     -fx-cursor: hand;    
 }
 
+.deslocarDireita:hover{
+    -fx-translate-x: -5; 
+}
 .button:hover{     
     -fx-cursor: hand;    
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,1) , 5, 0.1 , -1 , 0 );
 }
 
 #_btn1,#_btn2,#_btn3,#_btn4,#_btn5,#_btn6,#_btn7{
@@ -69,7 +77,7 @@
 
 #selec1,#selec2,#selec3{
     -fx-background-color: transparent; 
-    -fx-effect: dropshadow( three-pass-box , rgba(126,255,0,1) , 5, 0.5 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.5 , 0 , 0);
 }
 
 #fase1,#fase2,#fase3,#fase4,#fase5,#fase6,#fase7{
@@ -89,13 +97,15 @@
 
 #posicao1, #posicao2, #posicao3, #posicao4, #posicao5, 
 #posicao6, #posicao7, #posicao8, #posicao9, #posicao10{
+    -fx-font-family: "Choko";
+    -fx-font-size: 16px;
     -fx-cursor: hand;    
 }
 
 #painelRanking{    
-    -fx-border-style: solid;
-    -fx-border-radius: 5%;
-    -fx-border-width: 2;
+    //-fx-border-style: solid;
+    //-fx-border-radius: 5%;
+    //-fx-border-width: 2;
     
 }
 
@@ -106,14 +116,18 @@
 
 #tituloColunas{
     //-fx-border-style: solid;
-    -fx-border-width: 2;
+    //-fx-border-width: 2;
 }
 
 #colunaJogador{ // esquerda direita baixo cima          
-   -fx-border-width: 2 2 2 0;
-    -fx-border-color: black;   
+   //-fx-border-width: 2 2 2 0;
+    //-fx-border-color: black;   
 }
 #colunaPontos{    // cima direita  baixo esquerda
-    -fx-border-width: 2 0 2 0;
-    -fx-border-color: black;
+    //-fx-border-width: 2 0 2 0;
+    //-fx-border-color: black;
+}
+
+.guiClicavel{    
+    -fx-opacity: 1.0;
 }

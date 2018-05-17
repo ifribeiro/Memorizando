@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import controller.PopUpController;
 
 /**
  *
@@ -23,6 +24,9 @@ public class ModelInicial {
     private FXMLLoader fxmloader;
     private RankingController rankingController;
     private Parent cenaPrincipal;
+    private PopUpController popController;
+    
+    public static String idBotao;
 
     public ModelInicial() {
 
@@ -32,7 +36,7 @@ public class ModelInicial {
     public void iniciarJogo(ActionEvent botao) throws IOException {
         janela = (Stage) ((Button) botao.getSource()).getScene().getWindow();
         fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
-        
+
         cenaPrincipal = (Parent) fxmloader.load();
         rankingController = fxmloader.<RankingController>getController();
         Scene scene = new Scene(cenaPrincipal, 1200, 700);
@@ -64,5 +68,15 @@ public class ModelInicial {
             janela.close();
             System.exit(0);
         }
+    }
+
+    public void abrirSobre(ActionEvent event) {
+        janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        
+        
+        
+        
+        
+        
     }
 }

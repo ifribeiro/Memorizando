@@ -1,8 +1,5 @@
 package controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -29,6 +25,7 @@ import javafx.scene.text.Font;
  * @author iran
  */
 public class RankingController implements Initializable {
+
     @FXML
     private Button avatar1;
     @FXML
@@ -157,41 +154,43 @@ public class RankingController implements Initializable {
     private HBox hboxRanking;
     @FXML
     private HBox tituloColunas;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        modelRanking = new ModelRanking(avatarMaior,nomeJogador,iniciar,avatar1,
-        avatar2,avatar3,avatar4,avatar5,avatar6,avatar7,avatar8,avatar9,avatar10,
-        img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,nome1,nome2,nome3,nome4,
-        nome5,nome6,nome7,nome8,nome9,nome10,pontos1,pontos2,pontos3,pontos4,pontos5,
-        pontos6,pontos7,pontos8,pontos9,pontos10,painelRanking);
+
+        modelRanking = new ModelRanking(avatarMaior, nomeJogador, iniciar, avatar1,
+                avatar2, avatar3, avatar4, avatar5, avatar6, avatar7, avatar8, avatar9, avatar10,
+                img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, nome1, nome2, nome3, nome4,
+                nome5, nome6, nome7, nome8, nome9, nome10, pontos1, pontos2, pontos3, pontos4, pontos5,
+                pontos6, pontos7, pontos8, pontos9, pontos10, painelRanking);
+
         modelRanking.selecionarDefaultAvatar(1);
-        
         try {
             modelRanking.atualizarRanking();
         } catch (IOException ex) {
             Logger.getLogger(RankingController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //Font.loadFont(getClass().getResource("fontes/Choko.ttf").toExternalForm(), 42);
-        
-        titulo.getStyleClass().add("fonte42");
-        nome.getStyleClass().add("fonte34");
-        labelRanking.getStyleClass().add("fonte30");
-        nomeJogador.getStyleClass().add("fonte30");
-        colunaJogador.getStyleClass().add("fonte22");
-        colunaPontos.getStyleClass().add("fonte22");
-                
-        //labelRanking.setStyle("-fx-color: white;");
-        
-    }    
+
+        new Thread() {
+            public void run() {
+                titulo.getStyleClass().add("fonte42");
+                nome.getStyleClass().add("fonte34");
+                labelRanking.getStyleClass().add("fonte30");
+                nomeJogador.getStyleClass().add("fonte30");
+                colunaJogador.getStyleClass().add("fonte22");
+                colunaPontos.getStyleClass().add("fonte22");
+            }
+        }.start();
+    }
 
     @FXML
     private void trocarAvatar(ActionEvent event) throws IOException {
         modelRanking.trocarAvatar(event);
     }
-    
+
     @FXML
     private void verificarTexto(KeyEvent event) {
         modelRanking.verificarTexto(event);
@@ -224,20 +223,23 @@ public class RankingController implements Initializable {
 
     /**
      * Verifica se a tecla Enter foi pressionada
+     *
      * @param event disparado quando uma tecla do teclado é pressionada
      */
     @FXML
     private void verificarTeclaPressionada(KeyEvent event) {
         modelRanking.verificarTeclaPressionada(event);
     }
+
     /**
-     * Inicia o jogo carregando as informções presentes na posição clicada
-     * pelo jogador
-     * @param event 
+     * Inicia o jogo carregando as informções presentes na posição clicada pelo
+     * jogador
+     *
+     * @param event
      */
     @FXML
     private void iniciarJogoRanking(MouseEvent event) throws IOException {
         modelRanking.iniciarJogoRanking(event);
     }
-    
+
 }

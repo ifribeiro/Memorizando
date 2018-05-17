@@ -1,6 +1,7 @@
 package controller;
 
 import model.ModelPopUpFase;
+import model.ClasseEstatica;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 /**
@@ -38,6 +40,10 @@ public class PopUpController implements Initializable {
     private ModelPopUpFase modelPopUp;
     @FXML
     private Label labelParabens;
+    
+    private Popup popUp;
+    
+    public ClasseEstatica classe;
 
     /**
      * Initializes the controller class.
@@ -45,6 +51,8 @@ public class PopUpController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         modelPopUp = new ModelPopUpFase(estrela1,estrela2,estrela3,pontuacaoJogador,continuar);
+        classe = new ClasseEstatica();
+        popUp = null;
         
        
     }
@@ -63,7 +71,8 @@ public class PopUpController implements Initializable {
     @FXML
     public void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button)event.getSource();
-        ((Stage)botaoClicado.getScene().getWindow()).close();
+        classe.idBotao = botaoClicado.getId();
+        //((Stage)botaoClicado.getScene().getWindow()).close();
     }
     
     
@@ -78,5 +87,9 @@ public class PopUpController implements Initializable {
 
     public long getPontuacaoJogador() {
         return modelPopUp.getPontuacaoJogador();
+    }
+
+    public void setPopUp(Popup popUp) {
+        this.popUp = popUp;
     }
 }

@@ -5,21 +5,15 @@
  */
 package controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import model.ModelInicial;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -49,10 +43,7 @@ public class InicialController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        jogo.getStyleClass().add("fonte64");
-        de.getStyleClass().add("fonte64");
-        memoria.getStyleClass().add("fonte64");
-        auditiva.getStyleClass().add("fonte64");
+        jogo.getStyleClass().add("fonte64");    
         sobre.getStyleClass().add("fonte20");
         modelInicial = new ModelInicial();
         
@@ -66,6 +57,7 @@ public class InicialController implements Initializable {
 
     @FXML
     private void abrirSobre(ActionEvent event) {
+        modelInicial.abrirSobre(event);
     }
 
     @FXML
