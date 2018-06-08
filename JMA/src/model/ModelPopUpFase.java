@@ -5,16 +5,9 @@
  */
 package model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -28,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -72,7 +64,7 @@ public class ModelPopUpFase {
     public void setPontuacaoJogador(int pontuacao, Double tempo, int cliques, int fase, int nivel) {
         double ajusteFase = 1;
         bloquearBotaoContinuar(fase);
-        switch (fase) {
+        switch (fase) {                         
             case 3:
             case 4:
                 ajusteFase = 1.5;
@@ -182,6 +174,7 @@ public class ModelPopUpFase {
                         i = i + 1;
                         pontuacaoJogador.setText("" + i);
                     }else{
+                        System.out.println("Timer popup cancelado");
                         timer.cancel();
                     }
                     

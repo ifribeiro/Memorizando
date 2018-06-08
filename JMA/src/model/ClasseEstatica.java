@@ -5,12 +5,15 @@
  */
 package model;
 
+import javafx.stage.Popup;
+
 /**
  *
  * @author iran
  */
 public class ClasseEstatica {
     public static String idBotao = "";
+    public static Popup popup = new Popup();
     public ClasseEstatica() {
         
     }

@@ -71,8 +71,8 @@ public class PopUpController implements Initializable {
     @FXML
     public void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button)event.getSource();
-        classe.idBotao = botaoClicado.getId();
-        //((Stage)botaoClicado.getScene().getWindow()).close();
+        ClasseEstatica.idBotao = botaoClicado.getId();        
+        System.out.println(ClasseEstatica.idBotao);
     }
     
     
