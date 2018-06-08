@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="750.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SobreController">
+    <stylesheets>
+        <URL value="@/css/popUp.css" />
+    </stylesheets>
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../model/imagens/icones/fundoSobre.png" />
+         </image>
+      </ImageView>
+      <Group layoutX="-24.0" layoutY="3.0">
+         <children>
+            <Label layoutX="345.0" layoutY="60.0" text="Ronei Guaresi">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="334.0" layoutY="30.0" text="Coordenação">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="-238.0" layoutY="10.0">
+         <children>
+            <Label layoutX="347.0" layoutY="140.0" text="Alzira Ferreira">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="284.0" layoutY="110.0" text="Supervisora de Design">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="186.0" layoutY="-80.0">
+         <children>
+            <Label layoutX="352.0" layoutY="230.0" text="Iran Ribeiro">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="302.0" layoutY="200.0" text="Desenvolvimento">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Label layoutX="347.0" layoutY="337.0" text="Apoio">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Group layoutX="-21.0" layoutY="-94.0">
+         <children>
+            <Label layoutX="384.0" layoutY="290.0" text="Voz">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="344.0" layoutY="320.0" text="Denise Viana">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <ImageView fitHeight="65.0" fitWidth="135.0" layoutX="72.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../model/imagens/icones/uesb_logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="80.0" fitWidth="135.0" layoutX="240.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../model/imagens/icones/cnpq_logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="393.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../model/imagens/icones/fapesb_logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="505.0" layoutY="397.0" prefHeight="80.0" prefWidth="180.0" text="Grupo de Pesquisa em Ensino e Aprendizado Inicial da Leitura e da Escrita" textAlignment="JUSTIFY" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Button fx:id="fechar" layoutX="674.0" layoutY="18.0" mnemonicParsing="false" onAction="#fecharSobre" prefHeight="32.0" prefWidth="32.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../model/imagens/icones/fechar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

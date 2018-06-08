@@ -13,6 +13,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import controller.PopUpController;
+import controller.SobreController;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.WeakEventHandler;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import static javafx.scene.media.MediaPlayer.Status.PLAYING;
+import javafx.scene.media.MediaView;
+import javafx.stage.Popup;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -25,15 +36,19 @@ public class ModelInicial {
     private RankingController rankingController;
     private Parent cenaPrincipal;
     private PopUpController popController;
-    
-    public static String idBotao;
+    @FXML
+    private MediaView videoExplicativo;
+    private Media media;
+    private MediaPlayer mediaPlayer;
+    private FXMLLoader fxmlPopUp;
 
-    public ModelInicial() {
-
+    public ModelInicial(MediaView videoExplicativo) {
+        this.videoExplicativo = videoExplicativo;
     }
 
     @FXML
     public void iniciarJogo(ActionEvent botao) throws IOException {
+        pararVideo();
         janela = (Stage) ((Button) botao.getSource()).getScene().getWindow();
         fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
 
@@ -44,6 +59,7 @@ public class ModelInicial {
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
         janela.show();
+        
     }
 
     /**
@@ -71,12 +87,52 @@ public class ModelInicial {
     }
 
     public void abrirSobre(ActionEvent event) {
+        pararVideo();
         janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/sobre.fxml"));
+          
+        Popup popup = new Popup();    
         
+        try {
+            popup.getContent().add((Parent) fxmlPopUp.load());
+        } catch (IOException ex) {
+            Logger.getLogger(ModelInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        SobreController sobreController = fxmlPopUp.getController();
+        popup.show(janela);        
+        popup.addEventHandler(ActionEvent.ACTION, new WeakEventHandler<>(evento -> {            
+            popup.hide();     
+            
+        }));
         
-        
-        
-        
+        popup.setOnHidden((final WindowEvent e) -> {
+            //fazer alguma coisa depois que fechar o sobre
+        });
+
+    }
+
+    public void carregarVideo() {
+
+        URL file = this.getClass().getResource("_video/videoExplicativo1.flv");
+
+        media = new Media(file.toString());
+        mediaPlayer = new MediaPlayer(media);
+        //MediaView mediaView = new MediaView(mediaPlayer);
+        //anchorPane.getChildren().add(mediaView);
+        //mediaPlayer.setAutoPlay(true);
+        videoExplicativo.setMediaPlayer(mediaPlayer);
+        mediaPlayer.play();
+
+    }
+
+    public void pararVideo() {
+        try{
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+        }catch(Exception e){
+            
+        }
+            
         
     }
 }

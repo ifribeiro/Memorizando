@@ -48,11 +48,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button b8;
     @FXML
-    private Button b7;
-    @FXML
-    private Button botaoProximaFase;
-    @FXML
-    private Button botaoFaseAnterior;
+    private Button b7;    
 
     private ModelPrincipal modelPrincipal;
     @FXML
@@ -77,7 +73,6 @@ public class PrincipalController implements Initializable {
     private Button fase7;
     @FXML
     private ImageView iconeAvatar;
-    @FXML
     private Label pontuacao;
     @FXML
     private Label nomeJogador;
@@ -135,37 +130,44 @@ public class PrincipalController implements Initializable {
     private Label ptFase6;
     @FXML
     private Label ptFase7;
+    @FXML
+    private ImageView pt1;
+    @FXML
+    private ImageView pt2;
+    @FXML
+    private ImageView pt3;
+    @FXML
+    private ImageView pt4;
+    @FXML
+    private ImageView pt5;
+    @FXML
+    private ImageView pt6;
+    @FXML
+    private ImageView pt7;
+    @FXML
+    private ImageView pt8;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image botoes = new Image(getClass().getResourceAsStream("som32.png"));
-        Image nivel1Icon = new Image(getClass().getResourceAsStream("nivel132.png"));
-        Image nivel2Icon = new Image(getClass().getResourceAsStream("nivel232.png"));
-        Image nivel3Icon = new Image(getClass().getResourceAsStream("nivel332.png"));
-        Image proximaFase = new Image(getClass().getResourceAsStream("proximaFase64.png"));
-        Image faseAnterior = new Image(getClass().getResourceAsStream("faseAnterior64.png"));
-        ImageView iconeSom = new ImageView(botoes);       
-       
-        botaoProximaFase.setGraphic(new ImageView(proximaFase));
-        botaoFaseAnterior.setGraphic(new ImageView(faseAnterior));
-        botaoFaseAnterior.setVisible(false);
+        Image botoes = new Image(getClass().getResourceAsStream("som32.png"));        
+        ImageView iconeSom = new ImageView(botoes);      
         barraTempo.setStyle("-fx-accent: #00FF00");        
         try {
             modelPrincipal = new ModelPrincipal(b1, b2, b3, b4, b5, b6, b7, b8,b9,
-                    b10,b11,b12,b13,b14,b15,b16,botaoFaseAnterior,botaoProximaFase,
-                    barraTempo, fase1, fase2, fase3, fase4, fase5,fase6,fase7,
-                    iconeAvatar,pontuacao,nomeJogador,nivel1, nivel2, nivel3, grupoNivel1,
-                    grupoNivel2,grupoNivel3,imagemFundo,imgFase1,imgFase2,imgFase3,
-                    imgFase4,imgFase5,imgFase6,imgFase7,ptFase1,ptFase2,ptFase3,ptFase4,
-                    ptFase5,ptFase6,ptFase7,menuInicial,sair); //construtor modelPrincipal do nível 1            
+                    b10,b11,b12,b13,b14,b15,b16,barraTempo, fase1, fase2, fase3, 
+                    fase4, fase5,fase6,fase7, iconeAvatar,pontuacao,nomeJogador,
+                    nivel1, nivel2, nivel3, grupoNivel1,grupoNivel2,grupoNivel3,
+                    imagemFundo,imgFase1,imgFase2,imgFase3,imgFase4,imgFase5,imgFase6,
+                    imgFase7,ptFase1,ptFase2,ptFase3,ptFase4,ptFase5,ptFase6,ptFase7,
+                    menuInicial,sair,pt1,pt2,pt3,pt4,pt5,pt6,pt7,pt8); //construtor modelPrincipal do nível 1            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
         nomeJogador.getStyleClass().add("fonte30");
-        pontuacao.getStyleClass().add("fonte30");
+//        pontuacao.getStyleClass().add("fonte30");
         titulo.getStyleClass().add("fonte42");
         ptFase1.getStyleClass().add("fonte13");
         ptFase2.getStyleClass().add("fonte13");
