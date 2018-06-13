@@ -66,7 +66,7 @@ public class InicialController implements Initializable {
         videoExplicativo.setMediaPlayer(mediaPlayer);
         //mediaPlayer.play();*/
         modelInicial = new ModelInicial(videoExplicativo);
-        modelInicial.carregarVideo();
+        //modelInicial.carregarVideo();
         
 
     }

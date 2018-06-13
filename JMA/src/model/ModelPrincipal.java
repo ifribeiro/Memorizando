@@ -1441,10 +1441,11 @@ public class ModelPrincipal {
             FileWriter fw = new FileWriter("ranking.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            if (jogadorExiste) {
+            if (jogadorExiste()) {
                 System.out.println("Jogador existe sim");
                 maiorPontuacao("ranking.txt");
             } else {
+                maiorPontuacao("ranking.txt");
                 System.out.println("Entrou no eslo");
                 bw.append(getAvatar() + ">" + nomeJogador.getText()
                         + ">" + getPontuacaoTotal() + linha);
