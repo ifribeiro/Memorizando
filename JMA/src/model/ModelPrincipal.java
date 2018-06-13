@@ -13,10 +13,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -291,12 +293,9 @@ public class ModelPrincipal {
     private ImageView pt7;
     @FXML
     private ImageView pt8;
+    private boolean rankingAtualizado;
 
-    private FileWriter fw = null;
-    private BufferedWriter bw = null;
-    private FileReader fr = null;
-    private BufferedReader br = null;
-
+    //private BufferedReader br = null;
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
             Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12,
             Button b13, Button b14, Button b15, Button b16,
@@ -310,7 +309,7 @@ public class ModelPrincipal {
             Button sair, ImageView pt1, ImageView pt2, ImageView pt3, ImageView pt4,
             ImageView pt5, ImageView pt6, ImageView pt7, ImageView pt8) throws FileNotFoundException {
         this.vetorLabel = new Label[]{ptFase1, ptFase2, ptFase3, ptFase4, ptFase5, ptFase6, ptFase7,};
-        this.br = new BufferedReader(new FileReader("ranking.txt"));
+        // this.br = new BufferedReader(new FileReader("ranking.txt"));
         this.b1 = b1;
         this.b2 = b2;
         this.b3 = b3;
@@ -792,6 +791,27 @@ public class ModelPrincipal {
         return tocando;
     }
 
+    /**
+     * Verifica se o jogador atual já está no ranking
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    private boolean jogadorExiste() throws FileNotFoundException, IOException {
+        jogadorExiste = false;
+        FileReader fr = new FileReader("ranking.txt");
+        BufferedReader br = new BufferedReader(fr);
+        while (br.ready()) {
+            String l = br.readLine();
+            if (l.contains(nomeJogador.getText())) {
+                jogadorExiste = true;
+                break;
+            }
+        }
+        return jogadorExiste;
+    }
+
     public void incrementarErro() {
         this.erro++;
     }
@@ -871,7 +891,11 @@ public class ModelPrincipal {
                     if (tempo < 0) {
                         setGameOver(true);
                         timer.cancel();
-                        salvarPontuacaoRanking();
+                        if (!rankingAtualizado) {
+                            salvarPontuacaoRanking();
+                            rankingAtualizado = false;
+                        }
+
                         setBarraTempo(0.0);
                         try {
                             janela = (Stage) imagemFundo.getScene().getWindow();
@@ -1407,19 +1431,28 @@ public class ModelPrincipal {
     }
 
     public void salvarPontuacaoRanking() {
+        String linha = "\n";
+        String SO = System.getProperty("os.name");
+        if (SO.contains("Windows")) {
+            System.out.println("Entrou aqui");
+            linha = "\r\n";
+        }
         try {
-            fw = new FileWriter("ranking.txt", true);
-            bw = new BufferedWriter(fw);
+            FileWriter fw = new FileWriter("ranking.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
             if (jogadorExiste) {
+                System.out.println("Jogador existe sim");
                 maiorPontuacao("ranking.txt");
             } else {
+                System.out.println("Entrou no eslo");
                 bw.append(getAvatar() + ">" + nomeJogador.getText()
-                        + ">" + getPontuacaoTotal() + "\n");
+                        + ">" + getPontuacaoTotal() + linha);
             }
             bw.flush();
             bw.close();
-            fr = new FileReader("ranking.txt");
-            br = new BufferedReader(fr, 100000);
+            FileReader fr = new FileReader("ranking.txt");
+            BufferedReader br = new BufferedReader(fr, 100000);
             ordenarRanking(br);
         } catch (IOException ex) {
 
@@ -1465,7 +1498,6 @@ public class ModelPrincipal {
                     sairDoJogo();
                     break;
                 case "continuar":
-                   
 
                     setDesabilitado(false);
                     int fasesBloqueadas = 0;//
@@ -1487,8 +1519,9 @@ public class ModelPrincipal {
                             break;
                     }
                     salvarPontuacaoRanking();
+                    rankingAtualizado = true;
                     if (fasesBloqueadas != 7) {
-                        
+
                         setMostrandoPopUp(false);
                         setBarraTempo(1.0);
                         zerarPontuacao();
@@ -1939,6 +1972,11 @@ public class ModelPrincipal {
     }
 
     public boolean maiorPontuacao(String arquivo) throws IOException {
+        String novaLinha = "\n";
+        String SO = System.getProperty("os.name");
+        if (SO.contains("Windows")) {
+            novaLinha = "\r\n";
+        }
         boolean maior = false;
         FileReader fr = null;
         FileWriter fw = null;
@@ -1962,21 +2000,24 @@ public class ModelPrincipal {
             String part1 = split[0];//numero do avatar
             String part2 = split[1];//nome do jogador
             String part3 = split[2];//pontuação  
-
+            System.out.println(part1 + " " + part2 + " " + part3);
             if (split[1].equals(nomeJogador.getText()) && (getPontuacaoTotal() > Integer.parseInt(part3))) {
                 part3 = "" + getPontuacaoTotal();
                 maior = true;
-                bw.append(part1 + ">" + part2 + ">" + part3 + "\n");
+                System.out.println("Maior");
+                bw.append(part1 + ">" + part2 + ">" + part3 + novaLinha);
             } else {
-                bw.append(linha + "\n");
+                bw.append(linha + novaLinha);
             }
 
         }
         br.close();
         bw.close();
+        fr.close();
+        fw.close();
         try {
             File fileToDelete = new File("ranking.txt");
-            fileToDelete.delete();
+            formatarArquivo("ranking.txt");
             fr = new FileReader("rankingTemp.txt");
             fw = new FileWriter("ranking.txt", true);
 
@@ -1993,10 +2034,9 @@ public class ModelPrincipal {
             String part1 = split[0];//numero do avatar
             String part2 = split[1];//nome do jogador
             String part3 = split[2];//pontuação
-            bw.append(linha + "\n");
+            bw.append(linha + novaLinha);
         }
-        File fileToDelete = new File("rankingTemp.txt");
-        fileToDelete.delete();
+        formatarArquivo("rankingTemp.txt");
         br.close();
         bw.close();
 
@@ -2170,6 +2210,42 @@ public class ModelPrincipal {
             pt7.setVisible(false);
             pt8.setVisible(false);
         }
+    }
+
+    private void salvarPontuacaoFase() {
+        String linha = "\n";
+        String SO = System.getProperty("os.name");
+        if (SO.contains("Windows")) {
+            System.out.println("Entrou aqui");
+            linha = "\r\n";
+        }
+
+        try {
+            FileWriter fw = new FileWriter("rankingTemp.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.append(getAvatar() + ">" + nomeJogador.getText()
+                    + ">" + getPontuacaoTotal() + linha);
+
+            bw.flush();
+            bw.close();
+            fw.flush();
+            fw.close();
+        } catch (IOException ex) {
+
+        }
+    }
+
+    private void formatarArquivo(String file) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.append("");
+        } catch (IOException ex) {
+            Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

@@ -1,5 +1,6 @@
 package jma;
 
+
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -25,8 +26,8 @@ public class JMA_Principal extends Application {
         Font.loadFont(getClass().getResource("/fontes/Choko.ttf").toExternalForm(), 42);        
         FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Inicial.fxml"));       
         Parent cenaInicial  = (Parent) fxmloader.load();
-        inicial = fxmloader.<InicialController>getController();
-        Scene cena = new Scene(cenaInicial, 1366, 768);
+        inicial = fxmloader.<InicialController>getController();          
+        Scene cena = new Scene(cenaInicial, 1366, 768);        
         janela.setTitle("Jogo de Memória Auditiva");
         janela.setScene(cena);
         janela.setFullScreen(true);
