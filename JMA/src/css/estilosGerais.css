@@ -83,7 +83,7 @@
 #fase1,#fase2,#fase3,#fase4,#fase5,#fase6,#fase7{
     -fx-background-color: #99ba97;
     -fx-padding: 0px 0px;
-    //-fx-background-color: transparent;    
+    -fx-background-color: transparent;    
     -fx-background-radius: 75%;
 }
 
@@ -131,3 +131,4 @@
 .guiClicavel{    
     -fx-opacity: 1.0;
 }
+

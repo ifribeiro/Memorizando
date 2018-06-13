@@ -1,12 +1,12 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import model.ClasseEstatica;
 
 /**
@@ -28,15 +28,18 @@ public class PopUpNivelFinalizadoController implements Initializable {
     private Button reiniciar;
     private Button botaoClicado;
     public ClasseEstatica classe;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
     /**
      * Retorna o botão que foi clicado
+     *
      * @return botao
      */
     public Button getBotaoClicado() {
@@ -51,7 +54,7 @@ public class PopUpNivelFinalizadoController implements Initializable {
     @FXML
     private void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button) event.getSource();
-        classe.idBotao = botaoClicado.getId();
+        ClasseEstatica.idBotao = this.botaoClicado.getId();
     }
 
     /**
@@ -60,6 +63,7 @@ public class PopUpNivelFinalizadoController implements Initializable {
      * @param nivel nivel que deve ser bloqueado
      */
     public void bloquearNivel(int nivel) {
+        //atualizarBloqueios();
         switch (nivel) {
             case 1:
                 nivel1.setDisable(true);
@@ -69,8 +73,28 @@ public class PopUpNivelFinalizadoController implements Initializable {
                 break;
             case 3:
                 nivel3.setDisable(true);
-                break;            
+                break;
         }
     }
-    
+
+    public void atualizarBloqueios(ArrayList niveisBloqueados) {
+        for (Object faseTemp : niveisBloqueados) {
+            ((Button) faseTemp).setDisable(true);
+            int faseBloq = Integer.parseInt(((Button) faseTemp).getId().substring(5));
+            switch(faseBloq){
+                case 1:
+                    nivel1.setDisable(true);
+                    break;
+                case 2:
+                    nivel2.setDisable(true);
+                    break;
+                case 3:
+                    nivel3.setDisable(true);
+                    break;
+            }
+            
+            
+        }
+    }
+
 }

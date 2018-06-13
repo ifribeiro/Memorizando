@@ -14,7 +14,12 @@
         <URL value="@/css/popUp.css" />
     </stylesheets>
    <children>
-      <Label layoutX="52.0" layoutY="30.0" text="Parabens!!!">
+      <ImageView fitHeight="400.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../model/imagens/icones/fundoPopUpFase.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="52.0" layoutY="30.0" text="Parabens!">
          <font>
             <Font size="32.0" />
          </font>
@@ -32,7 +37,7 @@
          <graphic>
             <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../controller/nivel232.png" />
+                  <Image url="@../model/imagens/icones/nivel2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -41,7 +46,7 @@
          <graphic>
             <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../controller/nivel332.png" />
+                  <Image url="@../model/imagens/icones/nivel3.png" />
                </image>
             </ImageView>
          </graphic>
