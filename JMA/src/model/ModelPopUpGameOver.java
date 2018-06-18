@@ -192,7 +192,11 @@ public class ModelPopUpGameOver {
             j++;
 
         }
-        br.close();
+        try{
+            br.close();
+        }catch(Exception e){
+            
+        }
     }
 
    /**

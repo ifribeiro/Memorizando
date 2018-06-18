@@ -14,15 +14,17 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import controller.PopUpController;
 import controller.SobreController;
+import static java.lang.System.exit;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.WeakEventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import static javafx.scene.media.MediaPlayer.Status.PLAYING;
 import javafx.scene.media.MediaView;
 import javafx.stage.Popup;
+import javafx.stage.Screen;
 import javafx.stage.WindowEvent;
 
 /**
@@ -33,6 +35,7 @@ public class ModelInicial {
 
     private Stage janela;
     private FXMLLoader fxmloader;
+    @FXML
     private RankingController rankingController;
     private Parent cenaPrincipal;
     private PopUpController popController;
@@ -48,16 +51,29 @@ public class ModelInicial {
 
     @FXML
     public void iniciarJogo(ActionEvent botao) throws IOException {
-        pararVideo();
         janela = (Stage) ((Button) botao.getSource()).getScene().getWindow();
-        fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
-
-        cenaPrincipal = (Parent) fxmloader.load();
-        rankingController = fxmloader.<RankingController>getController();
-        Scene scene = new Scene(cenaPrincipal, 1200, 700);
+        Rectangle2D tamanhoDisplay = Screen.getPrimary().getVisualBounds();
+        Double comprimento = tamanhoDisplay.getWidth();
+        Scene scene = null; 
+       
+        if(comprimento>1100){
+            
+            FXMLLoader wideScreen = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
+            Parent cenaWidescreen = (Parent) wideScreen.load();           
+            rankingController = wideScreen.<RankingController>getController();
+            scene = new Scene(cenaWidescreen, 1366, 711);           
+        }else{
+            fxmloader = new FXMLLoader(getClass().getResource("/interfaces/RankingQuadrada.fxml"));
+            cenaPrincipal = (Parent) fxmloader.load();
+            rankingController = fxmloader.<RankingController>getController();
+            scene = new Scene(cenaPrincipal, 1024, 711);
+        }
+        
+        
         janela.setScene(scene);
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
+        
         janela.show();
         
     }

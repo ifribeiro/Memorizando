@@ -19,7 +19,7 @@
             <Image url="@../model/imagens/icones/fundoPopUpFase.png" />
          </image>
       </ImageView>
-      <Label layoutX="52.0" layoutY="30.0" text="Parabens!">
+      <Label layoutX="70.0" layoutY="30.0" text="Parabéns!">
          <font>
             <Font size="32.0" />
          </font>

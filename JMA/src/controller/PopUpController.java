@@ -1,6 +1,6 @@
 package controller;
 
-import model.ModelPopUpFase;
+import model.ModelPopUpGrupo;
 import model.ClasseEstatica;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +37,7 @@ public class PopUpController implements Initializable {
     @FXML
     private ImageView estrela3;
     
-    private ModelPopUpFase modelPopUp;
+    private ModelPopUpGrupo modelPopUp;
     @FXML
     private Label labelParabens;
     
@@ -50,7 +50,7 @@ public class PopUpController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        modelPopUp = new ModelPopUpFase(estrela1,estrela2,estrela3,pontuacaoJogador,continuar);
+        modelPopUp = new ModelPopUpGrupo(estrela1,estrela2,estrela3,pontuacaoJogador,continuar);
         classe = new ClasseEstatica();
         popUp = null;
         
@@ -72,7 +72,6 @@ public class PopUpController implements Initializable {
     public void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button)event.getSource();
         ClasseEstatica.idBotao = botaoClicado.getId();        
-        System.out.println(ClasseEstatica.idBotao);
     }
     
     

@@ -20,15 +20,7 @@
             <Image url="@../model/imagens/background.png" />
          </image>
       </ImageView>
-      <Button fx:id="iniciar" layoutX="1200.0" layoutY="500.0" mnemonicParsing="false" onAction="#iniciarJogo" prefHeight="64.0" prefWidth="64.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="45.0">
-         <graphic>
-            <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../model/imagens/icones/proximo.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Label fx:id="jogo" layoutX="320.0" layoutY="200.0" text="Jogo de Memória Auditiva">
+      <Label fx:id="jogo" contentDisplay="CENTER" layoutX="320.0" layoutY="331.0" prefHeight="135.0" prefWidth="855.0" text="Jogo de Memória Auditiva" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="300.0">
          <font>
             <Font size="64.0" />
          </font>
@@ -48,11 +40,19 @@
          </graphic>
       </Button>
       <MediaView fx:id="videoExplicativo" fitHeight="337.0" fitWidth="600.0" layoutX="400.0" layoutY="400.0" />
-      <ImageView fitHeight="356.0" fitWidth="629.0" layoutX="385.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="356.0" fitWidth="629.0" layoutX="385.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../model/imagens/icones/fundoVideo.png" />
          </image>
       </ImageView>
+      <Button fx:id="iniciar" layoutX="1200.0" layoutY="850.0" mnemonicParsing="false" onAction="#iniciarJogo" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="45.0">
+         <graphic>
+            <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../model/imagens/icones/proximo.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       
    </children>
 </AnchorPane>

@@ -31,6 +31,7 @@ import javafx.event.EventHandler;
 import javafx.event.WeakEventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,6 +48,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Popup;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -214,9 +216,7 @@ public class ModelPrincipal {
     private ArrayList novasOpcoes;
     private MediaPlayer mediaPlayer;
     private MediaView mediaView = new MediaView();
-    private String ArrayNivel1[] = new String[16];
-    private String[] ArrayNivel2 = new String[16];
-    private String[] ArrayNivel3 = new String[16];
+    private String arrayOpcoes[] = new String[16];    
     private PrincipalController principalController = null;
     private ArrayList arrayBotoes = new ArrayList<String>();
     private boolean tocando = false, gameOver, timerIniciado;
@@ -294,6 +294,8 @@ public class ModelPrincipal {
     @FXML
     private ImageView pt8;
     private boolean rankingAtualizado;
+    private FXMLLoader fxmloader;
+    private Parent cenaPrincipal;
 
     //private BufferedReader br = null;
     public ModelPrincipal(Button b1, Button b2, Button b3, Button b4, Button b5,
@@ -401,7 +403,7 @@ public class ModelPrincipal {
      *
      * @param evento quando um dos botões é clicado
      */
-    public void verificarOpcao(ActionEvent evento) {
+    public void verificarClique(ActionEvent evento) {
         if (primeiroClique() && !getTimerIniciado()) {
             iniciarTimer();
         }
@@ -412,12 +414,12 @@ public class ModelPrincipal {
             //tocar audio do botao clicado
             tocarAudioBotao(evento);
             btemp1 = ((Button) evento.getSource());//grava qual botao foi clicado
-            botao1 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];//salva o audio contido no botao
+            botao1 = arrayOpcoes[Integer.parseInt(nomeBotao.substring(1)) - 1];//salva o audio contido no botao
             setCorBotao(btemp1, "#ffff00");//botao fica amarelo
 
         } else if (cliques == 2) { //verifica se é o segundo clique
             btemp2 = ((Button) evento.getSource());
-            botao2 = ArrayNivel1[Integer.parseInt(nomeBotao.substring(1)) - 1];
+            botao2 = arrayOpcoes[Integer.parseInt(nomeBotao.substring(1)) - 1];
             if (botao1.equals(botao2) && (!btemp1.equals(btemp2))) {//verifica se os dois botoes não são correspondentes
                 incrementarAcerto();
                 evento1Botao = (ActionEvent event) -> {
@@ -589,19 +591,19 @@ public class ModelPrincipal {
             case 6://silabascomplexas 3
                 numeroFonemasVetores = 30;
                 break;
-            case 7://palavras complexas
+            case 7://palavras
                 numeroFonemasVetores = 101;
                 break;
 
         }
         while (i < numeroFonemas) {
-            proxValor = indice.nextInt(numeroFonemasVetores);//o valor do next int corresponde a quantidade de fonemas 
+            proxValor = indice.nextInt(numeroFonemasVetores);//proximo fonema
             if (!indicesUtilizados.contains(proxValor)) {//se o índice ainda não foi utilizado                
                 novasOpcoes.add(proxValor);//adiciona o indice no array
-                indicesUtilizados.add(proxValor);//adiciona o indice utilizado vetor de utilizados
+                indicesUtilizados.add(proxValor);//adiciona o indice utilizado no vetor de utilizados
                 i++;
-            } else {
-                if (getNivel() == 3 && getFase() == 1) {
+            } else {//se o índice já foi utilizado
+                if (getNivel() == 3 && getFase() == 1) {//verifica se o jogador está no nível 3 e no grupo 1 dos fonemas
                     novasOpcoes.add(proxValor);
                     i++;
                 }
@@ -621,8 +623,8 @@ public class ModelPrincipal {
                 }
                 indicesFonemasUtilizados.add(posicao1);
                 indicesFonemasUtilizados.add(posicao2);
-                ArrayNivel1[posicao1] = getFonemaArray(fase, j);
-                ArrayNivel1[posicao2] = getFonemaArray(fase, j);
+                arrayOpcoes[posicao1] = getFonemaArray(fase, j);
+                arrayOpcoes[posicao2] = getFonemaArray(fase, j);
                 contador = contador + 2;
 
             }
@@ -723,7 +725,7 @@ public class ModelPrincipal {
     public void tocarAudioBotao(ActionEvent evento) {
         String nomeBotao = ((Button) evento.getSource()).getId();
         int posicaoAudio = Integer.parseInt(nomeBotao.substring(1));
-        String audio = ArrayNivel1[posicaoAudio - 1];
+        String audio = arrayOpcoes[posicaoAudio - 1];
         String caminhoAudio = "";
         switch (getFase()) {
             case 1:
@@ -1044,7 +1046,6 @@ public class ModelPrincipal {
                 taxa = 0.03;
                 break;
             case 2:
-                System.out.println("Entrou aqui taxa");
                 taxa = 0.018;
                 break;
             case 3:
@@ -1347,13 +1348,23 @@ public class ModelPrincipal {
      */
     public void menuInicial(ActionEvent event) throws IOException {
         janela = (Stage) barraTempo.getScene().getWindow();
-        FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
-        Parent cenaPrincipal = (Parent) fxmloader.load();
-        rankingController = fxmloader.<RankingController>getController();
+        Rectangle2D tamanhoDisplay = Screen.getPrimary().getVisualBounds();
+        Double comprimento = tamanhoDisplay.getWidth();
+        Scene scene = null;
+        if(comprimento>1100){
+            fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Ranking.fxml"));
+            cenaPrincipal = (Parent) fxmloader.load();
+            rankingController = fxmloader.<RankingController>getController();
+            scene = new Scene(cenaPrincipal, 1200, 700);
+        }else{
+            fxmloader = new FXMLLoader(getClass().getResource("/interfaces/RankingQuadrada.fxml"));
+            cenaPrincipal = (Parent) fxmloader.load();
+            rankingController = fxmloader.<RankingController>getController();
+            scene = new Scene(cenaPrincipal, 1024, 711);
+        }       
         if (timerIniciado) {
             timer.cancel();
-        }
-        Scene scene = new Scene(cenaPrincipal, 1200, 700);
+        }        
         janela.setScene(scene);
         janela.setFullScreen(true);
         janela.setFullScreenExitHint("");
@@ -1470,7 +1481,7 @@ public class ModelPrincipal {
     private void exibirPopUp(Stage janela) {
         setMostrandoPopUp(true);
         setDesabilitado(true);
-        fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpFaseFinalizada.fxml"));
+        fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpGrupoFinalizado.fxml"));
 
         try {
             ClasseEstatica.popup.getContent().add((Parent) fxmlPopUp.load());

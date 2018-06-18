@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.exit;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -36,6 +38,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -203,8 +206,8 @@ public class ModelRanking {
         this.pontos9 = pt9;
         this.pontos10 = pt10;
         this.br = null;
-        this.painelRanking = painelRanking;       
-        
+        this.painelRanking = painelRanking;
+
     }
 
     public void trocarAvatar(ActionEvent event) throws IOException {
@@ -246,16 +249,27 @@ public class ModelRanking {
     public void iniciarJogo(ActionEvent event) throws IOException {
         if (!jogadorExiste()) {
             janela = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
-            cenaPrincipal = (Parent) fxmloader.load();
-            principalController = fxmloader.<PrincipalController>getController();
+            Rectangle2D tamanhoDisplay = Screen.getPrimary().getVisualBounds();
+            Double comprimento = tamanhoDisplay.getWidth();
+            Scene scene = null;
+            if (comprimento > 1100) {
+                fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
+                cenaPrincipal = (Parent) fxmloader.load();
+                principalController = fxmloader.<PrincipalController>getController();
+                scene = new Scene(cenaPrincipal, 1200, 700);
+            } else {
+                fxmloader = new FXMLLoader(getClass().getResource("/interfaces/PrincipalQuadrada.fxml"));
+                cenaPrincipal = (Parent) fxmloader.load();
+                principalController = fxmloader.<PrincipalController>getController();
+                scene = new Scene(cenaPrincipal, 1024, 700);
+            }
 
             principalController.setFase(1);
             principalController.setNivel(1);
             principalController.iniciarJogo();
             principalController.setIconeAvatar(avatar);
             principalController.setNomeJogador(nomeJogador.getText());
-            Scene scene = new Scene(cenaPrincipal, 1200, 700);
+
             janela.setScene(scene);
             janela.setFullScreen(true);
             janela.setFullScreenExitHint("");
@@ -445,61 +459,53 @@ public class ModelRanking {
 
         //Array com os ids das imagens dos avatares no ranking
         ArrayList idImagens = new ArrayList();
-        new Thread() {
 
-            @Override
-            public void run() {
-                idImagens.add(img1);
-                idImagens.add(img2);
-                idImagens.add(img3);
-                idImagens.add(img4);
-                idImagens.add(img5);
-                idImagens.add(img6);
-                idImagens.add(img7);
-                idImagens.add(img8);
-                idImagens.add(img9);
-                idImagens.add(img10);
-            }
+        idImagens.add(img1);
+        idImagens.add(img2);
+        idImagens.add(img3);
+        idImagens.add(img4);
+        idImagens.add(img5);
+        idImagens.add(img6);
+        idImagens.add(img7);
+        idImagens.add(img8);
+        idImagens.add(img9);
+        idImagens.add(img10);
 
-        }.start();
-
-        new Thread() {
-            @Override
-            public void run() {
-                idNomesJogador.add(nome1);
-                idNomesJogador.add(nome2);
-                idNomesJogador.add(nome3);
-                idNomesJogador.add(nome4);
-                idNomesJogador.add(nome5);
-                idNomesJogador.add(nome6);
-                idNomesJogador.add(nome7);
-                idNomesJogador.add(nome8);
-                idNomesJogador.add(nome9);
-                idNomesJogador.add(nome10);
-            }
-
-        }.start();
+        idNomesJogador.add(nome1);
+        idNomesJogador.add(nome2);
+        idNomesJogador.add(nome3);
+        idNomesJogador.add(nome4);
+        idNomesJogador.add(nome5);
+        idNomesJogador.add(nome6);
+        idNomesJogador.add(nome7);
+        idNomesJogador.add(nome8);
+        idNomesJogador.add(nome9);
+        idNomesJogador.add(nome10);
 
         ArrayList idPontos = new ArrayList();
-        new Thread() {
 
-            @Override
-            public void run() {
-                idPontos.add(pontos1);
-                idPontos.add(pontos2);
-                idPontos.add(pontos3);
-                idPontos.add(pontos4);
-                idPontos.add(pontos5);
-                idPontos.add(pontos6);
-                idPontos.add(pontos7);
-                idPontos.add(pontos8);
-                idPontos.add(pontos9);
-                idPontos.add(pontos10);
-            }
+        idPontos.add(pontos1);
 
-        }.start();        
+        idPontos.add(pontos2);
 
+        idPontos.add(pontos3);
+
+        idPontos.add(pontos4);
+
+        idPontos.add(pontos5);
+
+        idPontos.add(pontos6);
+
+        idPontos.add(pontos7);
+
+        idPontos.add(pontos8);
+
+        idPontos.add(pontos9);
+
+        idPontos.add(pontos10);
+        
         br = null;
+
         try {
             File arquivo = new File("ranking.txt");
             if (arquivo.exists() == false) {
@@ -514,10 +520,14 @@ public class ModelRanking {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ModelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        listaRanking = ordenarRanking();//pega o valor ordeanado do ranking
-        String r1;
+       
+        try{
+            listaRanking = ordenarRanking(br);//pega o valor ordeanado do ranking
+        }catch(Exception e){
+            
+        }      
         int j = 0;
-        while (j <= (listaRanking.size() - 1) && j < 10) {
+        while (j<= (listaRanking.size()- 1) && j < 10) {
             String[] vetor = (String[]) listaRanking.get(j);
             //atualizada os avatares
             URL arquivoImg = getClass().getResource("imagens/icones/" + (Integer.parseInt(vetor[0])) + ".png");
@@ -529,11 +539,14 @@ public class ModelRanking {
             j++;
 
         }
-        br.close();
-
+        try{
+             br.close();
+        }catch(Exception e){
+            
+        }
     }
-    
-    public void carregarImagens(){
+
+    public void carregarImagens() {
         listaAvatar.add(avatar1);
         listaAvatar.add(avatar2);
         listaAvatar.add(avatar3);
@@ -544,16 +557,14 @@ public class ModelRanking {
         listaAvatar.add(avatar8);
         listaAvatar.add(avatar9);
         listaAvatar.add(avatar10);
-        
-        for(int i = 0;i< 10;i++){
-           // URL arquivoImg = getClass().getResource("imagens/icones/"+i+".png");
-            Image image = new Image(getClass().getResourceAsStream("imagens/icones/"+(i+1)+".png"));
-            ((Button)listaAvatar.get(i)).setGraphic(new ImageView(image));
+
+        for (int i = 0; i < 10; i++) {
+            // URL arquivoImg = getClass().getResource("imagens/icones/"+i+".png");
+            Image image = new Image(getClass().getResourceAsStream("imagens/icones/" + (i + 1) + ".png"));
+            ((Button) listaAvatar.get(i)).setGraphic(new ImageView(image));
         }
-       // URL arquivoImg = getClass().getResource("imagens/icones/1.png");
-        
-        
-        
+        // URL arquivoImg = getClass().getResource("imagens/icones/1.png");
+
     }
 
     /**
@@ -563,13 +574,11 @@ public class ModelRanking {
      * @return lista ordenada
      * @throws IOException
      */
-    public ArrayList ordenarRanking() throws IOException {
-        String r1;
-        ArrayList listaOriginal = new ArrayList();
-        ArrayList interno = new ArrayList();
-
-        while (br.ready()) {
-
+    public ArrayList ordenarRanking(BufferedReader br) throws IOException {
+        
+        ArrayList listaOriginal = new ArrayList();       
+        
+        while (br.ready()) {            
             String linha = br.readLine();
             String[] split = linha.split(">");//separa a linha em 3 partes
             String part1 = split[0];//numero do avatar
@@ -579,8 +588,9 @@ public class ModelRanking {
             //interno.add(part2);
             //interno.add(part3);
             listaOriginal.add(split);
+            
         }
-
+        
         Collections.sort(listaOriginal, new Comparator() {
 
             @Override
@@ -681,16 +691,27 @@ public class ModelRanking {
         Label nomeRankingJogador = (Label) ((HBox) event.getSource()).getChildren().get(1);
         if (!nomeRankingJogador.getText().isEmpty()) {
             janela = (Stage) (avatarMaior).getScene().getWindow();
-            fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
-            cenaPrincipal = (Parent) fxmloader.load();
-            principalController = fxmloader.<PrincipalController>getController();
+            Rectangle2D tamanhoDisplay = Screen.getPrimary().getVisualBounds();
+            Double comprimento = tamanhoDisplay.getWidth();
+            Scene scene = null;
+            if (comprimento > 1100) {
+                fxmloader = new FXMLLoader(getClass().getResource("/interfaces/Principal.fxml"));
+                cenaPrincipal = (Parent) fxmloader.load();
+                principalController = fxmloader.<PrincipalController>getController();
+                scene = new Scene(cenaPrincipal, 1200, 700);
+            } else {
+                fxmloader = new FXMLLoader(getClass().getResource("/interfaces/PrincipalQuadrada.fxml"));
+                cenaPrincipal = (Parent) fxmloader.load();
+                principalController = fxmloader.<PrincipalController>getController();
+                scene = new Scene(cenaPrincipal, 1024, 700);
+            }
+
             principalController.setFase(1);
             principalController.setNivel(1);
             principalController.iniciarJogo();
             principalController.setIconeAvatar(avatarRanking.getImage());
             principalController.setNomeJogador(nomeRankingJogador.getText());
             principalController.setJogadorExiste();
-            Scene scene = new Scene(cenaPrincipal, 1200, 700);
             janela.setScene(scene);
             janela.setFullScreen(true);
             janela.setFullScreenExitHint("");

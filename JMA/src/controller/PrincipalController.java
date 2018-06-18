@@ -183,7 +183,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     public void verificarOpcao(ActionEvent event) {
-        modelPrincipal.verificarOpcao(event);
+        modelPrincipal.verificarClique(event);
 
     }
 

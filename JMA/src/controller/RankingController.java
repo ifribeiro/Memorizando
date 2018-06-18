@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import static java.lang.System.exit;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -160,30 +161,28 @@ public class RankingController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         modelRanking = new ModelRanking(avatarMaior, nomeJogador, iniciar, avatar1,
                 avatar2, avatar3, avatar4, avatar5, avatar6, avatar7, avatar8, avatar9, avatar10,
                 img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, nome1, nome2, nome3, nome4,
                 nome5, nome6, nome7, nome8, nome9, nome10, pontos1, pontos2, pontos3, pontos4, pontos5,
                 pontos6, pontos7, pontos8, pontos9, pontos10, painelRanking);
-
+        
         modelRanking.selecionarDefaultAvatar(1);
+        
         try {
             modelRanking.atualizarRanking();
+            
         } catch (IOException ex) {
             Logger.getLogger(RankingController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        new Thread() {
-            public void run() {
-                titulo.getStyleClass().add("fonte42");
-                nome.getStyleClass().add("fonte34");
-                labelRanking.getStyleClass().add("fonte30");
-                nomeJogador.getStyleClass().add("fonte30");
-                colunaJogador.getStyleClass().add("fonte22");
-                colunaPontos.getStyleClass().add("fonte22");
-            }
-        }.start();
+        
+        titulo.getStyleClass().add("fonte42");
+        nome.getStyleClass().add("fonte34");
+        labelRanking.getStyleClass().add("fonte30");
+        nomeJogador.getStyleClass().add("fonte30");
+        colunaJogador.getStyleClass().add("fonte20");
+        colunaPontos.getStyleClass().add("fonte20");
     }
 
     @FXML
