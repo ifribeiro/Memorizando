@@ -3,7 +3,6 @@
 }
 .fonte13, .fonte20,.fonte22,.fonte30,.fonte32, .fonte34,.fonte42, .fonte64{
     
-    //-fx-text-fill: #8d0f13;
     -fx-font-family: "Choko";
     
 }
@@ -66,7 +65,6 @@
 }
 
 #_btn1,#_btn2,#_btn3,#_btn4,#_btn5,#_btn6,#_btn7{
-    //-fx-background-color: #26b99a;
     -fx-background-color: #99ba97; 
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
     -fx-padding: 14px 22px;
@@ -88,7 +86,6 @@
 }
 
 
-//Stilos interface Ranking
 #posicao1:hover, #posicao2:hover, #posicao3:hover, #posicao4:hover, #posicao5:hover, 
 #posicao6:hover, #posicao7:hover, #posicao8:hover, #posicao9:hover, #posicao10:hover{
     -fx-cursor: hand;  

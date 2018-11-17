@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistroController">
+   <children>
+      <ImageView fitHeight="300.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../model/imagens/background.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="49.0" layoutY="72.0" text="E-mail:" />
+      <TextField fx:id="email" layoutX="49.0" layoutY="97.0" promptText="Seu e-mail" />
+      <Label layoutX="49.0" layoutY="150.0" text="Senha:" />
+      <Button fx:id="registrar" layoutX="49.0" layoutY="236.0" mnemonicParsing="false" onAction="#registrarPC" text="Registrar" />
+      <Label layoutX="167.0" layoutY="14.0" text="Jogo de Memoria Auditiva" />
+      <PasswordField fx:id="senha" layoutX="49.0" layoutY="177.0" promptText="Sua senha" />
+   </children>
+</AnchorPane>
