@@ -33,7 +33,7 @@ public class ModelRegistro {
     }
 
     public boolean registrarPC(String emailUsuario, String senhaUsuario) throws SQLException {
-        String jdbcUrl = "jdbc:mysql://localhost/programas?user=root&password=anabolero";
+        String jdbcUrl = ClasseEstatica.jdbcUrl;
         //String jdbcUrl = "jdbc:mysql://localhost/programas?user=root";
         Connection con = DriverManager.getConnection(jdbcUrl);
         Statement stmt = con.createStatement();
@@ -42,20 +42,21 @@ public class ModelRegistro {
             if (isRegistrado(stmt)) {
                 sucesso = true;
             } else {
+                mensagemAtualizacao();
                 sucesso = atualizarRegistro(stmt, emailUsuario);
-            }   
+            }
         } else {
             Alert confirmacaoSaida = new Alert(Alert.AlertType.WARNING,
                     "Insira o mesmo e-mail cadastrado na compra do jogo");
             Button botaoOK = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
-            botaoOK.setText("Fechar");            
+            botaoOK.setText("Fechar");
             confirmacaoSaida.setTitle(null);
             confirmacaoSaida.setHeaderText(null);
             //confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
             Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
             if (ButtonType.OK.equals(resposta.get())) {
                 confirmacaoSaida.close();;
-                
+
             }
         }
 
@@ -103,12 +104,12 @@ public class ModelRegistro {
 
         }
         String[] numero = result.split(" ");
-        return numero[2];
+        return numero[1].trim();
     }
 
     private String getNumeroRegistroLinux() {
         //fazer versao do linux
-        return "1234567B";
+        return "123456";
     }
 
     private boolean emailCadastrado(String email, Statement stmt) throws SQLException {
@@ -158,6 +159,22 @@ public class ModelRegistro {
 
         }
         return registrado;
+    }
+
+    private void mensagemAtualizacao() {
+        Alert confirmacaoSaida = new Alert(Alert.AlertType.CONFIRMATION,
+                "Você já possui um computador registrado com esse e-mail, deseja atualizar o registro?");
+        Button botaoSIM = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
+        Button botaoNAO = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.CANCEL);
+        botaoSIM.setText("Sim");
+        botaoNAO.setText("Não");
+        confirmacaoSaida.setTitle(null);
+        confirmacaoSaida.setHeaderText(null);
+        //confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
+        Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
+        if (ButtonType.CANCEL.equals(resposta.get())) {
+            confirmacaoSaida.close();
+        }
     }
 
 }

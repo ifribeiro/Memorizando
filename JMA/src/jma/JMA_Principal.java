@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import controller.InicialController;
 import controller.RegistroController;
+import model.ClasseEstatica;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -30,10 +31,10 @@ public class JMA_Principal extends Application {
     private RegistroController registroController;
     @FXML
     private Stage janela;
-
+    
     @Override
     public void start(Stage janela) throws IOException, SQLException {
-        String jdbcUrl = "jdbc:mysql://localhost/programas?user=root&password=anabolero";
+        String jdbcUrl = ClasseEstatica.jdbcUrl;
         //String jdbcUrl = "jdbc:mysql://localhost/programas?user=root";
         Connection con = DriverManager.getConnection(jdbcUrl);
         Statement stmt = con.createStatement();
@@ -114,6 +115,7 @@ public class JMA_Principal extends Application {
     private String getSO() {
         String SO = "";
         String nome = System.getProperty("os.name");
+        System.out.println("Nome "+nome);
         nome = nome.toUpperCase();
         if (nome.contains("WINDOWS")) {
             SO = "WINDOWS";
@@ -138,12 +140,12 @@ public class JMA_Principal extends Application {
 
         }
         String[] numero = result.split(" ");
-        return numero[2];
+        return numero[1].trim();
     }
 
     private String getNumeroRegistroLinux() {
         //fazer versao do linux
-        return "1234567";
+        return "123456";
     }
 
     /**
