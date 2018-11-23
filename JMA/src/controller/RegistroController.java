@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -52,7 +53,7 @@ public class RegistroController implements Initializable {
     }    
 
     @FXML
-    private void registrarPC(ActionEvent event) throws SQLException, SQLException, IOException {
+    private void registrarPC(ActionEvent event) throws SQLException, SQLException, IOException, NoSuchAlgorithmException {
         
         Rectangle2D tamanhoDisplay = Screen.getPrimary().getVisualBounds();
         Double comprimento = tamanhoDisplay.getWidth();

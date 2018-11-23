@@ -14,7 +14,6 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import controller.PopUpController;
 import controller.SobreController;
-import static java.lang.System.exit;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;

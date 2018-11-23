@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import model.ClasseEstatica;
+import model.Funcoes;
 
 /**
  * FXML Controller class
@@ -93,7 +93,7 @@ public class PopUpGameOverController implements Initializable {
     
     private ModelPopUpGameOver modelGameOver;
     
-    public ClasseEstatica classe;
+    public Funcoes classe;
     @FXML
     private Label tituloRanking;
     @FXML
