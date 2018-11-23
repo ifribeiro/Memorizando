@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,23 +32,28 @@ public class ModelRegistro {
         this.senhaUsuario = "";
     }
 
-    public boolean registrarPC(String emailUsuario, String senhaUsuario) throws SQLException, NoSuchAlgorithmException {
+    public boolean registrarPC(String emailUsuario, String senhaUsuario) throws SQLException, NoSuchAlgorithmException, IOException {
         String jdbcUrl = Funcoes.jdbcUrl;
         //String jdbcUrl = "jdbc:mysql://localhost/programas?user=root";
         Connection con = DriverManager.getConnection(jdbcUrl);
         Statement stmt = con.createStatement();
         boolean sucesso = false;
-        
+
         if (emailCadastrado(emailUsuario, stmt)) {
             if (funcoes.isRegistrado(stmt)) {
                 sucesso = true;
-            } else if(primeiroRegistro(stmt,emailUsuario)){
-                sucesso = inserirRegistro(stmt,emailUsuario,senhaUsuario);
+                String registro = funcoes.numeroRegistro();
+                funcoes.sincronizarRegistros(registro);
+            } else if (primeiroRegistro(stmt, emailUsuario)) {
+                sucesso = inserirRegistro(stmt, emailUsuario, senhaUsuario);
+                String registro = funcoes.numeroRegistro();
+                funcoes.salvarRegistro(registro);
                 con.close();
-            }
-            else{
+            } else {
                 mensagemAtualizacao();
-                sucesso = atualizarRegistro(stmt, emailUsuario);
+                sucesso = atualizarRegistro(stmt, emailUsuario, senhaUsuario);
+                String registro = funcoes.numeroRegistro();
+                funcoes.sincronizarRegistros(registro);
                 con.close();
             }
         } else {
@@ -66,6 +72,7 @@ public class ModelRegistro {
 
         return sucesso;
     }
+
     private boolean emailCadastrado(String email, Statement stmt) throws SQLException {
         String emailRegSQL = "SELECT * FROM `jma` WHERE email='" + email + "'";
         ResultSet resultado = stmt.executeQuery(emailRegSQL);
@@ -81,16 +88,19 @@ public class ModelRegistro {
         return emailCadastrado;
     }
 
-    private boolean atualizarRegistro(Statement stmt, String email) throws SQLException {
-        System.out.println("Atualizando registro...");
+    private boolean atualizarRegistro(Statement stmt, String email, String senhaUsuario) throws SQLException, NoSuchAlgorithmException {        
         boolean sucesso = false;
-        String numeroRegistro = funcoes.numeroRegistro();
-        String SQL = "UPDATE `jma` SET"
-                + "`nr_registro`= '" + numeroRegistro + "'"
-                + "WHERE `email`= '" + email + "'";
-        int cont = stmt.executeUpdate(SQL);
-        if (cont >= 1) {
-            sucesso = true;
+        if (senhaConfere(stmt, email, senhaUsuario)) {            
+            String numeroRegistro = funcoes.numeroRegistro();
+            String SQL = "UPDATE `jma` SET"
+                    + "`nr_registro`= '" + numeroRegistro + "'"
+                    + "WHERE `email`= '" + email + "'";
+            int cont = stmt.executeUpdate(SQL);
+            if (cont >= 1) {
+                sucesso = true;
+            }
+        }else{
+            System.out.println("A senha nao confere");            
         }
         return sucesso;
     }
@@ -110,48 +120,66 @@ public class ModelRegistro {
             confirmacaoSaida.close();
         }
     }
+
     /**
      * Verifica se a senha esta em branco
-     * @return 
+     *
+     * @return
      */
-    private boolean primeiroRegistro(Statement stmt, String email) throws SQLException {        
-        boolean sucesso = true;
-        System.out.println("email " +email);
-        String sqlSenha = "SELECT `senha` FROM `jma` WHERE `email`='"+email+"'";        
+    private boolean primeiroRegistro(Statement stmt, String email) throws SQLException {
+        boolean primeiroRegistro = false;
+        System.out.println("email " + email);
+        String sqlSenha = "SELECT `senha` FROM `jma` WHERE `email`='" + email + "'";
         ResultSet rs = stmt.executeQuery(sqlSenha);
         String senhaUsuario = "";
         int rows = 0;
-        while(rs.next()){
-            senhaUsuario = rs.getString("senha");            
+        while (rs.next()) {
+            senhaUsuario = rs.getString("senha");
             rows++;
-        }
-        System.out.println("Rows "+rows);
-        if(rows>1){
-            sucesso = false;
         }        
-        return sucesso;
+        if (senhaUsuario.isEmpty()) {
+            primeiroRegistro = true;
+            System.out.println("Primeiro registro falso");
+        }
+        return primeiroRegistro;
     }
 
     /**
      * Insere um usuario no banco
+     *
      * @param stmt
      * @param emailUsuario
      * @param senhaUsuario
      * @return
      * @throws NoSuchAlgorithmException
-     * @throws SQLException 
+     * @throws SQLException
      */
     private boolean inserirRegistro(Statement stmt, String emailUsuario, String senhaUsuario) throws NoSuchAlgorithmException, SQLException {
         String senha = funcoes.getSecurePassword(senhaUsuario);
         boolean sucesso = false;
-        String numeroRegistro = funcoes.numeroRegistro();        
+        String numeroRegistro = funcoes.numeroRegistro();
         String SQL = "UPDATE `jma` SET"
-                + "`nr_registro`= '" + numeroRegistro + "', senha = '"+senha+"'"
+                + "`nr_registro`= '" + numeroRegistro + "', senha = '" + senha + "'"
                 + "WHERE `email`= '" + emailUsuario + "'";
         int cont = stmt.executeUpdate(SQL);
         if (cont >= 1) {
             sucesso = true;
         }
-        return sucesso;       
+        return sucesso;
+    }
+
+    private boolean senhaConfere(Statement stmt, String emailUsuario, String senhaUsuario) throws SQLException, NoSuchAlgorithmException {
+        boolean sucesso = false;
+        String senhaComp = "";
+        String senhaHash = funcoes.getSecurePassword(senhaUsuario); 
+        String senhaIgual = "SELECT senha FROM `jma` WHERE `email`='"+emailUsuario+"'";
+        ResultSet rs = stmt.executeQuery(senhaIgual);
+        while(rs.next()){
+            senhaComp = rs.getString("senha");
+        }        
+        if(senhaComp.equals(senhaHash)){
+            sucesso = true;
+        }               
+        return sucesso;
     }
 }
