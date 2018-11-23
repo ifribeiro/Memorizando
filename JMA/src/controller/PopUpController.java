@@ -1,7 +1,7 @@
 package controller;
 
 import model.ModelPopUpGrupo;
-import model.ClasseEstatica;
+import model.Funcoes;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -43,7 +43,7 @@ public class PopUpController implements Initializable {
     
     private Popup popUp;
     
-    public ClasseEstatica classe;
+    public Funcoes classe;
 
     /**
      * Initializes the controller class.
@@ -51,7 +51,7 @@ public class PopUpController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         modelPopUp = new ModelPopUpGrupo(estrela1,estrela2,estrela3,pontuacaoJogador,continuar);
-        classe = new ClasseEstatica();
+        classe = new Funcoes();
         popUp = null;
         
        
@@ -71,7 +71,7 @@ public class PopUpController implements Initializable {
     @FXML
     public void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button)event.getSource();
-        ClasseEstatica.idBotao = botaoClicado.getId();        
+        Funcoes.idBotao = botaoClicado.getId();        
     }
     
     

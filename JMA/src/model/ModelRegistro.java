@@ -26,6 +26,7 @@ public class ModelRegistro {
 
     private String emailUsuario;
     private String senhaUsuario;
+    private Funcoes funcoes = new Funcoes();
 
     public ModelRegistro() {
         this.emailUsuario = "";
@@ -33,17 +34,19 @@ public class ModelRegistro {
     }
 
     public boolean registrarPC(String emailUsuario, String senhaUsuario) throws SQLException {
-        String jdbcUrl = ClasseEstatica.jdbcUrl;
+        String jdbcUrl = Funcoes.jdbcUrl;
         //String jdbcUrl = "jdbc:mysql://localhost/programas?user=root";
         Connection con = DriverManager.getConnection(jdbcUrl);
         Statement stmt = con.createStatement();
         boolean sucesso = false;
+        
         if (emailCadastrado(emailUsuario, stmt)) {
-            if (isRegistrado(stmt)) {
+            if (funcoes.isRegistrado(stmt)) {
                 sucesso = true;
             } else {
                 mensagemAtualizacao();
                 sucesso = atualizarRegistro(stmt, emailUsuario);
+                con.close();
             }
         } else {
             Alert confirmacaoSaida = new Alert(Alert.AlertType.WARNING,
@@ -62,56 +65,6 @@ public class ModelRegistro {
 
         return sucesso;
     }
-
-    private String numeroRegistro() {
-        String SO = getSO();//versao do SO
-        String numeroRegistro = "";
-        switch (SO) {
-            case "WINDOWS":
-                numeroRegistro = getNumeroRegistroWindows();
-                break;
-            case "LINUX":
-                numeroRegistro = getNumeroRegistroLinux();
-                break;
-        }
-        return numeroRegistro;
-    }
-
-    private String getSO() {
-        String SO = "";
-        String nome = System.getProperty("os.name");
-        nome = nome.toUpperCase();
-        if (nome.contains("WINDOWS")) {
-            SO = "WINDOWS";
-        } else {
-            SO = "LINUX";
-        }
-        return SO;
-    }
-
-    private String getNumeroRegistroWindows() {
-        String result = "";
-        try {
-            Process p = Runtime.getRuntime().exec("wmic baseboard get serialnumber");
-            BufferedReader input
-                    = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = input.readLine()) != null) {
-                result += line;
-            }
-            input.close();
-        } catch (IOException ex) {
-
-        }
-        String[] numero = result.split(" ");
-        return numero[1].trim();
-    }
-
-    private String getNumeroRegistroLinux() {
-        //fazer versao do linux
-        return "123456";
-    }
-
     private boolean emailCadastrado(String email, Statement stmt) throws SQLException {
         String emailRegSQL = "SELECT * FROM `jma` WHERE email='" + email + "'";
         ResultSet resultado = stmt.executeQuery(emailRegSQL);
@@ -130,7 +83,7 @@ public class ModelRegistro {
     private boolean atualizarRegistro(Statement stmt, String email) throws SQLException {
         System.out.println("Atualizando registro...");
         boolean sucesso = false;
-        String numeroRegistro = numeroRegistro();
+        String numeroRegistro = funcoes.numeroRegistro();
         String SQL = "UPDATE `jma` SET"
                 + "`nr_registro`= '" + numeroRegistro + "'"
                 + "WHERE `email`= '" + email + "'";
@@ -139,26 +92,6 @@ public class ModelRegistro {
             sucesso = true;
         }
         return sucesso;
-    }
-
-    private boolean isRegistrado(Statement stmt) throws SQLException {
-        String serialNumber = numeroRegistro();
-        String numRegistro = "";
-        boolean registrado = false;
-        String SQL = "SELECT * FROM `jma` WHERE nr_registro='" + serialNumber + "'";
-        ResultSet resultado = stmt.executeQuery(SQL);
-        while (resultado.next()) {
-            numRegistro = resultado.getString("nr_registro");
-        }
-        if (numRegistro.isEmpty()) {
-            registrado = false;
-        } else {
-            if (serialNumber.equals(numRegistro)) {
-                registrado = true;
-            }
-
-        }
-        return registrado;
     }
 
     private void mensagemAtualizacao() {

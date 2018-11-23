@@ -7,7 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import model.ClasseEstatica;
+import model.Funcoes;
 
 /**
  * FXML Controller class
@@ -27,7 +27,7 @@ public class PopUpNivelFinalizadoController implements Initializable {
     @FXML
     private Button reiniciar;
     private Button botaoClicado;
-    public ClasseEstatica classe;
+    public Funcoes classe;
 
     /**
      * Initializes the controller class.
@@ -54,7 +54,7 @@ public class PopUpNivelFinalizadoController implements Initializable {
     @FXML
     private void tratarBotaoClicado(ActionEvent event) {
         this.botaoClicado = (Button) event.getSource();
-        ClasseEstatica.idBotao = this.botaoClicado.getId();
+        Funcoes.idBotao = this.botaoClicado.getId();
     }
 
     /**

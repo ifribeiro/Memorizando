@@ -1484,26 +1484,26 @@ public class ModelPrincipal {
         fxmlPopUp = new FXMLLoader(getClass().getResource("/interfaces/popUpGrupoFinalizado.fxml"));
 
         try {
-            ClasseEstatica.popup.getContent().add((Parent) fxmlPopUp.load());
+            Funcoes.popup.getContent().add((Parent) fxmlPopUp.load());
         } catch (IOException ex) {
             Logger.getLogger(ModelInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
         PopUpController popUpController = fxmlPopUp.getController();
-        ClasseEstatica.popup.show(janela);
+        Funcoes.popup.show(janela);
         popUpController.setPontuacaoJogador(pontos, getTempo(), cliquesTotais, getFase(), getNivel());
-        ClasseEstatica.popup.addEventHandler(ActionEvent.ANY, new WeakEventHandler<>(evento -> {
-            ClasseEstatica.popup.hide();
+        Funcoes.popup.addEventHandler(ActionEvent.ANY, new WeakEventHandler<>(evento -> {
+            Funcoes.popup.hide();
         }));
 
-        ClasseEstatica.popup.addEventHandler(MouseEvent.MOUSE_CLICKED, new WeakEventHandler<>(evento -> {
-            String botaoClicado = ClasseEstatica.idBotao;
+        Funcoes.popup.addEventHandler(MouseEvent.MOUSE_CLICKED, new WeakEventHandler<>(evento -> {
+            String botaoClicado = Funcoes.idBotao;
             if (!botaoClicado.isEmpty()) {
-                ClasseEstatica.popup.hide();
+                Funcoes.popup.hide();
             }
         }));
 
-        ClasseEstatica.popup.setOnHidden((final WindowEvent event) -> {
-            String botaoClicado = ClasseEstatica.idBotao;
+        Funcoes.popup.setOnHidden((final WindowEvent event) -> {
+            String botaoClicado = Funcoes.idBotao;
             System.out.println("Botao clicado " + botaoClicado);
             switch (botaoClicado) {
                 case "sair":
@@ -1559,7 +1559,7 @@ public class ModelPrincipal {
                     //reiniciar o nível
                     break;
             }
-            ClasseEstatica.idBotao = "";
+            Funcoes.idBotao = "";
         });
     }
 
@@ -1589,7 +1589,7 @@ public class ModelPrincipal {
         popUpController.bloquearNivel(getNivel());
         popUpController.atualizarBloqueios(niveisBloqueados);
         popup.setOnHidden((final WindowEvent event) -> {
-            String botaoClicado = ClasseEstatica.idBotao;
+            String botaoClicado = Funcoes.idBotao;
             System.out.println("Botao clicado " + botaoClicado);
             switch (botaoClicado) {
                 case "sair":
@@ -1653,7 +1653,7 @@ public class ModelPrincipal {
         popUpController.atualizarRanking();
 
         popup.addEventHandler(MouseEvent.MOUSE_CLICKED, new WeakEventHandler<>(evento -> {
-            String botaoClicado = ClasseEstatica.idBotao;
+            String botaoClicado = Funcoes.idBotao;
             if (!botaoClicado.isEmpty()) {
                 popup.hide();
             }
@@ -1666,7 +1666,7 @@ public class ModelPrincipal {
             @Override
             public void handle(final WindowEvent event) {
                 setDesabilitado(false);
-                String botaoClicado = ClasseEstatica.idBotao;
+                String botaoClicado = Funcoes.idBotao;
                 System.out.println("");
                 switch (botaoClicado) {
                     case "sair":
@@ -1693,7 +1693,7 @@ public class ModelPrincipal {
                         menuInicial.fire();
                         break;
                 }
-                ClasseEstatica.idBotao = "";
+                Funcoes.idBotao = "";
             }
 
         });
