@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.stage.Popup;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.plaf.metal.MetalIconFactory;
 
 /**
  *
@@ -179,14 +180,24 @@ public class Funcoes {
 
     public void sincronizarRegistros(String numeroRegisrto) throws IOException {
         String caminho = caminhoArquivo();
-        File arquivo = new File(caminho);
-        arquivo.delete();
-        arquivo.createNewFile();
-        FileWriter fw = new FileWriter(arquivo, false);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.append(numeroRegisrto);
-        bw.flush();
-        fw.close();
+        String caminhoPasta = caminhoPasta();
+        File pasta = new File(caminhoPasta);
+        boolean pastaExiste = false;
+        if (pasta.isDirectory()) {
+            pastaExiste = true;
+        } else {            
+            pastaExiste = new File(caminhoPasta).mkdirs();
+        }
+        if (pastaExiste) {
+            File arquivo = new File(caminho);
+            arquivo.delete();
+            arquivo.createNewFile();
+            FileWriter fw = new FileWriter(arquivo, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.append(numeroRegisrto);
+            bw.flush();
+            fw.close();
+        }
 
         //apagar o arquivo de registro
         //salvar o novo arquivo de registro
