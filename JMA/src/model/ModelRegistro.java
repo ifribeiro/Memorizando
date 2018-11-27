@@ -33,18 +33,29 @@ public class ModelRegistro {
     }
 
     public boolean registrarPC(String emailUsuario, String senhaUsuario) throws SQLException, NoSuchAlgorithmException, IOException {
+        
+        boolean sucesso = false;
+        if (emailUsuario.isEmpty()) {
+            mensagemInsiraEmail();
+            return false;
+        }
+        if (senhaUsuario.isEmpty()) {
+            mensagemInsiraSenha();
+            return false;
+        }
         String jdbcUrl = Funcoes.jdbcUrl;
         //String jdbcUrl = "jdbc:mysql://localhost/programas?user=root";
         Connection con = DriverManager.getConnection(jdbcUrl);
         Statement stmt = con.createStatement();
-        boolean sucesso = false;
-
         if (emailCadastrado(emailUsuario, stmt)) {
             if (funcoes.isRegistrado(stmt)) {
+                System.out.println("Email cadastrado");
+                System.exit(0);
                 sucesso = true;
                 String registro = funcoes.numeroRegistro();
                 funcoes.sincronizarRegistros(registro);
             } else if (primeiroRegistro(stmt, emailUsuario)) {
+                System.out.println("Primeiro registro");
                 sucesso = inserirRegistro(stmt, emailUsuario, senhaUsuario);
                 String registro = funcoes.numeroRegistro();
                 funcoes.salvarRegistro(registro);
@@ -88,9 +99,9 @@ public class ModelRegistro {
         return emailCadastrado;
     }
 
-    private boolean atualizarRegistro(Statement stmt, String email, String senhaUsuario) throws SQLException, NoSuchAlgorithmException {        
+    private boolean atualizarRegistro(Statement stmt, String email, String senhaUsuario) throws SQLException, NoSuchAlgorithmException {
         boolean sucesso = false;
-        if (senhaConfere(stmt, email, senhaUsuario)) {            
+        if (senhaConfere(stmt, email, senhaUsuario)) {
             String numeroRegistro = funcoes.numeroRegistro();
             String SQL = "UPDATE `jma` SET"
                     + "`nr_registro`= '" + numeroRegistro + "'"
@@ -99,8 +110,8 @@ public class ModelRegistro {
             if (cont >= 1) {
                 sucesso = true;
             }
-        }else{
-            System.out.println("A senha nao confere");            
+        } else {
+            System.out.println("A senha nao confere");
         }
         return sucesso;
     }
@@ -136,7 +147,7 @@ public class ModelRegistro {
         while (rs.next()) {
             senhaUsuario = rs.getString("senha");
             rows++;
-        }        
+        }
         if (senhaUsuario.isEmpty()) {
             primeiroRegistro = true;
             System.out.println("Primeiro registro falso");
@@ -171,15 +182,43 @@ public class ModelRegistro {
     private boolean senhaConfere(Statement stmt, String emailUsuario, String senhaUsuario) throws SQLException, NoSuchAlgorithmException {
         boolean sucesso = false;
         String senhaComp = "";
-        String senhaHash = funcoes.getSecurePassword(senhaUsuario); 
-        String senhaIgual = "SELECT senha FROM `jma` WHERE `email`='"+emailUsuario+"'";
+        String senhaHash = funcoes.getSecurePassword(senhaUsuario);
+        String senhaIgual = "SELECT senha FROM `jma` WHERE `email`='" + emailUsuario + "'";
         ResultSet rs = stmt.executeQuery(senhaIgual);
-        while(rs.next()){
+        while (rs.next()) {
             senhaComp = rs.getString("senha");
-        }        
-        if(senhaComp.equals(senhaHash)){
+        }
+        if (senhaComp.equals(senhaHash)) {
             sucesso = true;
-        }               
+        }
         return sucesso;
+    }
+
+    private void mensagemInsiraEmail() {
+        Alert confirmacaoSaida = new Alert(Alert.AlertType.WARNING,
+                "O campo e-mail não pode ficar vazio");
+        Button botaoOK = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
+        botaoOK.setText("Fechar");
+        confirmacaoSaida.setTitle(null);
+        confirmacaoSaida.setHeaderText(null);
+        //confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
+        Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
+        if (ButtonType.OK.equals(resposta.get())) {
+            confirmacaoSaida.close();
+        }
+    }
+
+    private void mensagemInsiraSenha() {
+        Alert confirmacaoSaida = new Alert(Alert.AlertType.WARNING,
+                    "O campo senha não pode ficar vazio");
+            Button botaoOK = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
+            botaoOK.setText("Fechar");
+            confirmacaoSaida.setTitle(null);
+            confirmacaoSaida.setHeaderText(null);
+            //confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
+            Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
+            if (ButtonType.OK.equals(resposta.get())) {
+                confirmacaoSaida.close();
+            }
     }
 }

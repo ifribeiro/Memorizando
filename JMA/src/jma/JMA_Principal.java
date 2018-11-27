@@ -10,17 +10,29 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import controller.InicialController;
 import controller.RegistroController;
+import java.awt.Toolkit;
+import java.net.URL;
 import model.Funcoes;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.application.Preloader;
+import javafx.application.Preloader.StateChangeNotification;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
+import static model.Funcoes.jdbcUrl;
 
 /**
  *
@@ -32,40 +44,38 @@ public class JMA_Principal extends Application {
     private RegistroController registroController;
     @FXML
     private Stage janela;
+    private Connection con = null;
+    private boolean semConexao = false;
+    @Override
+    public void init(){
+        String jdbcUrl = Funcoes.jdbcUrl;        
+        try {
+            con = DriverManager.getConnection(jdbcUrl);
+        } catch (SQLException ex) {
+            semConexao = true;
+        }
+    }
+    
 
     @Override
-    public void start(Stage janela) throws IOException, SQLException {
-        boolean semConexao = false;
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Nao achou o driver");
-        }
-        String jdbcUrl = Funcoes.jdbcUrl;
+    public void start(Stage janela) throws IOException, SQLException {       
         Funcoes funcoes = new Funcoes();
         if (funcoes.arquivoRegistroExiste()) {
-            System.out.println("Arquivo existe");
-            try {
-                con = DriverManager.getConnection(jdbcUrl);                
-            } catch (SQLException ex) {
-                System.out.println("Algo deu errado... " + ex);
-                semConexao = true;
-            }
-            if(semConexao){
+            if (semConexao) {
                 iniciarJogoOffline(funcoes, janela);
-            }else{
+            } else {
                 iniciarJogo(funcoes, con, janela);
-            }       
-        } else {
-            try {
-                con = DriverManager.getConnection(jdbcUrl);
-            } catch (SQLException ex) {
-                mensagemErroConexao();
-                semConexao = true;
             }
+        } else {
+            System.out.println("Arquivo não existe");
+            if(semConexao==true){
+                mensagemErroConexao();
+            }           
+            //se conseguir conectar
             if (!semConexao) {
-                iniciarJogo(funcoes, con, janela);
+                System.out.println("Conseguiu conectar");
+                iniciarJogo(funcoes, con, janela);             
+                
             } else {
                 System.out.println("Algo deu errado... ");
                 System.exit(0);
@@ -98,6 +108,8 @@ public class JMA_Principal extends Application {
     }
 
     private void iniciarJogo(Funcoes funcoes, Connection con, Stage janela) throws SQLException, SQLException, IOException {
+        Image image = new Image(this.getClass().getResourceAsStream("jmaico.png"));        
+        janela.getIcons().add(image);
         Statement stmt = con.createStatement();
         Font.loadFont(getClass().getResource("/fontes/Choko.ttf").toExternalForm(), 42);
         Rectangle2D tamanhoDisplay = Screen.getPrimary().getVisualBounds();
@@ -108,13 +120,15 @@ public class JMA_Principal extends Application {
             Parent cenaInicial = (Parent) interfaceRegistro.load();
             registroController = interfaceRegistro.<RegistroController>getController();
             cena = new Scene(cenaInicial, 480, 300);
+
             janela.setTitle("Jogo de Memória Auditiva");
             janela.setScene(cena);
             janela.setFullScreenExitHint("");
+            janela.resizableProperty().setValue(Boolean.FALSE);
             janela.show();
 
         } else {
-            String registro = funcoes.getNumeroRegistroWindows();
+            String registro = funcoes.numeroRegistro();
             funcoes.sincronizarRegistros(registro);
             if (comprimento > 1100) {
                 FXMLLoader interfaceWideScreen = new FXMLLoader(getClass().getResource("/interfaces/Inicial.fxml"));
@@ -143,7 +157,7 @@ public class JMA_Principal extends Application {
         Font.loadFont(getClass().getResource("/fontes/Choko.ttf").toExternalForm(), 42);
         Rectangle2D tamanhoDisplay = Screen.getPrimary().getVisualBounds();
         Double comprimento = tamanhoDisplay.getWidth();
-        Scene cena = null;        
+        Scene cena = null;
         if (comprimento > 1100) {
             FXMLLoader interfaceWideScreen = new FXMLLoader(getClass().getResource("/interfaces/Inicial.fxml"));
             Parent cenaInicial = (Parent) interfaceWideScreen.load();
@@ -164,4 +178,11 @@ public class JMA_Principal extends Application {
         janela.show();
 
     }
+    
+    public void setStart(StateChangeNotification evt){
+        
+    }
+
+    
+
 }

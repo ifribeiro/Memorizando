@@ -18,6 +18,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
@@ -43,6 +44,10 @@ public class RegistroController implements Initializable {
     private Stage janela;
     
     private InicialController inicial;
+    @FXML
+    private Label labelEmail;
+    @FXML
+    private Label labelSenha;
 
     /**
      * Initializes the controller class.
@@ -80,6 +85,7 @@ public class RegistroController implements Initializable {
             janela.setScene(cena);
             janela.setFullScreen(true);
             janela.setFullScreenExitHint("");
+            janela.resizableProperty().setValue(Boolean.TRUE);
             janela.show();
         }
         

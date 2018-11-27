@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.NetworkInterface;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -20,7 +21,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.stage.Popup;
 import javax.swing.filechooser.FileSystemView;
-import javax.swing.plaf.metal.MetalIconFactory;
 
 /**
  *
@@ -112,8 +112,9 @@ public class Funcoes {
     }
 
     public String getNumeroRegistroLinux() {
-        //fazer versao do linux
-        return "123456";
+        //String numeroRegistro = getMacSistema();
+        String numeroRegistro = "1234567";
+        return numeroRegistro;
     }
 
     private String getBaseBoard() {
@@ -185,12 +186,19 @@ public class Funcoes {
         boolean pastaExiste = false;
         if (pasta.isDirectory()) {
             pastaExiste = true;
-        } else {            
+        } else {
             pastaExiste = new File(caminhoPasta).mkdirs();
+            System.out.println("Pasta existe "+pastaExiste);            
         }
         if (pastaExiste) {
             File arquivo = new File(caminho);
-            arquivo.delete();
+            try{
+                arquivo.delete();
+            }
+            catch(Exception ex){
+                System.out.println("Ex "+ex);
+            }
+            
             arquivo.createNewFile();
             FileWriter fw = new FileWriter(arquivo, false);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -208,23 +216,24 @@ public class Funcoes {
         String caminho = "";
         caminho = caminhoArquivo();
         File a = new File(caminho);
-        if (a.exists()) {
+        if (a.exists() && !a.isDirectory()) {
             existe = true;
-        }
+        }      
         return existe;
     }
 
     public String caminhoArquivo() {
         FileSystemView fsv = FileSystemView.getFileSystemView();
         File[] roots = fsv.getRoots();
-        String caminho = "";
+        String home = fsv.getHomeDirectory().getAbsolutePath();             
+        String caminho = "";        
         for (int i = 0; i < roots.length; i++) {
             caminho = roots[i].toString();
         }
         if (getSO().contains("WINDOWS")) {
             caminho = caminho.replace("Desktop", "jma\\registro.txt");
-        } else if (getSO().contains("LINUX")) {
-            caminho = caminho.replace("Desktop", "jma\\registro.txt");
+        } else if (getSO().contains("LINUX")) {            
+            caminho = home+"/jma/registro.txt";            
         }
         return caminho;
     }
@@ -232,6 +241,7 @@ public class Funcoes {
     public String caminhoPasta() {
         FileSystemView fsv = FileSystemView.getFileSystemView();
         File[] roots = fsv.getRoots();
+        String home = fsv.getHomeDirectory().getAbsolutePath();
         String caminho = "";
         for (int i = 0; i < roots.length; i++) {
             caminho = roots[i].toString();
@@ -239,7 +249,8 @@ public class Funcoes {
         if (getSO().contains("WINDOWS")) {
             caminho = caminho.replace("Desktop", "jma\\");
         } else if (getSO().contains("LINUX")) {
-            caminho = caminho.replace("Desktop", "jma\\");
+            System.out.println("Caminho "+caminho);
+            caminho = home+"/jma/";            
         }
         return caminho;
     }
@@ -248,6 +259,7 @@ public class Funcoes {
         String caminhoPasta = caminhoPasta();
         String caminhoArquivo = caminhoArquivo();
         boolean criarPasta = new File(caminhoPasta).mkdirs();
+        System.out.println("Criar pasta "+criarPasta);        
         if (criarPasta) {
             File arquivoRegistro = new File(caminhoArquivo);
             arquivoRegistro.createNewFile();
@@ -258,5 +270,67 @@ public class Funcoes {
             fw.close();
         }
 
+    }
+
+    public static String getMacSistema() {
+        try {
+            String mac = getMacLinux("eth0");
+            if (mac == null) {
+                mac = getMacLinux("eth1");
+                if (mac == null) {
+                    mac = getMacLinux("eth2");
+                    if (mac == null) {
+                        mac = getMacLinux("usb0");
+                        if (mac == null) {
+                            mac = getMacLinux("wlan0");
+                            if (mac == null) {
+                                if (mac == null) {
+                                    mac = getMacLinux("wlan1");
+                                    if (mac == null) {
+                                        mac = getMacLinux("wlan2");
+                                        if (mac == null) {
+                                            if (mac == null) {
+                                                mac = getMacLinux("enp1s0");
+                                                if (mac == null) {
+                                                    mac = getMacLinux("wlp2s0");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
+            return mac;
+
+        } catch (Exception E) {
+            System.err.println("System Mac Exp : " + E.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Method for get MAc of Linux Machine
+     *
+     * @param name
+     * @return
+     */
+    private static String getMacLinux(String name) {
+        try {
+            NetworkInterface network = NetworkInterface.getByName(name);
+            byte[] mac = network.getHardwareAddress();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mac.length; i++) {
+                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+            }
+            return (sb.toString());
+        } catch (Exception E) {
+            System.err.println("System Linux MAC Exp : " + E.getMessage());
+            return null;
+        }
     }
 }
