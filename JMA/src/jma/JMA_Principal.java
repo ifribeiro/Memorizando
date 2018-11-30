@@ -10,29 +10,18 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import controller.InicialController;
 import controller.RegistroController;
-import java.awt.Toolkit;
-import java.net.URL;
 import model.Funcoes;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.application.Preloader;
-import javafx.application.Preloader.StateChangeNotification;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
 import javafx.stage.Screen;
-import static model.Funcoes.jdbcUrl;
 
 /**
  *
@@ -46,6 +35,7 @@ public class JMA_Principal extends Application {
     private Stage janela;
     private Connection con = null;
     private boolean semConexao = false;
+    
     @Override
     public void init(){
         String jdbcUrl = Funcoes.jdbcUrl;        
@@ -69,7 +59,7 @@ public class JMA_Principal extends Application {
         } else {
             System.out.println("Arquivo não existe");
             if(semConexao==true){
-                mensagemErroConexao();
+                funcoes.mensagemErroConexao();
             }           
             //se conseguir conectar
             if (!semConexao) {
@@ -84,22 +74,7 @@ public class JMA_Principal extends Application {
         }
 
     }
-
-    private void mensagemErroConexao() {
-        Alert confirmacaoSaida = new Alert(Alert.AlertType.ERROR,
-                "Não foi possível conectar com nossos serviços, por favor, verifique sua conexão e tente novamente");
-        Button botaoSIM = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
-        botaoSIM.setText("Sim");
-        confirmacaoSaida.setTitle(null);
-        confirmacaoSaida.setHeaderText(null);
-        //confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
-        Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
-        if (ButtonType.OK.equals(resposta.get())) {
-            confirmacaoSaida.close();
-
-        }
-    }
-
+    
     /**
      * @param args the command line arguments
      */
@@ -177,12 +152,6 @@ public class JMA_Principal extends Application {
         janela.setFullScreenExitHint("");
         janela.show();
 
-    }
-    
-    public void setStart(StateChangeNotification evt){
-        
-    }
-
-    
+    } 
 
 }

@@ -19,6 +19,10 @@ import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Popup;
 import javax.swing.filechooser.FileSystemView;
 
@@ -331,6 +335,21 @@ public class Funcoes {
         } catch (Exception E) {
             System.err.println("System Linux MAC Exp : " + E.getMessage());
             return null;
+        }
+    }
+    
+    public void mensagemErroConexao() {
+        Alert confirmacaoSaida = new Alert(Alert.AlertType.ERROR,
+                "Não foi possível conectar com nossos serviços, por favor, verifique sua conexão e tente novamente");
+        Button botaoSIM = (Button) confirmacaoSaida.getDialogPane().lookupButton(ButtonType.OK);
+        botaoSIM.setText("Sim");
+        confirmacaoSaida.setTitle(null);
+        confirmacaoSaida.setHeaderText(null);
+        //confirmacaoSaida.setContentText("Deseja mesmo sair do jogo?");
+        Optional<ButtonType> resposta = confirmacaoSaida.showAndWait();
+        if (ButtonType.OK.equals(resposta.get())) {
+            confirmacaoSaida.close();
+
         }
     }
 }
